@@ -1,6 +1,6 @@
 package system;
 
-// 入力受付
+// 入力受け付け
 public class InputReception {
     public void receive(String order) {
         switch (order) {

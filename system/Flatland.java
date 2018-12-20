@@ -1,7 +1,7 @@
 package system;
 
 // 平地マス
-public class Flatfield extends Cell {
+public class Flatland extends Cell {
     public int surroundingBombs = 0;
 
     public char getChar() {
