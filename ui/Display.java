@@ -8,7 +8,6 @@ public class Display {
     private InputReception input;
 
     public Display() {
-        // fieldmapの初期化
         Field.initFieldmap();
         input = new InputReception();
     }

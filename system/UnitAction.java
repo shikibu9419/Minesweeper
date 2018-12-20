@@ -11,7 +11,7 @@ public class UnitAction {
         this.unit = unit;
     }
 
-    // left, right, up, down のいずれかに移動
+    // left, right, up, down のいずれかで移動
     public void move(char direction) {
         int x2 = unit.x;
         int y2 = unit.y;

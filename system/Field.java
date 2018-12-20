@@ -5,12 +5,14 @@ import java.util.*;
 
 // ステージ(field)の管理をするクラス
 public class Field {
+    // ゲームにつき1つのためクラス変数で管理する子たち
     public static final int MAX_X = 20;
     public static final int MAX_Y = 20;
     public static final int MINE_COUNT = 25;
     public static Cell[][] fieldmap;
     public static Unit unit;
 
+    // fieldの初期化
     public static void initFieldmap() {
         fieldmap = new Cell[MAX_Y][MAX_X];
 
@@ -37,6 +39,7 @@ public class Field {
             if(!(fieldmap[y][x] instanceof Flatland))
                 continue;
 
+            // 地雷を設置
             fieldmap[y][x] = new Mine();
             count++;
 
