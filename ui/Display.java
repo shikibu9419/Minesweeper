@@ -1,38 +1,45 @@
 package ui;
 
+import system.*;
 import java.util.*;
 import java.io.*;
 
 // 表示と入力インターフェースを担当するクラス
 public class Display {
-    private int NUM_X;
-    private int NUM_Y;
-    private Scanner scan = new Scanner(System.in);
-    private Field field = new Field();
+    private final int MAX_X;
+    private final int MAX_Y;
+    private final Cell[][] fieldmap;
+    private Field field;
+    private Scanner scan;
+    private InputReception input;
 
     public Display() {
-        NUM_X = field.NUM_X;
-        NUM_Y = field.NUM_Y;
+        field = new Field();
+        scan  = new Scanner(System.in);
+        input = new InputReception();
+
+        MAX_X = field.MAX_X;
+        MAX_Y = field.MAX_Y;
+        fieldmap = field.fieldmap;
     }
 
     public void start() {
         while(true) {
             display();
-            String input = scan.next();
-            System.out.println(input);
+            input.receive(scan.next());
         }
     }
 
     private void display() {
         clearScreen();
 
-        for(int i = 0; i <= NUM_X; i++)
+        for(int i = 0; i <= MAX_X; i++)
             System.out.printf("%2d ", i);
         System.out.println("");
 
-        for(int i = 0; i < NUM_Y; i++) {
+        for(int i = 0; i < MAX_Y; i++) {
             System.out.printf("%2d ", i + 1);
-            for(int j = 0; j < NUM_X; j++)
+            for(int j = 0; j < MAX_X; j++)
                 System.out.print(" " + field.fieldmap[i][j].getChar() + " ");
             System.out.println("");
         }
@@ -55,7 +62,7 @@ public class Display {
 //     public void display() {
 //         clearScreen();
 //
-//         for(int i = 0; i < NUM_Y; i++) {
+//         for(int i = 0; i < MAX_Y; i++) {
 //             for(int j = 0; j < 20; j++)
 //                 System.out.print("|   ");
 //             System.out.print("|");

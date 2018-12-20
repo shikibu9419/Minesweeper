@@ -1,8 +1,8 @@
 package system;
 
 // 地雷マス
-public class MineField extends Cell {
+public class Minefield extends Cell {
     public char getChar() {
-        return '.';
+        return 'X';
     }
 }
