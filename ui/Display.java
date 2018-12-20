@@ -3,6 +3,7 @@ package ui;
 import java.util.*;
 import java.io.*;
 
+// 表示と入力インターフェースを担当するクラス
 public class Display {
     private int NUM_X;
     private int NUM_Y;
@@ -42,7 +43,7 @@ public class Display {
 
     private void clearScreen() {
         try {
-            new ProcessBuilder("/bin/bash","-c","clear").inheritIO().start().waitFor();
+            new ProcessBuilder("/bin/bash", "-c", "clear").inheritIO().start().waitFor();
         } catch(IOException e) {
             System.out.println("IO Error occurred.");
         } catch(InterruptedException e) {
@@ -50,6 +51,7 @@ public class Display {
         }
     }
 
+////  マス目を頑張るパターン
 //     public void display() {
 //         clearScreen();
 //

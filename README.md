@@ -7,7 +7,7 @@
 > java Main
 ```
 
-## ゲームの設計
+## ディレクトリの構成
 ```
 nitac_programming_task
 |- Main.java
@@ -17,4 +17,6 @@ nitac_programming_task
    |- UIに関するプログラム
 |- informations
    |- その他のプログラム
+|- etc
+   |- マジでその他
 ```
