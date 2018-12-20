@@ -1,0 +1,7 @@
+alias g='git'
+alias ga='git add'
+alias gc='git commit -m'
+alias gd='git diff'
+alias gs='git status'
+alias gp='git push'
+alias gpl='git pull --rebase'
