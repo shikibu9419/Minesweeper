@@ -1,0 +1,10 @@
+ファイルを変更したら...
+git add -A
+git commit -m "変更した内容"
+git push origin master
+
+他の人が変更したら...
+git pull --rebase origin master
+
+わからんときのチートシート
+https://qiita.com/ktarow/items/1d8c8ae698a88b1d6f0f
