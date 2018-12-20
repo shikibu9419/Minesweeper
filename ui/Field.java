@@ -5,19 +5,14 @@ import java.util.*;
 
 // ステージの管理をするクラス
 public class Field {
-    public final int MAX_X = 20;
-    public final int MAX_Y = 20;
-    public final int MINE_COUNT = 25;
-    public final Random rand;
-    public Cell[][] fieldmap;
+    public static final int MAX_X = 20;
+    public static final int MAX_Y = 20;
+    public static final int MINE_COUNT = 25;
+    public static Cell[][] fieldmap;
 
-    public Field() {
-        rand = new Random();
+    public static void initFieldmap() {
         fieldmap = new Cell[MAX_Y][MAX_X];
-        init();
-    }
 
-    private void init() {
         for(int i = 0; i < MAX_Y; i++)
             for(int j = 0; j < MAX_X; j++)
                 fieldmap[i][j] = new Flatland();
@@ -31,8 +26,9 @@ public class Field {
         int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
 
         while(count < MINE_COUNT) {
-            int x = random(MAX_X);
-            int y = random(MAX_Y);
+            Random rand = new Random();
+            int x = rand.nextInt(MAX_X);
+            int y = rand.nextInt(MAX_Y);
 
             // 平地でなかったら飛ばす
             if(!(fieldmap[y][x] instanceof Flatland))
@@ -55,10 +51,5 @@ public class Field {
                 ((Flatland) fieldmap[y2][x2]).surroundingBombs++;
             }
         }
-    }
-
-    // お手軽にランダム
-    private int random(int MAX) {
-        return rand.nextInt(MAX);
     }
 }

@@ -6,12 +6,12 @@ import java.io.*;
 
 // 表示と入力インターフェースを担当するクラス
 public class Display {
-    private Field field;
     private Scanner scan;
     private InputReception input;
 
     public Display() {
-        field = new Field();
+        // fieldmapの初期化
+        Field.initFieldmap();
         scan  = new Scanner(System.in);
         input = new InputReception();
     }
@@ -31,16 +31,16 @@ public class Display {
         clearScreen();
 
         // xの座標表示
-        for(int i = 0; i <= field.MAX_X; i++)
+        for(int i = 0; i <= Field.MAX_X; i++)
             System.out.printf("%2d ", i);
         System.out.println("");
 
-        for(int i = 0; i < field.MAX_Y; i++) {
+        for(int i = 0; i < Field.MAX_Y; i++) {
             // yの座標表示
             System.out.printf("%2d ", i + 1);
             // Field表示
-            for(int j = 0; j < field.MAX_X; j++)
-                System.out.print(" " + field.fieldmap[i][j].getChar() + " ");
+            for(int j = 0; j < Field.MAX_X; j++)
+                System.out.print(" " + Field.fieldmap[i][j].getChar() + " ");
             System.out.println("");
         }
     }
