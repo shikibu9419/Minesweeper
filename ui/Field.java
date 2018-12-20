@@ -1,11 +1,12 @@
 package ui;
 
 import java.util.*;
+import system.*;
 
 public class Field {
     public int NUM_X = 20;
     public int NUM_Y = 20;
-    public char[][] fieldmap = new char[NUM_Y][NUM_X];
+    public Cell[][] fieldmap = new Cell[NUM_Y][NUM_X];
 
     public Field() {
         init();
@@ -13,9 +14,7 @@ public class Field {
 
     private void init() {
         for(int i = 0; i < NUM_Y; i++)
-            Arrays.fill(fieldmap[i], '.');
-
-        fieldmap[1][0] = 'x';
-        fieldmap[1][2] = 'x';
+            for(int j = 0; j < NUM_X; j++)
+                fieldmap[i][j] = new Flatfield();
     }
 }

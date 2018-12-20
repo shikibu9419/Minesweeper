@@ -32,7 +32,7 @@ public class Display {
         for(int i = 0; i < NUM_Y; i++) {
             System.out.printf("%2d ", i + 1);
             for(int j = 0; j < NUM_X; j++)
-                System.out.print(" " + field.fieldmap[i][j] + " ");
+                System.out.print(" " + field.fieldmap[i][j].getChar() + " ");
             System.out.println("");
         }
 
@@ -40,7 +40,7 @@ public class Display {
         System.out.print("> ");
     }
 
-    public void clearScreen() {
+    private void clearScreen() {
         try {
             new ProcessBuilder("/bin/bash","-c","clear").inheritIO().start().waitFor();
         } catch(IOException e) {
