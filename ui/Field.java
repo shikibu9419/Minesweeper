@@ -1,6 +1,6 @@
 package ui;
 
-import system.*;
+import models.*;
 import java.util.*;
 
 // ステージの管理をするクラス

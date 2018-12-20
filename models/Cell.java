@@ -1,4 +1,4 @@
-package system;
+package models;
 
 // マス目
 public abstract class Cell {

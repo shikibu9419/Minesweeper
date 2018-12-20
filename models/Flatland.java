@@ -1,4 +1,4 @@
-package system;
+package models;
 
 // 平地マス
 public class Flatland extends Cell {

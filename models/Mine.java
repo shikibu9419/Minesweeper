@@ -1,4 +1,4 @@
-package system;
+package models;
 
 // 地雷マス
 public class Mine extends Cell {
