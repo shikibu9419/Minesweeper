@@ -1,3 +1,4 @@
+パターン1
 -------
 |w|h|w|
 -------
@@ -6,6 +7,7 @@
 |w|h|w|
 -------
 
+パターン2
 0  1  2  3
 
 1  h  w  k
@@ -13,3 +15,22 @@
 2  h  w  k
 
 3  h  w  k
+
+
+パターン1の実装
+public void displayField() {
+    clearScreen();
+
+    for(int i = 0; i < MAX_Y; i++) {
+        for(int j = 0; j < 20; j++)
+            System.out.print("|   ");
+        System.out.print("|");
+        System.out.println("");
+        for(int j = 0; j < 20; j++)
+            System.out.print("----");
+        System.out.print("-");
+        System.out.println("");
+    }
+
+    System.out.print("> ");
+}

@@ -57,22 +57,4 @@ public class Display {
             System.exit(1);
         }
     }
-
-////  マス目を頑張るパターン
-//     public void display() {
-//         clearScreen();
-//
-//         for(int i = 0; i < MAX_Y; i++) {
-//             for(int j = 0; j < 20; j++)
-//                 System.out.print("|   ");
-//             System.out.print("|");
-//             System.out.println("");
-//             for(int j = 0; j < 20; j++)
-//                 System.out.print("----");
-//             System.out.print("-");
-//             System.out.println("");
-//         }
-//
-//         System.out.print("> ");
-//     }
 }

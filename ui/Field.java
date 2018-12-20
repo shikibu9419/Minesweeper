@@ -47,11 +47,9 @@ public class Field {
                 int y2 = y + dy[j];
 
                 // はみ出す & スタートorゴール & 平地じゃない ときは考えない
-                if(x2 < 0 || x2 >= MAX_X || y2 < 0 || y2 >= MAX_Y)
-                    continue;
-                if(x2 == 0 && y2 == 0 || x2 == MAX_X - 1 && y2 == MAX_Y - 1)
-                    continue;
-                if(!(fieldmap[y2][x2] instanceof Flatland))
+                if(x2 < 0 || x2 >= MAX_X || y2 < 0 || y2 >= MAX_Y ||
+                   x2 == 0 && y2 == 0 || x2 == MAX_X - 1 && y2 == MAX_Y - 1 ||
+                   !(fieldmap[y2][x2] instanceof Flatland))
                     continue;
 
                 ((Flatland) fieldmap[y2][x2]).surroundingBombs++;

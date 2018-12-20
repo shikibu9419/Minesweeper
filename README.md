@@ -5,6 +5,8 @@
 ```shell
 > javac Main.java
 > java Main
+# or
+> ./run.sh
 ```
 
 ## ディレクトリの構成
