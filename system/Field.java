@@ -1,14 +1,15 @@
-package ui;
+package system;
 
 import models.*;
 import java.util.*;
 
-// ステージの管理をするクラス
+// ステージ(field)の管理をするクラス
 public class Field {
     public static final int MAX_X = 20;
     public static final int MAX_Y = 20;
     public static final int MINE_COUNT = 25;
     public static Cell[][] fieldmap;
+    public static Unit unit;
 
     public static void initFieldmap() {
         fieldmap = new Cell[MAX_Y][MAX_X];
@@ -18,7 +19,9 @@ public class Field {
                 fieldmap[i][j] = new Flatland();
 
         // 主人公の配置
-        fieldmap[0][0] = new Unit();
+        unit = new Unit();
+        fieldmap[0][0] = unit;
+        unit.setCoordinate(0, 0);
 
         // 地雷の配置
         int count = 0;
