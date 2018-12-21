@@ -15,16 +15,16 @@ public class UnitAction {
         int x2 = unit.x;
         int y2 = unit.y;
         switch(direction) {
-            case "left":
+            case "l":
                 x2--;
                 break;
-            case "right":
+            case "r":
                 x2++;
                 break;
-            case "up":
+            case "u":
                 y2--;
                 break;
-            case "down":
+            case "d":
                 y2++;
                 break;
             default:

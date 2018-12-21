@@ -12,6 +12,9 @@ public class InputReception {
         // ユニットが死亡していたらゲームオーバー
         if(unit.isDead)
             Utils.exitGame();
+        // ユニットがゴールに到達したらクリア (暫定)
+        if(Field.fieldmap[Field.MAX_Y - 1][Field.MAX_X - 1] instanceof Unit)
+            Utils.goal();
 
         // 入力を改行区切りで受け付ける
         Scanner scan = new Scanner(System.in).useDelimiter("\n");
@@ -25,10 +28,10 @@ public class InputReception {
 
         switch(order[0]) {
             // 移動
-            case "right":
-            case "left":
-            case "up":
-            case "down":
+            case "r":
+            case "l":
+            case "u":
+            case "d":
                 action.move(order[0]);
                 break;
             // 終了
