@@ -1,14 +1,15 @@
 package models;
 
+import system.*;
+
 // 動かす駒
 public class Unit extends Cell {
-    public int x;
-    public int y;
+    public int surroundingBombs = 0;
+    public boolean isDead = false;
 
-    // ユニットが持ってる座標情報を更新
-    public void setCoordinate(int y, int x) {
-        this.x = x;
-        this.y = y;
+    public void death() {
+        Field.fieldmap[y][x] = new Flatland();
+        this.isDead = true;
     }
 
     public char getChar() {

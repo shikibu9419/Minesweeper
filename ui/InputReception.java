@@ -6,12 +6,17 @@ import java.util.*;
 
 // 入力受け付け
 public class InputReception {
+    private Unit unit = Field.unit;
 
     public void receive() {
+        // ユニットが死亡していたらゲームオーバー
+        if(unit.isDead)
+            Utils.exitGame();
+
         // 入力を改行区切りで受け付ける
         Scanner scan = new Scanner(System.in).useDelimiter("\n");
         // ユニットの操作設定用インスタンス
-        UnitAction action = new UnitAction(Field.unit);
+        UnitAction action = new UnitAction(unit);
 
         System.out.println("");
         System.out.print("> ");

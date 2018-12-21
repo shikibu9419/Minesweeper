@@ -32,9 +32,16 @@ public class UnitAction {
         }
 
         // fieldの範囲外へは動かない
-        if(x2 < 0 || x2 >= Field.MAX_X || y2 < 0 || y2 >= Field.MAX_Y)
+        if(Utils.outOfField(y2, x2))
             return;
 
+        // 地雷踏んだらバーン
+        if(Field.fieldmap[y2][x2] instanceof Mine) {
+            ((Mine) Field.fieldmap[y2][x2]).bomb();
+            return;
+        }
+
+        // ユニット移動
         Field.fieldmap[y2][x2] = unit;
         Field.fieldmap[unit.y][unit.x] = new Flatland();
         unit.setCoordinate(y2, x2);

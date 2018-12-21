@@ -24,9 +24,6 @@ public class Field {
 
         // 地雷の配置
         int count = 0;
-        int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
-        int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
-
         while(count < MINE_COUNT) {
             int x = Utils.randomInt(MAX_X);
             int y = Utils.randomInt(MAX_Y);
@@ -36,16 +33,17 @@ public class Field {
                 continue;
 
             // 地雷を設置
-            fieldmap[y][x] = new Mine();
+            Mine mine = new Mine(y, x);
+            fieldmap[y][x] = mine;
             count++;
 
             // 地雷周辺の平地に地雷の数を設定する
             for(int j = 0; j < 8; j++) {
-                int x2 = x + dx[j];
-                int y2 = y + dy[j];
+                int x2 = x + Utils.dx[j];
+                int y2 = y + Utils.dy[j];
 
                 // はみ出す & スタートorゴール & 平地じゃない ときは考えない
-                if(x2 < 0 || x2 >= MAX_X || y2 < 0 || y2 >= MAX_Y ||
+                if(Utils.outOfField(y2, x2) ||
                    x2 == 0 && y2 == 0 || x2 == MAX_X - 1 && y2 == MAX_Y - 1 ||
                    !(fieldmap[y2][x2] instanceof Flatland))
                     continue;
