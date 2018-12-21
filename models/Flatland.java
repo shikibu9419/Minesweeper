@@ -4,8 +4,17 @@ package models;
 public class Flatland extends Cell {
     public int surroundingBombs = 0;
 
-    public char getChar() {
+    public Flatland() {}
+
+    public Flatland(int num) {
+        surroundingBombs = num;
+        detected();
+    }
+
+    // その平地の周囲の地雷の数が調査された的なメソッド
+    public void detected() {
         // int -> char のキャスト
-        return surroundingBombs > 0 ? (char)('0' + surroundingBombs) : '.';
+        if(surroundingBombs > 0)
+            character = (char)('0' + surroundingBombs);
     }
 }

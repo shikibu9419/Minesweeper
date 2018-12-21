@@ -35,16 +35,33 @@ public class UnitAction {
         if(Utils.outOfField(y2, x2))
             return;
 
+        Cell cell = Field.fieldmap[y2][x2];
         // 地雷踏んだらバーン
-        if(Field.fieldmap[y2][x2] instanceof Mine) {
-            ((Mine) Field.fieldmap[y2][x2]).bomb();
+        if(cell instanceof Mine) {
+            ((Mine) cell).bomb();
             return;
         }
 
         // ユニット移動
         Field.fieldmap[y2][x2] = unit;
-        Field.fieldmap[unit.y][unit.x] = new Flatland();
+        Field.fieldmap[unit.y][unit.x] = new Flatland(unit.surroundingBombs);
         unit.setCoordinate(y2, x2);
+        detect();
+
+        // 平地だったら周囲の地雷情報を受け継ぐ
+        if(cell instanceof Flatland)
+            unit.surroundingBombs = ((Flatland) cell).surroundingBombs;
+    }
+
+    // 周囲の平地の調査
+    private void detect() {
+        int[][] surround = Utils.surroundingField(unit.y, unit.x);
+        for(int i = 0; i < surround.length; i++) {
+            int x2 = surround[i][1];
+            int y2 = surround[i][0];
+            if(Field.fieldmap[y2][x2] instanceof Flatland)
+                ((Flatland) Field.fieldmap[y2][x2]).detected();
+        }
     }
 }
 
