@@ -15,7 +15,8 @@ nitac_programming_task
 |-- Main.java
 |-- system
 |   |-- Field
-|   `-- UnitAction
+|   |-- UnitAction
+|   `-- Utils
 |-- ui
 |   |-- Display
 |   `-- InputReception
@@ -29,9 +30,9 @@ nitac_programming_task
 ```
 
 ## コードを書く時...
-- できれば何をしてるかわかりやすいようコメント書いてください
-- 余裕があればどこにどういうクラスを配置したかREADMEに書いてください
-- .bashrcをホームディレクトリに置くとgit操作がクソ楽になります
+- 何をしてるかわかりやすいようにできればコメントを書いてください.
+- 余裕があればどこにどういうクラスを配置したかREADMEに書いてください.
+- .bashrcをホームディレクトリに置くとgit操作がクソ楽になります.
   ```
   > cp .bashrc ~/
   ```

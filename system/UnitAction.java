@@ -1,7 +1,6 @@
 package system;
 
 import models.*;
-import java.util.*;
 
 // ユニットの行動関連
 public class UnitAction {
@@ -11,33 +10,34 @@ public class UnitAction {
         this.unit = unit;
     }
 
-    // left, right, up, down のいずれかで移動
-    public void move(char direction) {
+    // left/right/up/down のいずれかで移動する
+    public void move(String direction) {
         int x2 = unit.x;
         int y2 = unit.y;
         switch(direction) {
-            case 'l':
+            case "left":
                 x2--;
                 break;
-            case 'r':
+            case "right":
                 x2++;
                 break;
-            case 'u':
+            case "up":
                 y2--;
                 break;
-            case 'd':
+            case "down":
                 y2++;
                 break;
             default:
                 return;
         }
 
-        // fieldの範囲内だと移動が成立
-        if(x2 >= 0 && x2 < Field.MAX_X && y2 >= 0 && y2 < Field.MAX_Y) {
-            Field.fieldmap[y2][x2] = unit;
-            Field.fieldmap[unit.y][unit.x] = new Flatland();
-            unit.setCoordinate(y2, x2);
-        }
+        // fieldの範囲外へは動かない
+        if(x2 < 0 || x2 >= Field.MAX_X || y2 < 0 || y2 >= Field.MAX_Y)
+            return;
+
+        Field.fieldmap[y2][x2] = unit;
+        Field.fieldmap[unit.y][unit.x] = new Flatland();
+        unit.setCoordinate(y2, x2);
     }
 }
 

@@ -1,7 +1,6 @@
 package system;
 
 import models.*;
-import java.util.*;
 
 // ステージ(field)の管理をするクラス
 public class Field {
@@ -9,19 +8,17 @@ public class Field {
     public static final int MAX_X = 20;
     public static final int MAX_Y = 20;
     public static final int MINE_COUNT = 25;
-    public static Cell[][] fieldmap;
-    public static Unit unit;
+    public static Cell[][] fieldmap = new Cell[MAX_Y][MAX_X];
+    // 操作可能ユニット
+    public static Unit unit = new Unit();
 
     // fieldの初期化
     public static void initFieldmap() {
-        fieldmap = new Cell[MAX_Y][MAX_X];
-
         for(int i = 0; i < MAX_Y; i++)
             for(int j = 0; j < MAX_X; j++)
                 fieldmap[i][j] = new Flatland();
 
         // 主人公の配置
-        unit = new Unit();
         fieldmap[0][0] = unit;
         unit.setCoordinate(0, 0);
 
@@ -31,11 +28,10 @@ public class Field {
         int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
 
         while(count < MINE_COUNT) {
-            Random rand = new Random();
-            int x = rand.nextInt(MAX_X);
-            int y = rand.nextInt(MAX_Y);
+            int x = Utils.randomInt(MAX_X);
+            int y = Utils.randomInt(MAX_Y);
 
-            // 平地でなかったら飛ばす
+            // 平地でなかったら設置しない
             if(!(fieldmap[y][x] instanceof Flatland))
                 continue;
 

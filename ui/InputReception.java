@@ -6,37 +6,32 @@ import java.util.*;
 
 // 入力受け付け
 public class InputReception {
-    private Scanner scan;
 
-    public InputReception() {
-        // 改行区切りでのみ入力を受け付ける
-        scan = new Scanner(System.in).useDelimiter("\n");
-    }
-
-    public void receive(Unit unit) {
-        UnitAction action = new UnitAction(unit);
+    public void receive() {
+        // 入力を改行区切りで受け付ける
+        Scanner scan = new Scanner(System.in).useDelimiter("\n");
+        // ユニットの操作設定用インスタンス
+        UnitAction action = new UnitAction(Field.unit);
 
         System.out.println("");
         System.out.print("> ");
-        // 入力は空白区切りの配列で受け取る
+        // 空白で区切った配列として受け取る
         String[] order = scan.next().split(" |　");
 
         switch(order[0]) {
-            case "move":
-                // move r/l/u/d みたいな
-                action.move(order[1].charAt(0));
+            // 移動
+            case "right":
+            case "left":
+            case "up":
+            case "down":
+                action.move(order[0]);
                 break;
+            // 終了
             case "exit":
-                exitGame();
+                Utils.exitGame();
                 break;
             default:
                 System.out.println(order);
         }
-    }
-
-    // ゲームの終了
-    private void exitGame() {
-        System.out.println("Good bye!");
-        System.exit(0);
     }
 }

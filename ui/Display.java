@@ -15,7 +15,7 @@ public class Display {
     public void start() {
         while(true) {
             displayField();
-            input.receive(Field.unit);
+            input.receive();
         }
     }
 
