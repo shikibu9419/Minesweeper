@@ -41,12 +41,12 @@ public class Display {
     private void clearScreen() {
         try {
             new ProcessBuilder("/bin/bash", "-c", "clear").inheritIO().start().waitFor();
+            return;
         } catch(IOException e) {
             System.out.println("IO Error occurred.");
-            System.exit(1);
         } catch(InterruptedException e) {
             System.out.println("I.R. Error occurred.");
-            System.exit(1);
         }
+        System.exit(1);
     }
 }

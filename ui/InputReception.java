@@ -9,23 +9,27 @@ public class InputReception {
     private Unit unit = Field.unit;
 
     public void receive() {
-        // ユニットが死亡していたらゲームオーバー
+        // 暫定で実装してる子たち //////////////
+        //   ユニットが死亡していたらゲームオーバー
         if(unit.isDead)
             Utils.exitGame();
-        // ユニットがゴールに到達したらクリア (暫定)
+        //   ユニットがゴールに到達したらクリア
         if(Field.fieldmap[Field.MAX_Y - 1][Field.MAX_X - 1] instanceof Unit)
             Utils.goal();
+        ////////////////////////////////////////
 
         // 入力を改行区切りで受け付ける
         Scanner scan = new Scanner(System.in).useDelimiter("\n");
-        // ユニットの操作設定用インスタンス
+        // ユニットの操作設定用
         UnitAction action = new UnitAction(unit);
 
         System.out.println("");
         System.out.print("> ");
+
         // 空白で区切った配列として受け取る
         String[] order = scan.next().split(" |　");
 
+        // 入力命令の解釈
         switch(order[0]) {
             // 移動
             case "r":

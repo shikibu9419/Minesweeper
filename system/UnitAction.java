@@ -12,8 +12,8 @@ public class UnitAction {
 
     // left/right/up/down のいずれかで移動する
     public void move(String direction) {
-        int x2 = unit.x;
         int y2 = unit.y;
+        int x2 = unit.x;
         switch(direction) {
             case "l":
                 x2--;
@@ -57,8 +57,8 @@ public class UnitAction {
     private void detect() {
         int[][] surround = Utils.surroundingField(unit.y, unit.x);
         for(int i = 0; i < surround.length; i++) {
-            int x2 = surround[i][1];
             int y2 = surround[i][0];
+            int x2 = surround[i][1];
             if(Field.fieldmap[y2][x2] instanceof Flatland)
                 ((Flatland) Field.fieldmap[y2][x2]).detected();
         }
