@@ -13,21 +13,19 @@ public class Mine extends Cell {
         Field.fieldmap[this.y][this.x] = new Flatland();
 
         // Surrounding field becomes Flatland.
-        for(int i = 0; i < 8; i++) {
-            int x2 = this.x + Utils.dx[i];
-            int y2 = this.y + Utils.dy[i];
+        int[][] surround = Utils.surroundingField(y, x);
+        for(int i = 0; i < surround.length; i++) {
+            Cell cell = Field.fieldmap[surround[i][0]][surround[i][1]];
 
-            if(Utils.outOfField(y2, x2))
-                continue;
-
-            Cell cell = Field.fieldmap[y2][x2];
             if(cell instanceof Flatland)
+                // 平地は地雷の数が調整される
                 ((Flatland) cell).surroundingBombs--;
             else if(cell instanceof Mine)
+                // 地雷は誘爆する
                 ((Mine) cell).bomb();
-            else if(cell instanceof Unit){
+            else if(cell instanceof Unit)
+                // 人は死ぬ
                 ((Unit) cell).death();
-            }
         }
     }
 

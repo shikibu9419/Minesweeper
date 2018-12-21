@@ -38,13 +38,13 @@ public class Field {
             count++;
 
             // 地雷周辺の平地に地雷の数を設定する
-            for(int j = 0; j < 8; j++) {
-                int x2 = x + Utils.dx[j];
-                int y2 = y + Utils.dy[j];
+            int[][] surround = Utils.surroundingField(y, x);
+            for(int i = 0; i < surround.length; i++) {
+                int x2 = surround[i][1];
+                int y2 = surround[i][0];
 
-                // はみ出す & スタートorゴール & 平地じゃない ときは考えない
-                if(Utils.outOfField(y2, x2) ||
-                   x2 == 0 && y2 == 0 || x2 == MAX_X - 1 && y2 == MAX_Y - 1 ||
+                // スタートorゴールである & 平地じゃない ときは考えない
+                if(x2 == 0 && y2 == 0 || x2 == MAX_X - 1 && y2 == MAX_Y - 1 ||
                    !(fieldmap[y2][x2] instanceof Flatland))
                     continue;
 

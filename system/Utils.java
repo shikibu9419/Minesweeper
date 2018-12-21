@@ -4,10 +4,32 @@ import java.util.*;
 
 public class Utils {
     private static Random rand = new Random();
-    public static int[] dx = {-1, -1, -1,  0, 0,  1, 1, 1};
-    public static int[] dy = {-1,  0,  1, -1, 1, -1, 0, 1};
+    private static int[] dx = {-1, -1, -1,  0, 0,  1, 1, 1};
+    private static int[] dy = {-1,  0,  1, -1, 1, -1, 0, 1};
 
-    // fieldの外にいたらtrue
+    // 周りの存在するcellの座標を配列にして返す
+    public static int[][] surroundingField(int y, int x) {
+        ArrayList<int[]> surround = new ArrayList<>();
+
+        for(int i = 0; i < 8; i++) {
+            int x2 = x + dx[i];
+            int y2 = y + dy[i];
+            if (outOfField(y2, x2))
+                continue;
+
+            int[] yx = {y2, x2};
+            surround.add(yx);
+        }
+
+        int[][] res = new int[surround.size()][2];
+        for(int i = 0; i < surround.size(); i++) {
+            res[i] = surround.get(i);
+        }
+
+        return res;
+    }
+
+    // fieldの外の座標ならtrue
     public static boolean outOfField(int y, int x) {
         return (x < 0 || x >= Field.MAX_X || y < 0 || y >= Field.MAX_Y);
     }
