@@ -6,6 +6,7 @@ import system.*;
 public class Mine extends Cell {
     public Mine(int y, int x) {
         setCoordinate(y, x);
+        Field.fieldmap[y][x] = this;
     }
 
     // Bomb!!!!!!!!!!!!!!!!!!!!!!

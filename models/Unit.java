@@ -7,8 +7,9 @@ public class Unit extends Cell {
     public boolean isDead = false;
 
     public Unit(int y, int x) {
-        character = 'o';
         setCoordinate(y, x);
+        Field.fieldmap[y][x] = this;
+        character = 'o';
     }
 
     public void death() {

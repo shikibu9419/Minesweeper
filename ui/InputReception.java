@@ -11,8 +11,10 @@ public class InputReception {
     public void receive() {
         // 暫定で実装してる子たち //////////////
         //   ユニットが死亡していたらゲームオーバー
-        if(unit.isDead)
+        if(unit.isDead) {
+            System.out.println("\nEXPLODED!!!");
             Utils.exitGame();
+        }
         //   ユニットがゴールに到達したらクリア
         if(Field.fieldmap[Field.MAX_Y - 1][Field.MAX_X - 1] instanceof Unit)
             Utils.goal();
