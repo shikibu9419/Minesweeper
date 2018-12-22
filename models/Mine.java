@@ -28,7 +28,13 @@ public class Mine extends Cell {
             else if(cell instanceof Unit)
                 ((Unit) cell).death();
 
-            cell.character = 'X';
+            ((Cell) cell).character = 'X';
         }
+    }
+
+    public void detected() {
+        // int -> char のキャスト
+        if(surroundingBombs > 0)
+            character = (char)('0' + surroundingBombs);
     }
 }

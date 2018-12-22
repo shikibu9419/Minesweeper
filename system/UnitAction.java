@@ -57,10 +57,7 @@ public class UnitAction {
     private void detect() {
         int[][] surround = Utils.surroundingField(unit.y, unit.x);
         for(int i = 0; i < surround.length; i++) {
-            int y2 = surround[i][0];
-            int x2 = surround[i][1];
-            if(Field.fieldmap[y2][x2] instanceof Flatland)
-                ((Flatland) Field.fieldmap[y2][x2]).detected();
+            Field.fieldmap[surround[i][0]][surround[i][1]].detected();
         }
     }
 }

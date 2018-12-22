@@ -7,10 +7,10 @@ public class Field {
     // ゲームにつき1つのためクラス変数で管理する子たち
     public static final int MAX_Y = 20;
     public static final int MAX_X = 20;
-    public static final int MINE_COUNT = 50;
+    public static final int MINE_COUNT = 75;
     public static Cell[][] fieldmap = new Cell[MAX_Y][MAX_X];
     // 操作可能ユニット
-    public static Unit unit = new Unit();
+    public static Unit unit = new Unit(0, 0);
 
     // fieldの初期化
     public static void initFieldmap() {
@@ -20,7 +20,6 @@ public class Field {
 
         // 主人公の配置
         fieldmap[0][0] = unit;
-        unit.setCoordinate(0, 0);
 
         // 地雷の配置
         int count = 0;
@@ -45,12 +44,8 @@ public class Field {
                 int y2 = surround[i][0];
                 int x2 = surround[i][1];
 
-                // 平地でないときは飛ばす
-                if(!(fieldmap[y2][x2] instanceof Flatland))
-                    continue;
-
                 // 地雷数情報をインクリメント
-                ((Flatland) fieldmap[y2][x2]).surroundingBombs++;
+                fieldmap[y2][x2].surroundingBombs++;
             }
         }
     }
