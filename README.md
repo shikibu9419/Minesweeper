@@ -3,8 +3,8 @@
 
 ## ゲームのスタート
 ```shell
-> javac Main.java
-> java Main
+> javac Minesweeper.java
+> java Minesweeper
 # or
 > ./run.sh
 ```
@@ -12,7 +12,7 @@
 ## プログラムの構成
 ```
 nitac_programming_task
-|-- Main.java
+|-- Minesweeper.java
 |-- system
 |   |-- Field
 |   |-- UnitAction

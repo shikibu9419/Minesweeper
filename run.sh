@@ -1,2 +1,2 @@
 #!/bin/sh
-javac Main.java ui/*.java system/*.java models/*.java && java Main
+javac Minesweeper.java ui/*.java system/*.java models/*.java && java Minesweeper
