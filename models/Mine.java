@@ -11,7 +11,7 @@ public class Mine extends Cell {
 
     // Bomb!!!!!!!!!!!!!!!!!!!!!!
     public void bomb() {
-        Field.fieldmap[this.y][this.x] = new Flatland();
+        Field.fieldmap[y][x] = new Flatland();
 
         // Surrounding field becomes Flatland.
         int[][] surround = Control.surroundingField(y, x);
@@ -27,8 +27,6 @@ public class Mine extends Cell {
             // 人は死ぬ
             else if(cell instanceof Unit)
                 ((Unit) cell).death();
-
-            ((Cell) cell).character = 'X';
         }
     }
 

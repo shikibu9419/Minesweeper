@@ -1,6 +1,7 @@
 package control;
 
 import models.*;
+import ui.ExplodeAnimation;
 
 // ユニットの行動関連
 public class UnitAction extends Control {
@@ -38,9 +39,12 @@ public class UnitAction extends Control {
         Cell cell = Field.fieldmap[y2][x2];
         // 地雷踏んだらバーン
         if(cell instanceof Mine) {
-//             new ExplodeAnimation(y2, x2).start();
-            ((Mine) cell).bomb();
-            return;
+            new ExplodeAnimation().start(y2, x2);
+            // とりあえずGame Over
+            System.out.println("\nEXPLODED!!!");
+            exitGame();
+//             ((Mine) cell).bomb();
+//             return;
         }
 
         // ユニット移動

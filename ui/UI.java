@@ -6,17 +6,16 @@ import java.io.*;
 
 // uiパッケージのメインクラス
 public class UI {
-    protected Cell[][] fieldmap;
-
-    public UI() {
-        fieldmap = Field.fieldmap.clone();
-    }
-
-    protected Cell[][] currentFieldmap() {
-        return Field.fieldmap;
-    }
 
     protected void displayField() {
+        display(Field.fieldmap);
+    }
+
+    protected void displayField(Cell[][] fieldmap) {
+        display(fieldmap);
+    }
+
+    private void display(Cell[][] fieldmap) {
         clearScreen();
 
         // xの目盛表示

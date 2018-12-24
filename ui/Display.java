@@ -4,10 +4,6 @@ package ui;
 public class Display extends UI {
     private InputReception input = new InputReception();
 
-    public Display() {
-        super();
-    }
-
     public void start() {
         while(true) {
             displayField();
