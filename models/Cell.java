@@ -16,8 +16,8 @@ public class Cell {
         this.x = x;
     }
 
-    // そのマスを調査した的なメソッド
-    public void detected() {}
+//     // そのマスを調査した的なメソッド
+//     public void detected() {}
 
     public char getChar() {
         return character;

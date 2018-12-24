@@ -38,6 +38,7 @@ public class UnitAction extends Control {
         Cell cell = Field.fieldmap[y2][x2];
         // 地雷踏んだらバーン
         if(cell instanceof Mine) {
+//             new ExplodeAnimation(y2, x2).start();
             ((Mine) cell).bomb();
             return;
         }
@@ -57,7 +58,10 @@ public class UnitAction extends Control {
     private void detect() {
         int[][] surround = surroundingField(unit.y, unit.x);
         for(int i = 0; i < surround.length; i++) {
-            Field.fieldmap[surround[i][0]][surround[i][1]].detected();
+//             Field.fieldmap[surround[i][0]][surround[i][1]].detected();
+            Cell cell = Field.fieldmap[surround[i][0]][surround[i][1]];
+            if(cell instanceof Flatland)
+                ((Flatland) cell).detected();
         }
     }
 }

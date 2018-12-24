@@ -9,10 +9,10 @@ public class UI {
     protected Cell[][] fieldmap;
 
     public UI() {
-        fieldmap = Field.fieldmap;
+        fieldmap = Field.fieldmap.clone();
     }
 
-    protected Cell[][] latestField() {
+    protected Cell[][] currentFieldmap() {
         return Field.fieldmap;
     }
 

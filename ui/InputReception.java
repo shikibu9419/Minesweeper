@@ -16,7 +16,7 @@ public class InputReception extends UI {
             Control.exitGame();
         }
         //   ユニットがゴールに到達したらクリア
-        if(latestField()[Field.MAX_Y - 1][Field.MAX_X - 1] instanceof Unit)
+        if(currentFieldmap()[Field.MAX_Y - 1][Field.MAX_X - 1] instanceof Unit)
             Control.goal();
         ////////////////////////////////////////
 

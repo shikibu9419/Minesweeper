@@ -9,6 +9,7 @@ public class Flatland extends Cell {
         detected();
     }
 
+    // その平地周辺を調査した的なメソッド
     public void detected() {
         // int -> char のキャスト
         if(surroundingBombs > 0)
