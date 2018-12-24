@@ -54,7 +54,7 @@ public class UnitAction extends Control {
         unit.setCoordinate(y2, x2);
         detect();
 
-        // 平地だったら周囲の地雷情報を受け継ぐ
+        // 平地だったら地雷数の情報を受け継ぐ
         if(cell instanceof Flatland)
             unit.surroundingBombs = ((Flatland) cell).surroundingBombs;
     }

@@ -4,7 +4,7 @@ import models.Cell;
 import control.Field;
 import ui.UI;
 
-// アニメーションのメインクラス
+// animationパッケージのメインクラス
 public class Animation extends UI {
 
     protected Cell[][] fieldmap;

@@ -17,15 +17,18 @@ nitac_programming_task
 |   |-- Control
 |   |-- Field
 |   `-- UnitAction
-|-- ui
-|   |-- UI
-|   |-- Display
-|   `-- InputReception
 |-- models
 |   |-- Cell
 |   |-- Flatland
 |   |-- Mine
 |   `-- Unit
+|-- ui
+|   |-- UI
+|   |-- Display
+|   |-- InputReception
+|   `-- animations
+|       |-- Animation
+|       `-- ExplodeAnimation
 `-- solver
     `-- ゲームを解いてくれるアルゴリズム(仮)
 ```
@@ -42,5 +45,5 @@ nitac_programming_task
   > ga
   # git commit -m
   > gc
-  # ...
+  ...
   ```

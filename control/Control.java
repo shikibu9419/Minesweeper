@@ -4,6 +4,7 @@ import java.util.*;
 
 // controlパッケージのメインクラス
 public class Control {
+
     private static Random rand = new Random();
     private static int[] dy = {-1,  0,  1, -1, 1, -1, 0, 1};
     private static int[] dx = {-1, -1, -1,  0, 0,  1, 1, 1};
