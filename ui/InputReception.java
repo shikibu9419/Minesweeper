@@ -6,6 +6,7 @@ import java.util.*;
 
 // 入力受け付け
 public class InputReception extends UI {
+
     private Unit unit = Field.unit;
 
     public void receive() {

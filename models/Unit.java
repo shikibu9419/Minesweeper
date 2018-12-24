@@ -4,6 +4,7 @@ import control.*;
 
 // 動かす駒
 public class Unit extends Cell {
+
     public boolean isDead = false;
 
     public Unit(int y, int x) {

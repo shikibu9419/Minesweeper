@@ -1,10 +1,11 @@
 package control;
 
 import models.*;
-import ui.ExplodeAnimation;
+import ui.animations.*;
 
 // ユニットの行動関連
 public class UnitAction extends Control {
+
     private Unit unit;
 
     public UnitAction(Unit unit) {

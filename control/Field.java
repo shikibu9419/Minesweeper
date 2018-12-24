@@ -4,6 +4,7 @@ import models.*;
 
 // ステージ(field)の管理をするクラス
 public class Field extends Control {
+
     // ゲームにつき1つのためクラス変数で管理する子たち
     public static final int MAX_Y = 20;
     public static final int MAX_X = 20;

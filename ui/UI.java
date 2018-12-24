@@ -11,11 +11,8 @@ public class UI {
         display(Field.fieldmap);
     }
 
-    protected void displayField(Cell[][] fieldmap) {
-        display(fieldmap);
-    }
-
-    private void display(Cell[][] fieldmap) {
+    // fieldを表示
+    protected void display(Cell[][] fieldmap) {
         clearScreen();
 
         // xの目盛表示

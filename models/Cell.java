@@ -2,6 +2,7 @@ package models;
 
 // マス目のメインクラス
 public class Cell {
+
     // 座標 ([y][x]で格納されている)
     public int y;
     public int x;
