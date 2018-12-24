@@ -15,7 +15,7 @@ public class Mine extends Cell {
         Field.fieldmap[this.y][this.x].character = 'X';
 
         // Surrounding field becomes Flatland.
-        int[][] surround = Utils.surroundingField(y, x);
+        int[][] surround = Control.surroundingField(y, x);
         for(int i = 0; i < surround.length; i++) {
             Cell cell = Field.fieldmap[surround[i][0]][surround[i][1]];
 

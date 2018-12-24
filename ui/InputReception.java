@@ -5,7 +5,7 @@ import system.*;
 import java.util.*;
 
 // 入力受け付け
-public class InputReception {
+public class InputReception extends UI {
     private Unit unit = Field.unit;
 
     public void receive() {
@@ -13,11 +13,11 @@ public class InputReception {
         //   ユニットが死亡していたらゲームオーバー
         if(unit.isDead) {
             System.out.println("\nEXPLODED!!!");
-            Utils.exitGame();
+            Control.exitGame();
         }
         //   ユニットがゴールに到達したらクリア
-        if(Field.fieldmap[Field.MAX_Y - 1][Field.MAX_X - 1] instanceof Unit)
-            Utils.goal();
+        if(latestField()[Field.MAX_Y - 1][Field.MAX_X - 1] instanceof Unit)
+            Control.goal();
         ////////////////////////////////////////
 
         // 入力を改行区切りで受け付ける
@@ -42,7 +42,7 @@ public class InputReception {
                 break;
             // 終了
             case "exit":
-                Utils.exitGame();
+                Control.exitGame();
                 break;
             default:
                 System.out.println(order);

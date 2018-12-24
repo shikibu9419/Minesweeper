@@ -3,7 +3,7 @@ package system;
 import models.*;
 
 // ユニットの行動関連
-public class UnitAction {
+public class UnitAction extends Control {
     private Unit unit;
 
     public UnitAction(Unit unit) {
@@ -32,7 +32,7 @@ public class UnitAction {
         }
 
         // fieldの範囲外へは動かない
-        if(Utils.outOfField(y2, x2))
+        if(outOfField(y2, x2))
             return;
 
         Cell cell = Field.fieldmap[y2][x2];
@@ -55,7 +55,7 @@ public class UnitAction {
 
     // 周囲の平地の調査
     private void detect() {
-        int[][] surround = Utils.surroundingField(unit.y, unit.x);
+        int[][] surround = surroundingField(unit.y, unit.x);
         for(int i = 0; i < surround.length; i++) {
             Field.fieldmap[surround[i][0]][surround[i][1]].detected();
         }

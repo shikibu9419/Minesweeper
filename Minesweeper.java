@@ -1,8 +1,9 @@
-import ui.*;
+import system.Field;
+import ui.Display;
 
 public class Minesweeper {
     public static void main(String[] args) {
-        Display display = new Display();
-        display.start();
+        Field.initFieldmap();
+        new Display().start();
     }
 }

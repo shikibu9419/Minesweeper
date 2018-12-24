@@ -2,7 +2,8 @@ package system;
 
 import java.util.*;
 
-public class Utils {
+// systemパッケージのメインクラス
+public class Control {
     private static Random rand = new Random();
     private static int[] dy = {-1,  0,  1, -1, 1, -1, 0, 1};
     private static int[] dx = {-1, -1, -1,  0, 0,  1, 1, 1};
@@ -45,7 +46,7 @@ public class Utils {
         System.exit(0);
     }
 
-    // 多分あとで消すとても汚いメソッド
+    ////// 多分あとで消すとても汚いメソッド
     public static void goal() {
         // clearScreenパクリ
         try {

@@ -1,6 +1,6 @@
 package models;
 
-// マス目
+// マス目のメインクラス
 public class Cell {
     // 座標 ([y][x]で格納されている)
     public int y;
@@ -16,7 +16,7 @@ public class Cell {
         this.x = x;
     }
 
-    // その平地の周囲の地雷の数が調査された的なメソッド
+    // そのマスを調査した的なメソッド
     public void detected() {}
 
     public char getChar() {

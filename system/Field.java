@@ -3,7 +3,7 @@ package system;
 import models.*;
 
 // ステージ(field)の管理をするクラス
-public class Field {
+public class Field extends Control {
     // ゲームにつき1つのためクラス変数で管理する子たち
     public static final int MAX_Y = 20;
     public static final int MAX_X = 20;
@@ -23,8 +23,8 @@ public class Field {
         // ランダムな場所に地雷の配置
         int count = 0;
         while(count < MINE_COUNT) {
-            int y = Utils.randomInt(MAX_Y);
-            int x = Utils.randomInt(MAX_X);
+            int y = randomInt(MAX_Y);
+            int x = randomInt(MAX_X);
 
             // スタート周辺orゴールor平地でない ときは飛ばす
             if((y < 2 && x < 2) ||
@@ -37,7 +37,7 @@ public class Field {
             count++;
 
             // 地雷周辺の平地の地雷数をインクリメント
-            int[][] surround = Utils.surroundingField(y, x);
+            int[][] surround = surroundingField(y, x);
             for(int i = 0; i < surround.length; i++) {
                 fieldmap[surround[i][0]][surround[i][1]].surroundingBombs++;
             }
