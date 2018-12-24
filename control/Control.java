@@ -1,8 +1,8 @@
-package system;
+package control;
 
 import java.util.*;
 
-// systemパッケージのメインクラス
+// controlパッケージのメインクラス
 public class Control {
     private static Random rand = new Random();
     private static int[] dy = {-1,  0,  1, -1, 1, -1, 0, 1};

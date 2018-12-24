@@ -13,11 +13,12 @@
 ```
 nitac_programming_task
 |-- Minesweeper.java
-|-- system
+|-- control
+|   |-- Control
 |   |-- Field
-|   |-- UnitAction
-|   `-- Utils
+|   `-- UnitAction
 |-- ui
+|   |-- UI
 |   |-- Display
 |   `-- InputReception
 |-- models

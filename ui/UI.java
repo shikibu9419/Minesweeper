@@ -1,6 +1,6 @@
 package ui;
 
-import system.Field;
+import control.Field;
 import models.Cell;
 import java.io.*;
 

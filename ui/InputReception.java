@@ -1,7 +1,7 @@
 package ui;
 
 import models.*;
-import system.*;
+import control.*;
 import java.util.*;
 
 // 入力受け付け

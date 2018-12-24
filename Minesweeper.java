@@ -1,4 +1,4 @@
-import system.Field;
+import control.Field;
 import ui.Display;
 
 public class Minesweeper {

@@ -1,6 +1,6 @@
 package models;
 
-import system.*;
+import control.*;
 
 // 動かす駒
 public class Unit extends Cell {

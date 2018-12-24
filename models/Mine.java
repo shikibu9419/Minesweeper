@@ -1,6 +1,6 @@
 package models;
 
-import system.*;
+import control.*;
 
 // 地雷マス
 public class Mine extends Cell {
