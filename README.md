@@ -13,20 +13,20 @@
 ```
 nitac_programming_task
 |-- Minesweeper.java
-|-- control
+|-- control             ゲームシステム関連
 |   |-- Control
 |   |-- Field
 |   `-- UnitAction
-|-- models
+|-- models              データ関連
 |   |-- Cell
 |   |-- Flatland
 |   |-- Mine
 |   `-- Unit
-|-- ui
+|-- ui                  ユーザインターフェース関連
 |   |-- UI
 |   |-- Display
 |   |-- InputReception
-|   `-- animations
+|   `-- animations      アニメーション関連
 |       |-- Animation
 |       `-- ExplodeAnimation
 `-- solver

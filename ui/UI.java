@@ -1,30 +1,28 @@
 package ui;
 
-import control.Field;
 import models.Cell;
 import java.io.*;
 
 // uiパッケージのメインクラス
 public class UI {
 
-    protected void displayField() {
-        display(Field.fieldmap);
-    }
-
     // fieldを表示
-    protected void display(Cell[][] fieldmap) {
+    protected void displayField(Cell[][] fieldmap) {
+        final int MAX_Y = fieldmap.length;
+        final int MAX_X = fieldmap[0].length;
+
         clearScreen();
 
-        // xの目盛表示
-        for(int i = 0; i <= Field.MAX_X; i++)
+        for(int i = 0; i <= MAX_X; i++)
+            // xの目盛表示
             System.out.printf("%2d ", i);
         System.out.println("");
 
-        for(int i = 0; i < Field.MAX_Y; i++) {
+        for(int i = 0; i < MAX_Y; i++) {
             // yの目盛表示
             System.out.printf("%2d ", i + 1);
             // fieldの表示
-            for(int j = 0; j < Field.MAX_X; j++)
+            for(int j = 0; j < MAX_X; j++)
                 System.out.printf("%2s ", fieldmap[i][j].getChar());
             System.out.println("");
         }
@@ -36,9 +34,9 @@ public class UI {
             new ProcessBuilder("/bin/bash", "-c", "clear").inheritIO().start().waitFor();
             return;
         } catch(IOException e) {
-            System.out.println("IO Error occurred.");
+            System.out.println("IO Error occurred.\n" + e);
         } catch(InterruptedException e) {
-            System.out.println("I.R. Error occurred.");
+            System.out.println("I.R. Error occurred.\n" + e);
         }
         System.exit(1);
     }

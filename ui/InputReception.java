@@ -10,14 +10,14 @@ public class InputReception extends UI {
     private Unit unit = Field.unit;
 
     public void receive() {
+        UnitAction action = new UnitAction(unit);
+
         //   ユニットがゴールに到達したらクリア (暫定で実装)
         if(Field.fieldmap[Field.MAX_Y - 1][Field.MAX_X - 1] instanceof Unit)
             Control.goal();
 
         // 入力を改行区切りで受け付ける
         Scanner scan = new Scanner(System.in).useDelimiter("\n");
-        // ユニットの操作設定用
-        UnitAction action = new UnitAction(unit);
 
         System.out.println("");
         System.out.print("> ");

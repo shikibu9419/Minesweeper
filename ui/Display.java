@@ -1,5 +1,7 @@
 package ui;
 
+import control.Field;
+
 // 基本的な表示を行うクラス
 public class Display extends UI {
 
@@ -7,7 +9,7 @@ public class Display extends UI {
 
     public void start() {
         while(true) {
-            displayField();
+            displayField(Field.fieldmap);
             input.receive();
         }
     }

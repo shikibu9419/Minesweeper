@@ -1,8 +1,8 @@
 package ui.animations;
 
+import ui.UI;
 import models.Cell;
 import control.Field;
-import ui.UI;
 
 // animationパッケージのメインクラス
 public class Animation extends UI {
@@ -14,18 +14,13 @@ public class Animation extends UI {
         fieldmap = Field.fieldmap.clone();
     }
 
-    // Animationではコピーを表示する
-    protected void displayField(Cell[][] fieldmap) {
-        display(fieldmap);
-    }
-
-    // 指定された秒数だけ待機
+    // sec * 0.1 秒待機
     protected void sleep(int sec) {
         try {
-            Thread.sleep(sec * 1000);
+            Thread.sleep(sec * 100);
             return;
         } catch(InterruptedException e) {
-            System.out.println("InterruptedException Occurred.");
+            System.out.println("InterruptedException Occurred.\n" + e);
         }
         System.exit(1);
     }

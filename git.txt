@@ -1,7 +1,11 @@
 ファイルを変更したら...
 git add -A
 git commit -m "変更した内容"
-git push origin master
+git push origin
+
+変更が大きそうだったら...
+git checkout -b hogehogee
+(ファイル変更と同じ手順)
 
 他の人が変更したら...
 git pull --rebase origin master

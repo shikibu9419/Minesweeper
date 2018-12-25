@@ -12,7 +12,7 @@ public class UnitAction extends Control {
         this.unit = unit;
     }
 
-    // left/right/up/down のいずれかで移動する
+    // left/right/up/down のいずれかに移動する
     public void move(String direction) {
         int y2 = unit.y;
         int x2 = unit.x;
@@ -33,7 +33,7 @@ public class UnitAction extends Control {
                 return;
         }
 
-        // fieldの範囲外へは動かない
+        // fieldの範囲外へは移動しない
         if(outOfField(y2, x2))
             return;
 
@@ -41,7 +41,7 @@ public class UnitAction extends Control {
         // 地雷踏んだらバーン
         if(cell instanceof Mine) {
             new ExplodeAnimation().start(y2, x2);
-            // とりあえずGame Over
+            ///// とりあえずGame Over
             System.out.println("\nEXPLODED!!!");
             exitGame();
 //             ((Mine) cell).bomb();
@@ -54,7 +54,7 @@ public class UnitAction extends Control {
         unit.setCoordinate(y2, x2);
         detect();
 
-        // 平地だったら地雷数の情報を受け継ぐ
+        // 移動先が平地だったら地雷数の情報をUnitが持つようにする
         if(cell instanceof Flatland)
             unit.surroundingBombs = ((Flatland) cell).surroundingBombs;
     }

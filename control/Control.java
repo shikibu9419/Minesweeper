@@ -9,7 +9,7 @@ public class Control {
     private static int[] dy = {-1,  0,  1, -1, 1, -1, 0, 1};
     private static int[] dx = {-1, -1, -1,  0, 0,  1, 1, 1};
 
-    // 周りのfield範囲内の座標を[y][x]の配列にして返す
+    // 周囲のfield範囲内の座標一覧を[y][x]の配列にして返す
     public static int[][] surroundingField(int y, int x) {
         ArrayList<int[]> surround = new ArrayList<>();
 
@@ -23,6 +23,7 @@ public class Control {
             surround.add(yx);
         }
 
+        // ArrayList -> Array の変換でおそらくもっともいい方法
         int[][] res = new int[surround.size()][2];
         for(int i = 0; i < surround.size(); i++) {
             res[i] = surround.get(i);
