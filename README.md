@@ -13,22 +13,22 @@
 ```
 nitac_programming_task
 |-- Minesweeper.java
-|-- control             ゲームシステム関連
-|   |-- Control
-|   |-- Field
-|   `-- UnitAction
-|-- models              データ関連
-|   |-- Cell
-|   |-- Flatland
-|   |-- Mine
-|   `-- Unit
-|-- ui                  ユーザインターフェース関連
-|   |-- UI
-|   |-- Display
-|   |-- InputReception
-|   `-- animations      アニメーション関連
-|       |-- Animation
-|       `-- ExplodeAnimation
+|-- control                 ゲームシステム関連
+|   |-- Control.java
+|   |-- Field.java
+|   `-- UnitAction.java
+|-- models                  データ関連
+|   |-- Cell.java
+|   |-- Flatland.java
+|   |-- Mine.java
+|   `-- Unit.java
+|-- ui                      ユーザインターフェース関連
+|   |-- UI.java
+|   |-- Display.java
+|   |-- InputReception.java
+|   `-- animations          アニメーション関連
+|       |-- Animation.java
+|       `-- ExplodeAnimation.java
 `-- solver
     `-- ゲームを解いてくれるアルゴリズム(仮)
 ```

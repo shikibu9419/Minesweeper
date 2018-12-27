@@ -19,7 +19,7 @@ public class ExplodeAnimation extends Animation {
 
         // 幅優先爆発
         while(!queue.isEmpty()) {
-            // 変数の使い回し (よくない)
+            // 変数の使い回し (きっとよくない)
             yx = queue.remove();
             y = yx[0];
             x = yx[1];
