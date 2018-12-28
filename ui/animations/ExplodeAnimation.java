@@ -14,7 +14,6 @@ public class ExplodeAnimation extends Animation {
         super();
     }
 
-    // 爆発に巻き込まれたところをXで表示
     public void start(int y, int x) {
         int[] yx = {y, x};
         queue.add(yx);
@@ -31,6 +30,7 @@ public class ExplodeAnimation extends Animation {
         }
     }
 
+    // 爆発に巻き込まれたところを*で表示 (地雷は誘爆)
     private void explode(int y, int x) {
         fieldmap[y][x].character = '*';
 
@@ -42,7 +42,7 @@ public class ExplodeAnimation extends Animation {
             // 周囲の地雷以外の文字を*に変更
             if(!(fieldmap[y2][x2] instanceof Mine))
                 fieldmap[y2][x2].character = '*';
-            // explode指定ない地雷をqueueに追加
+            // explodeしていない地雷をqueueに追加
             else if(fieldmap[surround[i][0]][surround[i][1]].character != '*')
                 queue.add(surround[i]);
         }

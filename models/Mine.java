@@ -14,12 +14,12 @@ public class Mine extends Cell {
     public void bomb() {
         Field.fieldmap[y][x] = new Flatland();
 
-        // Surrounding field becomes Flatland.
+        // 周囲は爆発に巻き込まれる...!
         int[][] surround = Control.surroundingField(y, x);
         for(int i = 0; i < surround.length; i++) {
             Cell cell = Field.fieldmap[surround[i][0]][surround[i][1]];
 
-            // 平地は地雷の数情報が調整される
+            // 平地は地雷の数情報が更新される
             if(cell instanceof Flatland)
                 ((Flatland) cell).surroundingBombs--;
             // 地雷は誘爆する

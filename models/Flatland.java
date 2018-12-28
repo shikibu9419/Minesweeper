@@ -10,7 +10,8 @@ public class Flatland extends Cell {
         detected();
     }
 
-    // その平地周辺を調査した的なメソッド
+    // その平地を調査した的なメソッド
+    // (調査済みの平地は周囲の地雷の数が表示される)
     public void detected() {
         // int -> char のキャスト
         if(surroundingBombs > 0)

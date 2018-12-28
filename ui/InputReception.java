@@ -10,19 +10,16 @@ public class InputReception extends UI {
     private Unit unit = Field.unit;
 
     public void receive() {
-        UnitAction action = new UnitAction(unit);
-
-        //   ユニットがゴールに到達したらクリア (暫定で実装)
+        //   ユニットがゴールに到達したらクリア (暫定実装)
         if(Field.fieldmap[Field.MAX_Y - 1][Field.MAX_X - 1] instanceof Unit)
             Control.goal();
 
-        // 入力を改行区切りで受け付ける
         Scanner scan = new Scanner(System.in).useDelimiter("\n");
+        UnitAction action = new UnitAction(unit);
 
         System.out.println("");
         System.out.print("> ");
 
-        // 空白で区切った配列として受け取る
         String[] order = scan.next().split(" |　");
 
         // 入力命令の解釈

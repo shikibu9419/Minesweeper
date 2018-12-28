@@ -48,13 +48,13 @@ public class UnitAction extends Control {
 //             return;
         }
 
-        // ユニット移動
+        // ユニット移動 (前にいたところは平地になる)
         Field.fieldmap[y2][x2] = unit;
         Field.fieldmap[unit.y][unit.x] = new Flatland(unit.surroundingBombs);
         unit.setCoordinate(y2, x2);
         detect();
 
-        // 移動先が平地だったら地雷数の情報をUnitが持つようにする
+        // 移動先が平地だったら地雷数の情報をUnitが引き継ぐ
         if(cell instanceof Flatland)
             unit.surroundingBombs = ((Flatland) cell).surroundingBombs;
     }

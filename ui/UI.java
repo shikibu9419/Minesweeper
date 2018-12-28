@@ -28,7 +28,7 @@ public class UI {
         }
     }
 
-    // CUI画面のクリア
+    // shellコンソール表示のクリア
     private void clearScreen() {
         try {
             new ProcessBuilder("/bin/bash", "-c", "clear").inheritIO().start().waitFor();

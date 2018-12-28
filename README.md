@@ -13,20 +13,20 @@
 ```
 nitac_programming_task
 |-- Minesweeper.java
-|-- control                 ゲームシステム関連
+|-- control                  ゲームシステム関連
 |   |-- Control.java
 |   |-- Field.java
 |   `-- UnitAction.java
-|-- models                  データ関連
+|-- models                   データ関連
 |   |-- Cell.java
 |   |-- Flatland.java
 |   |-- Mine.java
 |   `-- Unit.java
-|-- ui                      ユーザインターフェース関連
+|-- ui                       ユーザインターフェース関連
 |   |-- UI.java
 |   |-- Display.java
 |   |-- InputReception.java
-|   `-- animations          アニメーション関連
+|   `-- animations           アニメーション関連
 |       |-- Animation.java
 |       `-- ExplodeAnimation.java
 `-- solver
@@ -38,7 +38,7 @@ nitac_programming_task
 - できればどこにどんなクラスを配置したかREADMEに書いてね!
 - gitでの操作手順を`git.txt`に書いたのでわからなくなったら見てみてね!
 - .bashrcをホームディレクトリに置くとgit操作がとっても楽になるよ!
-  ```
+  ```shell
   # .bashrcの配置
   > cp .bashrc ~/
   # git add
