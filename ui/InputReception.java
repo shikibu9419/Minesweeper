@@ -8,6 +8,7 @@ import java.util.*;
 public class InputReception extends UI {
 
     private Unit unit = Field.unit;
+    private UnitAction action = new UnitAction(unit);
 
     public void receive() {
         //   ユニットがゴールに到達したらクリア (暫定実装)
@@ -15,7 +16,6 @@ public class InputReception extends UI {
             Control.goal();
 
         Scanner scan = new Scanner(System.in).useDelimiter("\n");
-        UnitAction action = new UnitAction(unit);
 
         System.out.println("");
         System.out.print("> ");

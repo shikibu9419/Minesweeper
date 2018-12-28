@@ -25,6 +25,10 @@ public class ExplodeAnimation extends Animation {
             y = yx[0];
             x = yx[1];
 
+            // explode済みの地雷は飛ばす
+            if(fieldmap[y][x].character == '*')
+                continue;
+
             explode(y, x);
             sleep(5); // sleep 0.5s
         }
@@ -42,8 +46,7 @@ public class ExplodeAnimation extends Animation {
             // 周囲の地雷以外の文字を*に変更
             if(!(fieldmap[y2][x2] instanceof Mine))
                 fieldmap[y2][x2].character = '*';
-            // explodeしていない地雷をqueueに追加
-            else if(fieldmap[surround[i][0]][surround[i][1]].character != '*')
+            else
                 queue.add(surround[i]);
         }
 
