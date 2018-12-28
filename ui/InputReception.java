@@ -11,7 +11,7 @@ public class InputReception extends UI {
     private UnitAction action = new UnitAction(unit);
 
     public void receive() {
-        //   ユニットがゴールに到達したらクリア (暫定実装)
+        // ユニットがゴールに到達したらクリア (暫定実装)
         if(Field.fieldmap[Field.MAX_Y - 1][Field.MAX_X - 1] instanceof Unit)
             Control.goal();
 
@@ -35,6 +35,7 @@ public class InputReception extends UI {
             case "exit":
                 Control.exitGame();
                 break;
+            // それ以外はとりあえず出力
             default:
                 System.out.println(order);
         }

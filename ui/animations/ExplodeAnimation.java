@@ -7,7 +7,6 @@ import java.util.*;
 // 爆発アニメーション
 public class ExplodeAnimation extends Animation {
 
-    // 幅優先用
     private Queue<int[]> queue = new ArrayDeque<int[]>();
 
     public ExplodeAnimation() {

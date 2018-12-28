@@ -38,12 +38,13 @@ public class UnitAction extends Control {
             return;
 
         Cell cell = Field.fieldmap[y2][x2];
+
         // 地雷踏んだらバーン
         if(cell instanceof Mine) {
             new ExplodeAnimation().start(y2, x2);
-            ///// とりあえずGame Over
             System.out.println("\nEXPLODED!!!");
             exitGame();
+//             // 本来の処理
 //             ((Mine) cell).bomb();
 //             return;
         }

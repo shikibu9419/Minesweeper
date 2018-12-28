@@ -79,7 +79,7 @@ public class Control {
                     System.out.print(" " + ((models.Flatland) Field.fieldmap[i][j]).surroundingBombs + " ");
                 }
                 else
-                    System.out.print(" " + Field.fieldmap[i][j].getChar() + " ");
+                    System.out.print(" " + Field.fieldmap[i][j].character + " ");
             }
             System.out.println("");
         }

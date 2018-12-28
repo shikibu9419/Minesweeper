@@ -13,17 +13,17 @@ public class UI {
 
         clearScreen();
 
+        // xの目盛表示
         for(int i = 0; i <= MAX_X; i++)
-            // xの目盛表示
             System.out.printf("%2d ", i);
         System.out.println("");
 
+        // yの目盛表示
         for(int i = 0; i < MAX_Y; i++) {
-            // yの目盛表示
             System.out.printf("%2d ", i + 1);
             // fieldの表示
             for(int j = 0; j < MAX_X; j++)
-                System.out.printf("%2s ", fieldmap[i][j].getChar());
+                System.out.printf("%2s ", fieldmap[i][j].character);
             System.out.println("");
         }
     }

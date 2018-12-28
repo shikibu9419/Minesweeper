@@ -18,10 +18,9 @@ public class Field extends Control {
             for(int j = 0; j < MAX_X; j++)
                 fieldmap[i][j] = new Flatland();
 
-        // 操作可能ユニットを配置
-        unit = new Unit(0, 0);
+        unit = new Unit(0, 0);  // 操作可能ユニットを配置
 
-        // ランダムな場所に地雷の配置
+        // ランダムな場所に地雷を配置
         int count = 0;
         while(count < MINE_COUNT) {
             int y = randomInt(MAX_Y);
@@ -33,8 +32,7 @@ public class Field extends Control {
                !(fieldmap[y][x] instanceof Flatland))
                 continue;
 
-            // 地雷を設置
-            Mine mine = new Mine(y, x);
+            Mine mine = new Mine(y, x);  // 地雷を設置
             count++;
 
             // 地雷周辺の平地の地雷数をインクリメント

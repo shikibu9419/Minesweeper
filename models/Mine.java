@@ -32,8 +32,7 @@ public class Mine extends Cell {
     }
 
 //     public void detected() {
-//         // int -> char のキャスト
 //         if(surroundingBombs > 0)
-//             character = (char)('0' + surroundingBombs);
+//             character = (char)('0' + surroundingBombs);  // int -> char のキャスト
 //     }
 }
