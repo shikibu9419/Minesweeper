@@ -7,6 +7,9 @@ import java.util.*;
 // 爆発アニメーション
 public class ExplodeAnimation extends Animation {
 
+    // 幅優先用
+    private Queue<int[]> queue = new ArrayDeque<int[]>();
+
     public ExplodeAnimation() {
         super();
     }
@@ -14,7 +17,6 @@ public class ExplodeAnimation extends Animation {
     // 爆発に巻き込まれたところをXで表示
     public void start(int y, int x) {
         int[] yx = {y, x};
-        Queue<int[]> queue = new ArrayDeque<int[]>();
         queue.add(yx);
 
         // 幅優先爆発
@@ -25,27 +27,24 @@ public class ExplodeAnimation extends Animation {
             x = yx[1];
 
             explode(y, x);
-            sleep(5);
-
-            int[][] surround = Control.surroundingField(y, x);
-            for(int i = 0; i < surround.length; i++) {
-                // まだ爆発指定ない地雷のセット
-                if(fieldmap[surround[i][0]][surround[i][1]] instanceof Mine &&
-                   fieldmap[surround[i][0]][surround[i][1]].character != '*')
-                    queue.add(surround[i]);
-            }
+            sleep(5); // sleep 0.5s
         }
     }
 
     private void explode(int y, int x) {
-        // 周囲の地雷以外と自分の文字を*に変更
-        int[][] surround = Control.surroundingField(y, x);
         fieldmap[y][x].character = '*';
+
+        int[][] surround = Control.surroundingField(y, x);
         for(int i = 0; i < surround.length; i++) {
             int y2 = surround[i][0];
             int x2 = surround[i][1];
+
+            // 周囲の地雷以外の文字を*に変更
             if(!(fieldmap[y2][x2] instanceof Mine))
                 fieldmap[y2][x2].character = '*';
+            // explode指定ない地雷をqueueに追加
+            else if(fieldmap[surround[i][0]][surround[i][1]].character != '*')
+                queue.add(surround[i]);
         }
 
         displayField(fieldmap);
