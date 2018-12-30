@@ -7,7 +7,7 @@ import java.util.*;
 // 爆発アニメーション
 public class ExplodeAnimation extends Animation {
 
-    private Queue<int[]> queue = new ArrayDeque<int[]>();
+    private Queue<int[]> queue = new ArrayDeque<>();
 
     public ExplodeAnimation() {
         super();

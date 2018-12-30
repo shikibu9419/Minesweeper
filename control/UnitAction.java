@@ -42,7 +42,8 @@ public class UnitAction extends Control {
         // 地雷踏んだらバーン
         if(cell instanceof Mine) {
             new ExplodeAnimation().start(y2, x2);
-            System.out.println("\nEXPLODED!!!");
+            System.out.println("");
+            System.out.println("EXPLODED!!!");
             exitGame();
 //             // 本来の処理
 //             ((Mine) cell).bomb();
