@@ -61,6 +61,13 @@ public class UnitAction extends Control {
             unit.surroundingBombs = ((Flatland) cell).surroundingBombs;
     }
 
+    //敵を爆破
+    public void detonate(int y, int x){
+      Cell cell = Field.fieldmap[y][x];
+      if(cell instanceof Mine)
+        ((Mine)cell).bomb();
+    }
+
     // 周囲の平地の調査
     private void detect() {
         int[][] surround = surroundingField(unit.y, unit.x);

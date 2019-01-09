@@ -30,6 +30,10 @@ public class InputReception extends UI {
             case "d":
                 action.move(order[0]);
                 break;
+            //敵を爆破
+            case "bomb":
+                action.detonate((Integer.parseInt(order[2]))-1, (Integer.parseInt(order[1])-1));
+                break;
             // 終了
             case "exit":
                 Control.exitGame();
