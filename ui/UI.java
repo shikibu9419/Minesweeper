@@ -33,10 +33,10 @@ public class UI {
         try {
             new ProcessBuilder("/bin/bash", "-c", "clear").inheritIO().start().waitFor();
         } catch(IOException e) {
-            System.out.println("IO Error occurred.\n" + e);
+            e.printStackTrace();
             System.exit(1);
         } catch(InterruptedException e) {
-            System.out.println("I.R. Error occurred.\n" + e);
+            e.printStackTrace();
             System.exit(1);
         }
     }

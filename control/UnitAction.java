@@ -64,6 +64,7 @@ public class UnitAction extends Control {
     //敵を爆破
     public void detonate(int y, int x) {
         new ExplodeAnimation().start(y, x);
+
         Cell cell = Field.fieldmap[y][x];
         if(cell instanceof Mine)
             ((Mine)cell).bomb();

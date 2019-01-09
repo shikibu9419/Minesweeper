@@ -25,7 +25,7 @@ public class Animation extends UI {
         try {
             Thread.sleep(sec * 100);
         } catch(InterruptedException e) {
-            System.out.println("InterruptedException Occurred.\n" + e);
+            e.printStackTrace();
             System.exit(1);
         }
     }

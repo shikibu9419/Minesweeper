@@ -10,24 +10,20 @@ public class Mine extends Cell {
         Field.fieldmap[y][x] = this;
     }
 
-    // Bomb!!!!!!!!!!!!!!!!!!!!!!
     public void bomb() {
-        Field.fieldmap[y][x] = new Flatland();
+        Field.fieldmap[y][x] = new Flatland(); // 爆発後は平地になる
 
-        // 周囲は爆発に巻き込まれる...!
+        // 周囲は爆発に巻き込まれる
         int[][] surround = Control.surroundingField(y, x);
         for(int i = 0; i < surround.length; i++) {
             Cell cell = Field.fieldmap[surround[i][0]][surround[i][1]];
 
-            // 平地は地雷の数情報が更新される
             if(cell instanceof Flatland)
-                ((Flatland) cell).decrementBombs();
-            // 地雷は誘爆する
+                ((Flatland) cell).decrementBombs();  // 平地は地雷の数情報が更新される
             else if(cell instanceof Mine)
-                ((Mine) cell).bomb();
-            // 人は死ぬ
+                ((Mine) cell).bomb();   // 地雷は誘爆する
             else if(cell instanceof Unit)
-                ((Unit) cell).death();
+                ((Unit) cell).death();  // 人は死ぬ
         }
     }
 }
