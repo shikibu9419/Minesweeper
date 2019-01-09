@@ -35,9 +35,8 @@ public class InputReceiver extends UI {
             case "exit":
                 Control.exitGame();
                 break;
-            // それ以外はとりあえず出力
             default:
-                System.out.println(order);
+                return;
         }
     }
 }

@@ -32,10 +32,7 @@ public class UI {
     private void clearScreen() {
         try {
             new ProcessBuilder("/bin/bash", "-c", "clear").inheritIO().start().waitFor();
-        } catch(IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        } catch(InterruptedException e) {
+        } catch(Exception e) {
             e.printStackTrace();
             System.exit(1);
         }

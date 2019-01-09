@@ -38,16 +38,11 @@ public class UnitAction extends Control {
             return;
 
         Cell cell = Field.fieldmap[y2][x2];
-
         // 地雷踏んだらバーン
         if(cell instanceof Mine) {
             new ExplodeAnimation().start(y2, x2);
-            System.out.println("");
-            System.out.println("EXPLODED!!!");
-            exitGame();
-//             // 本来の処理
-//             ((Mine) cell).bomb();
-//             return;
+            ((Mine) cell).bomb();
+            return;
         }
 
         // ユニット移動 (前にいたところは平地になる)
@@ -67,7 +62,7 @@ public class UnitAction extends Control {
 
         Cell cell = Field.fieldmap[y][x];
         if(cell instanceof Mine)
-            ((Mine)cell).bomb();
+            ((Mine) cell).bomb();
     }
 
     // 周囲の平地の調査
