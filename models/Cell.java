@@ -4,12 +4,10 @@ package models;
 // 変数のディープコピーを行うためにimplementしている
 public class Cell implements Cloneable {
 
-    // 座標 ([y][x]で格納されている)
     public int y;
     public int x;
-
     public char character = '.';  // 画面上で表示される文字
-    public int surroundingBombs = 0;  // 周りの地雷の数
+    public int  surroundingBombs = 0;  // 周りの地雷の数
 
     // マスが持ってる座標情報を更新
     public void setCoordinate(int y, int x) {
@@ -17,18 +15,21 @@ public class Cell implements Cloneable {
         this.x = x;
     }
 
+    public void decrementBombs() {
+        surroundingBombs--;
+        if(surroundingBombs == 0)
+            character = '.';
+    }
+
     // オブジェクトのディープコピー
     public Cell clone() {
         Cell res = new Cell();
         try {
             res = (Cell)super.clone();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
         }
         return res;
     }
-
-//     // そのマスを調査した的なメソッド
-//     public void detected() {}
 }

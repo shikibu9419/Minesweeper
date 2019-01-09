@@ -21,7 +21,7 @@ public class Mine extends Cell {
 
             // 平地は地雷の数情報が更新される
             if(cell instanceof Flatland)
-                ((Flatland) cell).surroundingBombs--;
+                ((Flatland) cell).decrementBombs();
             // 地雷は誘爆する
             else if(cell instanceof Mine)
                 ((Mine) cell).bomb();
@@ -30,9 +30,4 @@ public class Mine extends Cell {
                 ((Unit) cell).death();
         }
     }
-
-//     public void detected() {
-//         if(surroundingBombs > 0)
-//             character = (char)('0' + surroundingBombs);  // int -> char のキャスト
-//     }
 }

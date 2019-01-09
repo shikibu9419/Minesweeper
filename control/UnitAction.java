@@ -62,21 +62,20 @@ public class UnitAction extends Control {
     }
 
     //敵を爆破
-    public void detonate(int y, int x){
-      Cell cell = Field.fieldmap[y][x];
-      if(cell instanceof Mine)
-        ((Mine)cell).bomb();
+    public void detonate(int y, int x) {
+        new ExplodeAnimation().start(y, x);
+        Cell cell = Field.fieldmap[y][x];
+        if(cell instanceof Mine)
+            ((Mine)cell).bomb();
     }
 
     // 周囲の平地の調査
     private void detect() {
         int[][] surround = surroundingField(unit.y, unit.x);
         for(int i = 0; i < surround.length; i++) {
-//             Field.fieldmap[surround[i][0]][surround[i][1]].detected();
             Cell cell = Field.fieldmap[surround[i][0]][surround[i][1]];
             if(cell instanceof Flatland)
                 ((Flatland) cell).detected();
         }
     }
 }
-
