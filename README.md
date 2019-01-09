@@ -25,7 +25,7 @@ nitac_programming_task
 |-- ui                       ユーザインターフェース関連
 |   |-- UI.java
 |   |-- Display.java
-|   |-- InputReception.java
+|   |-- InputReceiver.java
 |   `-- animations           アニメーション関連
 |       |-- Animation.java
 |       `-- ExplodeAnimation.java

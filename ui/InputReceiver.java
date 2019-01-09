@@ -5,7 +5,7 @@ import control.*;
 import java.util.*;
 
 // 入力受け付け
-public class InputReception extends UI {
+public class InputReceiver extends UI {
 
     private Unit unit = Field.unit;
     private UnitAction action = new UnitAction(unit);
@@ -16,9 +16,6 @@ public class InputReception extends UI {
             Control.goal();
 
         Scanner scan = new Scanner(System.in).useDelimiter("\n");
-
-        showConsole();
-
         String[] order = scan.next().split(" |　");
 
         // 入力命令の解釈
@@ -42,10 +39,5 @@ public class InputReception extends UI {
             default:
                 System.out.println(order);
         }
-    }
-
-    private void showConsole() {
-        System.out.println("");
-        System.out.print("> ");
     }
 }

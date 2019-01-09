@@ -1,7 +1,8 @@
 package models;
 
 // マス目のメインクラス
-public class Cell {
+// 変数のディープコピーを行うためにimplementしている
+public class Cell implements Cloneable {
 
     // 座標 ([y][x]で格納されている)
     public int y;
@@ -14,6 +15,18 @@ public class Cell {
     public void setCoordinate(int y, int x) {
         this.y = y;
         this.x = x;
+    }
+
+    // オブジェクトのディープコピー
+    public Cell clone() {
+        Cell res = new Cell();
+        try {
+            res = (Cell)super.clone();
+        } catch (Exception e){
+            e.printStackTrace();
+            System.exit(1);
+        }
+        return res;
     }
 
 //     // そのマスを調査した的なメソッド

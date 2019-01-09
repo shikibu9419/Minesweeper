@@ -9,9 +9,15 @@ public class Animation extends UI {
 
     protected Cell[][] fieldmap;
 
-    // 本体に影響がないようにコピーを渡す
+    // 本体に影響がないようにディープコピーを渡す
     public Animation() {
-        fieldmap = Field.fieldmap.clone();
+        final int MAX_Y = Field.fieldmap.length;
+        final int MAX_X = Field.fieldmap[0].length;
+
+        fieldmap = new Cell[MAX_Y][MAX_X];
+        for(int i = 0; i < MAX_Y; i++)
+            for(int j = 0; j < MAX_X; j++)
+                this.fieldmap[i][j] = Field.fieldmap[i][j].clone();
     }
 
     // sec * 0.1 秒待機
