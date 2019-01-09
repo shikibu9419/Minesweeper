@@ -7,7 +7,7 @@ public class Algorithm {
 
     protected Cell[][] fieldmap;
 
-    public Animation() {
+    public Algorithm() {
         fieldmap = Field.fieldmap;
     }
 }

@@ -17,8 +17,7 @@ public class InputReception extends UI {
 
         Scanner scan = new Scanner(System.in).useDelimiter("\n");
 
-        System.out.println("");
-        System.out.print("> ");
+        showConsole();
 
         String[] order = scan.next().split(" |　");
 
@@ -39,5 +38,10 @@ public class InputReception extends UI {
             default:
                 System.out.println(order);
         }
+    }
+
+    private void showConsole() {
+        System.out.println("");
+        System.out.print("> ");
     }
 }

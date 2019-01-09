@@ -18,10 +18,9 @@ public class Animation extends UI {
     protected void sleep(int sec) {
         try {
             Thread.sleep(sec * 100);
-            return;
         } catch(InterruptedException e) {
             System.out.println("InterruptedException Occurred.\n" + e);
+            System.exit(1);
         }
-        System.exit(1);
     }
 }
