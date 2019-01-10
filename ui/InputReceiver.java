@@ -1,8 +1,8 @@
 package ui;
 
-import models.Unit;
-import control.*;
 import java.util.*;
+import models.Unit;
+import control.UnitAction;
 
 // 入力受け付け
 public class InputReceiver extends UI {
@@ -28,7 +28,7 @@ public class InputReceiver extends UI {
                 return action.detonate(y, x);
             // exit
             case "exit":
-                Control.exitGame();
+                exitGame();
             default:
                 return false;
         }

@@ -3,18 +3,9 @@ package control;
 import models.*;
 
 // ステージ(field)の管理をするクラス
-public class Field extends Control {
+public class Field extends Information {
 
-    // ゲームにつき1つのためクラス変数で管理する子たち
-    public static final int MAX_Y = 20;
-    public static final int MAX_X = 20;
-    public static final int MINE_COUNT = 50;
     public static Cell[][] fieldmap = new Cell[MAX_Y][MAX_X];
-
-    private static final int ALLIES_COUNT = 3;
-    private static final int ENEMIES_COUNT = 3;
-    public static Unit[] allies = new Unit[ALLIES_COUNT];
-    public static Unit[] enemies = new Unit[ENEMIES_COUNT];
 
     // 本体に影響がないようにfieldmapのディープコピーを渡すメソッド
     public static Cell[][] getClone() {
@@ -37,12 +28,12 @@ public class Field extends Control {
 
     // ユニットの設定 (暫定)
     private static void setUnits() {
-        for(int i = 0; i < ALLIES_COUNT; i++) {
+        for(int i = 0; i < allies.length; i++) {
             allies[i] = new Unit(i, i, "ally");
             Field.fieldmap[i][i] = allies[i];
         }
 
-        for(int i = 0; i < ENEMIES_COUNT; i++) {
+        for(int i = 0; i < enemies.length; i++) {
             int hoge = MAX_X - i - 1;
             enemies[i] = new Unit(hoge, hoge, "enemy");
             Field.fieldmap[hoge][hoge] = enemies[i];

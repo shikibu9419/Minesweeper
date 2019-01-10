@@ -1,19 +1,21 @@
 package ui;
 
-import control.Field;
+import control.Information;
 import models.Unit;
 
 // 基本的な表示を行うクラス
-public class Main {
+public class Main extends UI {
 
-    private static Unit[] allies = Field.allies;
+    private static Unit[] allies = Information.allies;
     private static Display display = new Display();
     private static InputReceiver receiver = new InputReceiver();
 
     public static void start() {
         while(true) {
-            if(allDead())
-                Field.exitGame();
+            if(allDead()) {
+                System.out.println("You lose...");
+                exitGame();
+            }
 
             int count = 0;
             while(count < allies.length) {

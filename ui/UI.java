@@ -1,10 +1,15 @@
 package ui;
 
-import models.Cell;
 import java.io.*;
+import control.Control;
+import models.Cell;
 
 // uiパッケージのメインクラス
 public class UI {
+
+    protected static void exitGame() {
+        Control.exitGame();
+    }
 
     // fieldを表示
     protected void displayField(Cell[][] fieldmap) {
