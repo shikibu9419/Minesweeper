@@ -41,11 +41,4 @@ public class Control {
     public static int randomInt(int max) {
         return rand.nextInt(max);
     }
-
-    // ゲームの終了
-    // TODO: exitGameの実装場所
-    public static void exitGame() {
-        System.out.println("Good bye!");
-        System.exit(0);
-    }
 }

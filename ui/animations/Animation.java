@@ -1,11 +1,11 @@
 package ui.animations;
 
-import ui.UI;
+import ui.Display;
 import models.Cell;
 import control.Field;
 
 // animationパッケージのメインクラス
-public class Animation extends UI {
+public class Animation extends Display {
 
     protected Cell[][] fieldmap;
 

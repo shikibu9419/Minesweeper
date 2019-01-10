@@ -45,8 +45,8 @@ public class UnitAction extends Control {
         else if(cell instanceof Flatland)
             unit.surroundingBombs = ((Flatland) cell).surroundingBombs;
         else {
-            new ExplodeAnimation().start(y2, x2);
             ((Mine) cell).bomb();
+            new ExplodeAnimation().start(y2, x2);
             return true;
         }
 
@@ -61,11 +61,11 @@ public class UnitAction extends Control {
 
     //敵を爆破
     public boolean detonate(int y, int x) {
-        new ExplodeAnimation().start(y, x);
-
         Cell cell = Field.fieldmap[y][x];
-        if(cell instanceof Mine)
+        if(cell instanceof Mine) {
             ((Mine) cell).bomb();
+            new ExplodeAnimation().start(y, x);
+        }
 
         return true;
     }
