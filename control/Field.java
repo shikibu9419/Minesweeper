@@ -10,7 +10,11 @@ public class Field extends Control {
     public static final int MAX_X = 30;
     public static final int MINE_COUNT = 500;
     public static Cell[][] fieldmap = new Cell[MAX_Y][MAX_X];
-    public static Unit unit;
+
+    private static final int ALLIES_COUNT = 3;
+    private static final int ENEMIES_COUNT = 3;
+    public static Unit[] allies = new Unit[ALLIES_COUNT];
+    public static Unit[] enemies = new Unit[ENEMIES_COUNT];
 
     // 本体に影響がないようにfieldmapのディープコピーを渡すメソッド
     public static Cell[][] getClone() {
@@ -30,10 +34,21 @@ public class Field extends Control {
         setMines();
     }
 
+    // ユニットの設定 (暫定)
     private static void setUnits() {
-        unit = new Unit(0, 0);
+        for(int i = 0; i < ALLIES_COUNT; i++) {
+            allies[i] = new Unit(i, i, "ally");
+            Field.fieldmap[i][i] = allies[i];
+        }
+
+        for(int i = 0; i < ENEMIES_COUNT; i++) {
+            int hoge = MAX_X - i - 1;
+            enemies[i] = new Unit(hoge, hoge, "enemy");
+            Field.fieldmap[hoge][hoge] = enemies[i];
+        }
     }
 
+    // 地雷の設定
     private static void setMines() {
         int count = 0;
         while(count < MINE_COUNT) {

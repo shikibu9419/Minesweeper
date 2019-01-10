@@ -13,7 +13,7 @@ public class UnitAction extends Control {
     }
 
     // left/right/up/down のいずれかに移動する
-    public void move(String direction) {
+    public boolean move(String direction) {
         int y2 = unit.y;
         int x2 = unit.x;
         switch(direction) {
@@ -30,19 +30,24 @@ public class UnitAction extends Control {
                 y2++;
                 break;
             default:
-                return;
+                return false;
         }
 
         // fieldの範囲外へは移動しない
         if(outOfField(y2, x2))
-            return;
+            return false;
 
         Cell cell = Field.fieldmap[y2][x2];
-        // 地雷踏んだらバーン
-        if(cell instanceof Mine) {
+
+        // 地形ごとの設定
+        if(cell instanceof Unit)
+            return false;
+        else if(cell instanceof Flatland)
+            unit.surroundingBombs = ((Flatland) cell).surroundingBombs;
+        else {
             new ExplodeAnimation().start(y2, x2);
             ((Mine) cell).bomb();
-            return;
+            return true;
         }
 
         // ユニット移動 (前にいたところは平地になる)
@@ -51,18 +56,18 @@ public class UnitAction extends Control {
         unit.setCoordinate(y2, x2);
         detect();
 
-        // 移動先が平地だったら地雷数の情報をUnitが引き継ぐ
-        if(cell instanceof Flatland)
-            unit.surroundingBombs = ((Flatland) cell).surroundingBombs;
+        return true;
     }
 
     //敵を爆破
-    public void detonate(int y, int x) {
+    public boolean detonate(int y, int x) {
         new ExplodeAnimation().start(y, x);
 
         Cell cell = Field.fieldmap[y][x];
         if(cell instanceof Mine)
             ((Mine) cell).bomb();
+
+        return true;
     }
 
     // 周囲の平地の調査

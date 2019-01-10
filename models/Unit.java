@@ -6,11 +6,12 @@ import control.Field;
 public class Unit extends Cell {
 
     public boolean isDead = false;
+    public String type;
 
-    public Unit(int y, int x) {
+    public Unit(int y, int x, String type) {
         setCoordinate(y, x);
-        Field.fieldmap[y][x] = this;
-        character = 'o';
+        this.character = 'o';
+        this.type = type;
     }
 
     // ユニットが死んだとき (暫定実装)
