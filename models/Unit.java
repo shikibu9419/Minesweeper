@@ -16,8 +16,8 @@ public class Unit extends Cell {
 
     // ユニットが死んだとき (暫定実装)
     public void death() {
-        Field.fieldmap[y][x] = new Flatland();
-        Field.fieldmap[y][x].character = 'X';
+        decrementBombs();
+        Field.fieldmap[y][x] = new Flatland(this.surroundingBombs);
         this.isDead = true;
     }
 }

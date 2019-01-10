@@ -1,5 +1,6 @@
 package ui;
 
+import models.Unit;
 import control.*;
 import java.util.*;
 
@@ -8,9 +9,8 @@ public class InputReceiver extends UI {
 
     private static Scanner scan = new Scanner(System.in).useDelimiter("\n");
 
-    public boolean receive(int index) {
-        UnitAction action = new UnitAction(Field.allies[index]);
-
+    public boolean receive(Unit unit) {
+        UnitAction action = new UnitAction(unit);
         String[] order = scan.next().split(" |　");
 
         // 入力命令の解釈
