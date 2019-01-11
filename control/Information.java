@@ -16,6 +16,10 @@ public class Information extends Control {
     public static Unit[] allies  = new Unit[allies_count];
     public static Unit[] enemies = new Unit[enemies_count];
 
+    // Colors
+    public static String red = "\u001b[00;31m";
+    public static String colorEnd = "\u001b[00m";
+
     // Others
     public static String notification = "";
 }

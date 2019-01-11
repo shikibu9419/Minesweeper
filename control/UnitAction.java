@@ -40,21 +40,25 @@ public class UnitAction extends Control {
         Cell cell = Field.fieldmap[y2][x2];
 
         // 地形ごとの設定
-        if(cell instanceof Unit)
-            return false;
-        else if(cell instanceof Flatland)
-            unit.surroundingBombs = ((Flatland) cell).surroundingBombs;
-        else {
-            ((Mine) cell).bomb();
-            new ExplodeAnimation().start(y2, x2);
-            return true;
+        if(unit.isAlly()) {
+            if(cell instanceof Unit)
+                return false;
+            else if(cell instanceof Flatland)
+                unit.surroundingBombs = ((Flatland) cell).surroundingBombs;
+            else {
+                ((Mine) cell).bomb();
+                new ExplodeAnimation().start(y2, x2);
+                return true;
+            }
         }
 
         // ユニット移動 (前にいたところは平地になる)
         Field.fieldmap[y2][x2] = unit;
         Field.fieldmap[unit.y][unit.x] = new Flatland(unit.surroundingBombs);
         unit.setCoordinate(y2, x2);
-        detect();
+
+        if(unit.isAlly())
+            detect();
 
         return true;
     }

@@ -1,6 +1,6 @@
 package models;
 
-import control.*;
+import control.Field;
 
 // 動かす駒
 public class Unit extends Cell {
@@ -20,8 +20,12 @@ public class Unit extends Cell {
         Field.fieldmap[y][x] = new Flatland(this.surroundingBombs);
         this.isDead = true;
         if(type.equals("ally"))
-            Information.allies_count--;
+            Field.allies_count--;
         else
-            Information.enemies_count--;
+            Field.enemies_count--;
+    }
+
+    public boolean isAlly() {
+        return type.equals("ally");
     }
 }

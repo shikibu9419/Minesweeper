@@ -1,5 +1,6 @@
 package ui;
 
+import algorithm.Opponent;
 import control.Information;
 import models.Unit;
 
@@ -9,6 +10,7 @@ public class Main extends UI {
     private static Unit[] allies = Information.allies;
     private static Display display = new Display();
     private static InputReceiver receiver = new InputReceiver();
+    private static Opponent opponent = new Opponent();
 
     public static void start() {
         while(true) {
@@ -31,7 +33,7 @@ public class Main extends UI {
                     count--;
             }
 
-            // TODO: Enemy's action
+            opponent.start();
         }
     }
 

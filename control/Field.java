@@ -29,14 +29,27 @@ public class Field extends Information {
     // ユニットの設定 (暫定)
     private static void setUnits() {
         for(int i = 0; i < allies.length; i++) {
-            allies[i] = new Unit(i, i, (char)('A' + i), "ally");
-            Field.fieldmap[i][i] = allies[i];
+            int y = randomInt(3);
+            int x = randomInt(3);
+            if(fieldmap[y][x] instanceof Unit){
+                i--;
+                continue;
+            }
+
+            allies[i] = new Unit(y, x, (char)('A' + i), "ally");
+            fieldmap[y][x] = allies[i];
         }
 
         for(int i = 0; i < enemies.length; i++) {
-            int hoge = MAX_X - i - 1;
-            enemies[i] = new Unit(hoge, hoge, 'X', "enemy");
-            Field.fieldmap[hoge][hoge] = enemies[i];
+            int y = MAX_Y - 1 - randomInt(3);
+            int x = MAX_X - 1 - randomInt(3);
+            if(fieldmap[y][x] instanceof Unit){
+                i--;
+                continue;
+            }
+
+            enemies[i] = new Unit(y, x, 'X', "enemy");
+            fieldmap[y][x] = enemies[i];
         }
     }
 
