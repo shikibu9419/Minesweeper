@@ -3,7 +3,7 @@ package control;
 import models.*;
 
 // ステージ(field)の管理をするクラス
-public class Field extends Control implements Information {
+public class Field extends Information {
 
     public static Cell[][] fieldmap = new Cell[MAX_Y][MAX_X];
 
@@ -29,13 +29,13 @@ public class Field extends Control implements Information {
     // ユニットの設定 (暫定)
     private static void setUnits() {
         for(int i = 0; i < allies.length; i++) {
-            allies[i] = new Unit(i, i, "ally");
+            allies[i] = new Unit(i, i, (char)('A' + i), "ally");
             Field.fieldmap[i][i] = allies[i];
         }
 
         for(int i = 0; i < enemies.length; i++) {
             int hoge = MAX_X - i - 1;
-            enemies[i] = new Unit(hoge, hoge, "enemy");
+            enemies[i] = new Unit(hoge, hoge, 'X', "enemy");
             Field.fieldmap[hoge][hoge] = enemies[i];
         }
     }

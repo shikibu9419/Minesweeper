@@ -4,8 +4,9 @@ import control.Information;
 import models.Unit;
 
 // 基本的な表示を行うクラス
-public class Main extends UI implements Information {
+public class Main extends UI {
 
+    private static Unit[] allies = Information.allies;
     private static Display display = new Display();
     private static InputReceiver receiver = new InputReceiver();
 
@@ -16,7 +17,7 @@ public class Main extends UI implements Information {
                 exitGame();
             }
 
-            for(int count = 0; count < ALLIES_COUNT; count++) {
+            for(int count = 0; count < allies.length; count++) {
                 Unit ally = allies[count];
 
                 if(ally.isDead)
