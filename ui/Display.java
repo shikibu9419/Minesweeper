@@ -32,7 +32,7 @@ public class Display extends UI {
             System.out.printf("%2d ", i + 1);
             // fieldの表示
             for(int j = 0; j < MAX_X; j++)
-                System.out.printf("%2s ", fieldmap[i][j].character);
+                System.out.printf(" %s ", fieldmap[i][j].character);
             System.out.println("");
         }
     }

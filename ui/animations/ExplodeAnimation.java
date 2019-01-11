@@ -1,6 +1,6 @@
 package ui.animations;
 
-import control.Control;
+import control.*;
 import models.Mine;
 import java.util.*;
 
@@ -8,6 +8,7 @@ import java.util.*;
 public class ExplodeAnimation extends Animation {
 
     private Queue<int[]> queue = new ArrayDeque<>();
+    private final String exploded = Information.toYellow("*");
 
     public ExplodeAnimation() {
         super();
@@ -24,7 +25,7 @@ public class ExplodeAnimation extends Animation {
             x = yx[1];
 
             // explode済みの地雷は飛ばす
-            if(fieldmap[y][x].character == '*')
+            if(fieldmap[y][x].character.equals(exploded))
                 continue;
 
             explode(y, x);
@@ -34,7 +35,7 @@ public class ExplodeAnimation extends Animation {
 
     // 爆発に巻き込まれたところを*で表示
     private void explode(int y, int x) {
-        fieldmap[y][x].character = '*';
+        fieldmap[y][x].character = exploded;
 
         int[][] surround = Control.surroundingField(y, x);
         for(int i = 0; i < surround.length; i++) {
@@ -44,7 +45,7 @@ public class ExplodeAnimation extends Animation {
             // 周囲の地雷以外のマスの文字を*に変更
             // (地雷マスはqueueに追加)
             if(!(fieldmap[y2][x2] instanceof Mine))
-                fieldmap[y2][x2].character = '*';
+                fieldmap[y2][x2].character = exploded;
             else
                 queue.add(surround[i]);
         }

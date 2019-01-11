@@ -16,6 +16,6 @@ public class Flatland extends Cell {
     public void detected() {
         isDetected = true;
         if(surroundingBombs > 0)
-            character = (char)('0' + surroundingBombs);
+            character = String.valueOf(surroundingBombs);
     }
 }

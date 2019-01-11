@@ -36,7 +36,7 @@ public class Field extends Information {
                 continue;
             }
 
-            allies[i] = new Unit(y, x, (char)('A' + i), "ally");
+            allies[i] = new Unit(y, x, allyCharacters[i], "ally");
             fieldmap[y][x] = allies[i];
         }
 
@@ -48,7 +48,7 @@ public class Field extends Information {
                 continue;
             }
 
-            enemies[i] = new Unit(y, x, 'X', "enemy");
+            enemies[i] = new Unit(y, x, "X", "enemy");
             fieldmap[y][x] = enemies[i];
         }
     }

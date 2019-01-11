@@ -1,6 +1,6 @@
 package models;
 
-import control.Field;
+import control.*;
 
 // 動かす駒
 public class Unit extends Cell {
@@ -8,10 +8,13 @@ public class Unit extends Cell {
     public boolean isDead = false;
     public String type;
 
-    public Unit(int y, int x, char character, String type) {
+    public Unit(int y, int x, String character, String type) {
         setCoordinate(y, x);
-        this.character = character;
         this.type = type;
+        if(isAlly())
+            this.character = Information.toBlue(character);
+        else
+            this.character = Information.toRed(character);
     }
 
     // ユニットが死んだとき (暫定実装)
