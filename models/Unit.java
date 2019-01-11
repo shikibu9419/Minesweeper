@@ -5,16 +5,17 @@ import control.*;
 // 動かす駒
 public class Unit extends Cell {
 
+    private static String[] allyChars = {"A", "B", "C"};
     public boolean isDead = false;
     public String type;
 
-    public Unit(int y, int x, String character, String type) {
+    public Unit(int y, int x, int index, String type) {
         setCoordinate(y, x);
         this.type = type;
         if(isAlly())
-            this.character = Information.toBlue(character);
+            setCharacter(allyChars[index], "blue");
         else
-            this.character = Information.toRed(character);
+            setCharacter("X", "red");
     }
 
     // ユニットが死んだとき (暫定実装)

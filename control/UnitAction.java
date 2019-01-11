@@ -43,9 +43,7 @@ public class UnitAction extends Control {
         if(unit.isAlly()) {
             if(cell instanceof Unit)
                 return false;
-            else if(cell instanceof Flatland)
-                unit.surroundingBombs = ((Flatland) cell).surroundingBombs;
-            else {
+            else if(cell instanceof Mine){
                 ((Mine) cell).bomb();
                 new ExplodeAnimation().start(y2, x2);
                 return true;
@@ -53,9 +51,10 @@ public class UnitAction extends Control {
         }
 
         // ユニット移動 (前にいたところは平地になる)
-        Field.fieldmap[y2][x2] = unit;
         Field.fieldmap[unit.y][unit.x] = new Flatland(unit.surroundingBombs);
         unit.setCoordinate(y2, x2);
+        unit.surroundingBombs = cell.surroundingBombs;
+        Field.fieldmap[y2][x2] = unit;
 
         if(unit.isAlly())
             detect();
@@ -67,8 +66,8 @@ public class UnitAction extends Control {
     public boolean detonate(int y, int x) {
         Cell cell = Field.fieldmap[y][x];
         if(cell instanceof Mine) {
-            ((Mine) cell).bomb();
             new ExplodeAnimation().start(y, x);
+            ((Mine) cell).bomb();
         }
 
         return true;
