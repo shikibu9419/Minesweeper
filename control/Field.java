@@ -68,9 +68,9 @@ public class Field extends Information {
             count++;
 
             // 地雷周辺の平地の地雷数をインクリメント
-            int[][] surround = surroundingField(y, x);
+            int[][] surround = surroundField(y, x);
             for(int i = 0; i < surround.length; i++) {
-                fieldmap[surround[i][0]][surround[i][1]].surroundingBombs++;
+                fieldmap[surround[i][0]][surround[i][1]].surroundMines++;
             }
         }
     }

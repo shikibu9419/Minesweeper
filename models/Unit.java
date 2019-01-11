@@ -10,6 +10,7 @@ public class Unit extends Cell {
     public boolean isDead = false;
 
     public Unit(int y, int x, int index, String type) {
+        isDetected = true;
         setCoordinate(y, x);
         this.type = type;
         if(isAlly())
@@ -20,7 +21,7 @@ public class Unit extends Cell {
 
     // ユニットが死んだとき (暫定実装)
     public void death() {
-        Field.fieldmap[y][x] = new Flatland(this.surroundingBombs);
+        Field.fieldmap[y][x] = new Flatland(this.surroundMines, isDetected);
         this.isDead = true;
         if(type.equals("ally"))
             Field.allies_count--;

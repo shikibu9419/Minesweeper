@@ -14,8 +14,11 @@ public class Main extends UI {
 
     public static void start() {
         while(true) {
-            if(allDead()) {
+            if(Information.allDead("ally")) {
                 System.out.println("You lose...");
+                exitGame();
+            } else if(Information.allDead("enemy")) {
+                System.out.println("You win!");
                 exitGame();
             }
 
@@ -32,16 +35,7 @@ public class Main extends UI {
                 if(! receiver.receive(ally))
                     count--;
             }
-
             opponent.start();
         }
-    }
-
-    private static boolean allDead() {
-        boolean res = true;
-        for(Unit ally:allies)
-            if(! ally.isDead)
-                res = false;
-        return res;
     }
 }

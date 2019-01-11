@@ -51,9 +51,10 @@ public class UnitAction extends Control {
         }
 
         // ユニット移動 (前にいたところは平地になる)
-        Field.fieldmap[unit.y][unit.x] = new Flatland(unit.surroundingBombs);
+        Field.fieldmap[unit.y][unit.x] = new Flatland(unit.surroundMines, unit.isDetected);
         unit.setCoordinate(y2, x2);
-        unit.surroundingBombs = cell.surroundingBombs;
+        unit.surroundMines = cell.surroundMines;
+        unit.isDetected = cell.isDetected;
         Field.fieldmap[y2][x2] = unit;
 
         if(unit.isAlly())
@@ -75,7 +76,7 @@ public class UnitAction extends Control {
 
     // 周囲の平地の調査
     private void detect() {
-        int[][] surround = surroundingField(unit.y, unit.x);
+        int[][] surround = surroundField(unit.y, unit.x);
         for(int i = 0; i < surround.length; i++) {
             Field.fieldmap[surround[i][0]][surround[i][1]].detected();
         }

@@ -10,7 +10,7 @@ public class Control {
     private static int[] dx = {-1, -1, -1,  0, 0,  1, 1, 1};
 
     // 周囲のfield範囲内の座標一覧を[y][x]の配列にして返す
-    public static int[][] surroundingField(int y, int x) {
+    public static int[][] surroundField(int y, int x) {
         ArrayList<int[]> surround = new ArrayList<>();
 
         for(int i = 0; i < 8; i++) {

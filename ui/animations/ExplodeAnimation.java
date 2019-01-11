@@ -36,7 +36,7 @@ public class ExplodeAnimation extends Animation {
     private void explode(int y, int x) {
         fieldmap[y][x].setLooks("*", "yellow");
 
-        int[][] surround = Control.surroundingField(y, x);
+        int[][] surround = Control.surroundField(y, x);
         for(int i = 0; i < surround.length; i++) {
             int y2 = surround[i][0];
             int x2 = surround[i][1];

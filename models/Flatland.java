@@ -5,12 +5,14 @@ public class Flatland extends Cell {
 
     public Flatland() {}
 
-    public Flatland(int num) {
-        surroundingBombs = num;
+    public Flatland(int num, boolean isDetected) {
+        surroundMines = num;
+        if(isDetected)
+            detected();
     }
 
     public void decrementBombs() {
-        surroundingBombs--;
+        surroundMines--;
         if(isDetected)
             detected();
     }

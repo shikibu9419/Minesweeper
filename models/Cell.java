@@ -6,7 +6,7 @@ public class Cell implements Cloneable {
 
     public int y;
     public int x;
-    public int surroundingBombs = 0;    // 周りの地雷の数
+    public int surroundMines = 0;       // 周りの地雷の数
     public boolean isDetected = false;  // 調査されたことがあるか
     public String character = ".";      // 画面上で表示される文字
     public String color = "";           //  とその色
@@ -17,8 +17,8 @@ public class Cell implements Cloneable {
 
         if(this instanceof Unit)
             return;
-        else if(this instanceof Flatland && surroundingBombs > 0)
-            setLooks(String.valueOf(surroundingBombs), "blue");
+        else if(this instanceof Flatland && surroundMines > 0)
+            setLooks(String.valueOf(surroundMines), "blue");
         else
             setLooks(".", "blue");
     }

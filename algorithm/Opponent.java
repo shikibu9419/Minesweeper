@@ -11,9 +11,12 @@ public class Opponent extends Algorithm {
     }
 
     public void start() {
-        for(Unit enemy:Field.enemies)
+        for(Unit enemy:Field.enemies) {
+            if(enemy.isDead)
+                continue;
             if(moveToClosestAlly(enemy))
                 System.out.println("");
+        }
     }
 
     // 敵ユニットの動き(暫定実装)
@@ -25,6 +28,9 @@ public class Opponent extends Algorithm {
 
         // 一番近いユニットとその距離を計算
         for(Unit ally:Field.allies) {
+            if(ally.isDead)
+                continue;
+
             int disy2 = ally.y - enemy.y;
             int disx2 = ally.x - enemy.x;
             if(Math.abs(disy2) + Math.abs(disx2) < Math.abs(disy) + Math.abs(disx)) {
