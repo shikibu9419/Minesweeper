@@ -3,7 +3,7 @@ package control;
 import models.*;
 
 // ステージ(field)の管理をするクラス
-public class Field extends Information {
+public class Field extends Control implements Information {
 
     public static Cell[][] fieldmap = new Cell[MAX_Y][MAX_X];
 
