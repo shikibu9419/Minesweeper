@@ -24,7 +24,7 @@ public class ExplodeAnimation extends Animation {
             x = yx[1];
 
             // explode済みの地雷は飛ばす
-            if(fieldmap[y][x].character.matches(".*\\*.*"))
+            if(fieldmap[y][x].character.equals("*"))
                 continue;
 
             explode(y, x);
@@ -34,7 +34,7 @@ public class ExplodeAnimation extends Animation {
 
     // 爆発に巻き込まれたところを*で表示
     private void explode(int y, int x) {
-        fieldmap[y][x].setCharacter("*", "yellow");
+        fieldmap[y][x].setLooks("*", "yellow");
 
         int[][] surround = Control.surroundingField(y, x);
         for(int i = 0; i < surround.length; i++) {
@@ -44,7 +44,7 @@ public class ExplodeAnimation extends Animation {
             // 周囲の地雷以外のマスの文字を*に変更
             // (地雷マスはqueueに追加)
             if(!(fieldmap[y2][x2] instanceof Mine))
-                fieldmap[y2][x2].setCharacter("*", "yellow");
+                fieldmap[y2][x2].setLooks("*", "yellow");
             else
                 queue.add(surround[i]);
         }

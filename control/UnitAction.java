@@ -77,9 +77,7 @@ public class UnitAction extends Control {
     private void detect() {
         int[][] surround = surroundingField(unit.y, unit.x);
         for(int i = 0; i < surround.length; i++) {
-            Cell cell = Field.fieldmap[surround[i][0]][surround[i][1]];
-            if(cell instanceof Flatland)
-                ((Flatland) cell).detected();
+            Field.fieldmap[surround[i][0]][surround[i][1]].detected();
         }
     }
 }

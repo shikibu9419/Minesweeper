@@ -6,21 +6,20 @@ import control.*;
 public class Unit extends Cell {
 
     private static String[] allyChars = {"A", "B", "C"};
-    public boolean isDead = false;
     public String type;
+    public boolean isDead = false;
 
     public Unit(int y, int x, int index, String type) {
         setCoordinate(y, x);
         this.type = type;
         if(isAlly())
-            setCharacter(allyChars[index], "blue");
+            setLooks(allyChars[index], "green");
         else
-            setCharacter("X", "red");
+            setLooks("X", "red");
     }
 
     // ユニットが死んだとき (暫定実装)
     public void death() {
-        decrementBombs();
         Field.fieldmap[y][x] = new Flatland(this.surroundingBombs);
         this.isDead = true;
         if(type.equals("ally"))

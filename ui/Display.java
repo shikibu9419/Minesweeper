@@ -4,7 +4,7 @@ import models.Cell;
 import control.Field;
 
 // 基本的な表示を行うクラス
-public class Display extends UI {
+public class Display extends Color {
 
     public void show() {
         displayField(Field.fieldmap);
@@ -32,7 +32,7 @@ public class Display extends UI {
             System.out.printf("%2d ", i + 1);
             // fieldの表示
             for(int j = 0; j < MAX_X; j++)
-                System.out.printf(" %s ", fieldmap[i][j].character);
+                System.out.printf(" %s ", decorate(fieldmap[i][j]));
             System.out.println("");
         }
     }

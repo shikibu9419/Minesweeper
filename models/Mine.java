@@ -10,6 +10,10 @@ public class Mine extends Cell {
         Field.fieldmap[y][x] = this;
     }
 
+    public void detected() {
+        setLooks(".", "blue");
+    }
+
     public void bomb() {
         Field.fieldmap[y][x] = new Flatland(); // 爆発後は平地になる
 
