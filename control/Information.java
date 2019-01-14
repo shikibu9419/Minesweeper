@@ -17,7 +17,7 @@ public class Information extends Control {
     public static Unit[] allies  = new Unit[allies_count];
     public static Unit[] enemies = new Unit[enemies_count];
 
-    public static boolean allDead(String type) {
+    public static boolean isAllDead(String type) {
         Unit[] units = type.equals("ally") ? allies : enemies;
         boolean res = true;
         for(Unit unit:units)

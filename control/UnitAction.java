@@ -64,7 +64,7 @@ public class UnitAction extends Control {
         if(unit.isAlly())
             detect();
 
-        Information.addNotification("Unit " + unit.character + " moved to (" + (unit.x + 1) + ", " + (unit.y + 1) + ").");
+        notice(String.format("Unit %s moved to (%d, %d).", unit.character, unit.x + 1, unit.y + 1));
         return true;
     }
 
@@ -77,15 +77,15 @@ public class UnitAction extends Control {
         if(cell instanceof Mine) {
             new ExplodeAnimation().start(y, x);
             ((Mine) cell).bomb();
-            Information.addNotification("Mine on (" + (x + 1) + ", " + (y + 1) + ") bombed.");
+            notice(String.format("Mine on (%d, %d) bombed.", x + 1, y + 1));
         } else
-            Information.addNotification("There is no mine on (" + (x + 1) + ", " + (y + 1) + ").");
+            notice(String.format("There is no mine on (%d, %d).", x + 1, y + 1));
 
         return true;
     }
 
     public void cancel() {
-        Information.addNotification("Selection Unit " + unit.character + " canceled.");
+        notice("Selection Unit " + unit.character + " canceled.");
     }
 
     // 周囲の平地の調査
@@ -98,13 +98,17 @@ public class UnitAction extends Control {
 
     private boolean disabled() {
         if(unit.dead) {
-            Information.addNotification("Unit " + unit.character + " is Dead.");
+            notice("Unit " + unit.character + " is Dead.");
             return true;
         }
         if(unit.acted) {
-            Information.addNotification("Unit " + unit.character + " acted.");
+            notice("Unit " + unit.character + " acted.");
             return true;
         }
         return (unit.dead || unit.acted) ? true : false;
+    }
+
+    private void notice(String msg) {
+        Information.addNotification(msg);
     }
 }

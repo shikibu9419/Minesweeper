@@ -15,10 +15,10 @@ public class Main extends UI {
     public static void start() {
         // ゲーム開始
         while(true) {
-            if(Information.allDead("ally")) {
+            if(Information.isAllDead("ally")) {
                 System.out.println("You lose...");
                 exitGame();
-            } else if(Information.allDead("enemy")) {
+            } else if(Information.isAllDead("enemy")) {
                 System.out.println("You win!");
                 exitGame();
             }

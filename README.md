@@ -28,6 +28,7 @@ nitac_programming_task
 |   |-- Main.java
 |   |-- Display.java
 |   |-- InputReceiver.java
+|   |-- Color.java
 |   `-- animations                アニメーション関連
 |       |-- Animation.java
 |       `-- ExplodeAnimation.java
