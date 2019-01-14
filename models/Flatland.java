@@ -5,15 +5,15 @@ public class Flatland extends Cell {
 
     public Flatland() {}
 
-    public Flatland(int num, boolean isDetected) {
+    public Flatland(int num, boolean detected) {
         this.surroundMines = num;
-        if(isDetected)
-            detected();
+        if(detected)
+            detect();
     }
 
     public void decrementBombs() {
         surroundMines--;
-        if(isDetected)
-            detected();
+        if(detected)
+            detect();
     }
 }

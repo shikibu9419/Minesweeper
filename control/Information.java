@@ -9,6 +9,7 @@ public class Information extends Control {
     public static final int MAX_Y = 20;
     public static final int MAX_X = 20;
     public static final int MINE_COUNT = 50;
+    public static Cell[][] fieldmap = new Cell[MAX_Y][MAX_X];
 
     // Unit informations
     public static int allies_count  = 3;
@@ -20,7 +21,7 @@ public class Information extends Control {
         Unit[] units = type.equals("ally") ? allies : enemies;
         boolean res = true;
         for(Unit unit:units)
-            if(! unit.isDead)
+            if(! unit.dead)
                 res = false;
         return res;
     }

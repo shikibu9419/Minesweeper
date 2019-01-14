@@ -34,13 +34,14 @@ public class Main extends UI {
                     continue;
 
                 Unit ally = allies[index];
-                ally.color = "sky";
+                ally.updateAvailable(true);
 
                 // ユニットの行動が完了するまで
                 while(true) {
-                    display.action();
+                    display.action(ally);
                     if(receiver.actuate(ally)) {
-                        ally.color = "green";
+                        ally.acted = true;
+                        ally.updateAvailable(false);
                         break;
                     }
                 }
@@ -51,9 +52,8 @@ public class Main extends UI {
             opponent.start();
         }
     }
-
     private static void resetAllies() {
         for(Unit ally:allies)
-            ally.color = "blue";
+            ally.acted = false;
     }
 }

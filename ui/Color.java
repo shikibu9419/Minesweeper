@@ -1,6 +1,6 @@
 package ui;
 
-import models.Cell;
+import models.*;
 
 public class Color extends UI {
 
@@ -15,26 +15,13 @@ public class Color extends UI {
 
     protected String decorate(Cell cell) {
         String color = WHITE;
-        switch(cell.color) {
-            case "red":
-                color = RED;
-                break;
-            case "green":
-                color = GREEN;
-                break;
-            case "yellow":
-                color = YELLOW;
-                break;
-            case "blue":
-                color = BLUE;
-                break;
-            case "pink":
-                color = PINK;
-                break;
-            case "sky":
-                color = SKY;
-                break;
-        }
+        if(cell.available)
+            color = SKY;
+        else if(cell instanceof Unit)
+            color = ((Unit) cell).isAlly() ? BLUE : RED;
+        else
+            color = cell.detected ? GREEN : WHITE;
+
         return color + cell.character + END;
     }
 }

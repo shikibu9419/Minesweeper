@@ -7,6 +7,7 @@ import ui.animations.*;
 public class UnitAction extends Control {
 
     private Unit unit;
+    private Cell[][] fieldmap = Information.fieldmap;
 
     public UnitAction(Unit unit) {
         this.unit = unit;
@@ -40,7 +41,7 @@ public class UnitAction extends Control {
         if(outOfField(y2, x2))
             return false;
 
-        Cell cell = Field.fieldmap[y2][x2];
+        Cell cell = fieldmap[y2][x2];
 
         // 地形ごとの設定
         if(unit.isAlly()) {
@@ -54,11 +55,11 @@ public class UnitAction extends Control {
         }
 
         // ユニット移動 (前にいたところは平地になる)
-        Field.fieldmap[unit.y][unit.x] = new Flatland(unit.surroundMines, unit.isDetected);
+        fieldmap[unit.y][unit.x] = new Flatland(unit.surroundMines, unit.detected);
         unit.setCoordinate(y2, x2);
         unit.surroundMines = cell.surroundMines;
-        unit.isDetected = cell.isDetected;
-        Field.fieldmap[y2][x2] = unit;
+        unit.detected = cell.detected;
+        fieldmap[y2][x2] = unit;
 
         if(unit.isAlly())
             detect();
@@ -72,7 +73,7 @@ public class UnitAction extends Control {
         if(disabled())
             return false;
 
-        Cell cell = Field.fieldmap[y][x];
+        Cell cell = fieldmap[y][x];
         if(cell instanceof Mine) {
             new ExplodeAnimation().start(y, x);
             ((Mine) cell).bomb();
@@ -86,19 +87,19 @@ public class UnitAction extends Control {
     private void detect() {
         int[][] surround = surroundField(unit.y, unit.x);
         for(int i = 0; i < surround.length; i++) {
-            Field.fieldmap[surround[i][0]][surround[i][1]].detected();
+            fieldmap[surround[i][0]][surround[i][1]].detect();
         }
     }
 
     private boolean disabled() {
-        if(unit.isDead) {
+        if(unit.dead) {
             Information.addNotification("Unit " + unit.character + " is Dead.");
             return true;
         }
-        if(unit.acted()) {
+        if(unit.acted) {
             Information.addNotification("Unit " + unit.character + " acted.");
             return true;
         }
-        return (unit.isDead || unit.acted()) ? true : false;
+        return (unit.dead || unit.acted) ? true : false;
     }
 }

@@ -1,26 +1,27 @@
 package ui;
 
 import models.Cell;
-import control.*;
+import control.Information;
 
 // 基本的な表示を行うクラス
 public class Display extends Color {
 
-    public void action() {
-        displayField(Field.fieldmap);
-        System.out.println(Information.notification);
-
-        System.out.println("Select action.");
+    public void selection() {
+        showInformation("unit");
         System.out.print("> ");
     }
 
-    public void selection() {
-        displayField(Field.fieldmap);
+    public void action(Cell cell) {
+        showInformation("action");
+        System.out.print("Unit " + decorate(cell) + " > ");
+    }
+
+    private void showInformation(String phase) {
+        displayField(Information.fieldmap);
         System.out.println("");
         System.out.println(Information.notification);
 
-        System.out.println("Select unit.");
-        System.out.print("> ");
+        System.out.println("Select " + phase + ":");
     }
 
     // fieldを表示

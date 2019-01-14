@@ -5,8 +5,6 @@ import models.*;
 // ステージ(field)の管理をするクラス
 public class Field extends Information {
 
-    public static Cell[][] fieldmap = new Cell[MAX_Y][MAX_X];
-
     // 本体に影響がないようにfieldmapのディープコピーを渡すメソッド
     public static Cell[][] getClone() {
         Cell[][] res = new Cell[MAX_Y][MAX_X];
