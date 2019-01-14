@@ -63,6 +63,7 @@ public class UnitAction extends Control {
         if(unit.isAlly())
             detect();
 
+        Information.addNotification("Unit " + unit.character + " moved to (" + (unit.x + 1) + ", " + (unit.y + 1) + ").");
         return true;
     }
 
@@ -77,6 +78,7 @@ public class UnitAction extends Control {
             ((Mine) cell).bomb();
         }
 
+        Information.addNotification("Mine on (" + (x + 1) + ", " + (y + 1) + ") bombed.");
         return true;
     }
 
@@ -89,6 +91,14 @@ public class UnitAction extends Control {
     }
 
     private boolean disabled() {
+        if(unit.isDead) {
+            Information.addNotification("Unit " + unit.character + " is Dead.");
+            return true;
+        }
+        if(unit.acted()) {
+            Information.addNotification("Unit " + unit.character + " acted.");
+            return true;
+        }
         return (unit.isDead || unit.acted()) ? true : false;
     }
 }

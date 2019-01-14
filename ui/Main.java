@@ -47,6 +47,7 @@ public class Main extends UI {
             }
 
             resetAllies();
+            Information.resetNotification();
             opponent.start();
         }
     }

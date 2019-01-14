@@ -27,4 +27,12 @@ public class Information extends Control {
 
     // Others
     public static String notification = "";
+
+    public static void addNotification(String str) {
+        notification += str + "\n";
+    }
+
+    public static void resetNotification() {
+        notification = "";
+    }
 }

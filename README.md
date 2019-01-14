@@ -32,7 +32,9 @@ nitac_programming_task
 |       |-- Animation.java
 |       `-- ExplodeAnimation.java
 `-- algorithm                     アルゴリズム関連
-    `-- ゲームを解いてくれるアルゴリズム(仮)
+    |-- Algorithm.java
+    |-- Solver.java
+    `-- Opponent.java
 ```
 
 ## コードを書く時...

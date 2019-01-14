@@ -20,6 +20,8 @@ public class InputReceiver extends UI {
             // finish
             case "f":
                 return -1;
+            case "e":
+                exitGame();
             default:
                 return -2;
         }
