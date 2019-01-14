@@ -7,21 +7,31 @@ import control.Information;
 public class Display extends Color {
 
     public void selection() {
-        showInformation("unit");
+        showInformation();
+
+        System.out.println("Enter one of following commands:");
+        System.out.println("  A/B/C  Select unit A / B / C");
+        System.out.println("  f      Finish your turn");
+        System.out.println("");
         System.out.print("> ");
     }
 
     public void action(Cell cell) {
-        showInformation("action");
+        showInformation();
+
+        System.out.println("Enter one of following commands:");
+        System.out.println("  e/w/n/s     Move to east / west / north / south");
+        System.out.println("  b (x) (y)   If the mine is on (x, y) blow it up");
+        System.out.println("  c           Cancel selection");
+        System.out.println("");
         System.out.print("Unit " + decorate(cell) + " > ");
     }
 
-    private void showInformation(String phase) {
+    private void showInformation() {
         displayField(Information.fieldmap);
+
         System.out.println("");
         System.out.println(Information.notification);
-
-        System.out.println("Select " + phase + ":");
     }
 
     // fieldを表示

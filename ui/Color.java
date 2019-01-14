@@ -15,12 +15,19 @@ public class Color extends UI {
 
     protected String decorate(Cell cell) {
         String color = WHITE;
-        if(cell.available)
-            color = SKY;
-        else if(cell instanceof Unit)
-            color = ((Unit) cell).isAlly() ? BLUE : RED;
-        else
-            color = cell.detected ? GREEN : WHITE;
+
+        if(cell.character.equals("*"))
+            color = YELLOW;  // exploded cell
+        else if(cell.available)
+            color = SKY;     // available cell
+        else if(cell instanceof Unit) {
+            Unit unit = (Unit)cell;
+            if(unit.isAlly())
+                color = unit.acted ? GREEN : BLUE;  // ally unit
+            else
+                color = RED;  // enemy unit
+        } else
+            color = cell.detected ? GREEN : WHITE;  // mine, flatland
 
         return color + cell.character + END;
     }

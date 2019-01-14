@@ -11,13 +11,15 @@ public class Unit extends Cell {
     public boolean acted = false;
 
     public Unit(int y, int x, int index, String type) {
-        detected = true;
         setCoordinate(y, x);
         this.type = type;
-        if(isAlly())
+        if(isAlly()) {
             character = allyChars[index];
-        else
+            detected  = true;
+        } else {
             character = "X";
+            detected  = false;
+        }
     }
 
     // ユニットが死んだとき (暫定実装)

@@ -44,14 +44,14 @@ public class Opponent extends Algorithm {
         String direction;
         if(disy > disx) {
             if(disx > 0)
-                direction = "r";
+                direction = "e";
             else
-                direction = "l";
+                direction = "w";
         } else {
             if(disy > 0)
-                direction = "d";
+                direction = "s";
             else
-                direction = "u";
+                direction = "n";
         }
 
         return action.move(direction);

@@ -20,32 +20,34 @@ public class InputReceiver extends UI {
             // finish
             case "f":
                 return -1;
-            case "e":
-                exitGame();
             default:
                 return -2;
         }
     }
 
-    public boolean actuate(Unit unit) {
+    public int actuate(Unit unit) {
         UnitAction action = new UnitAction(unit);
         String[] order = scan.next().split(" |　");
 
         // 入力命令の解釈
+        // boolean を 1 or 0 にして返すの実装の敗北
         switch(order[0]) {
             // east/west/north/south
             case "e":
             case "w":
             case "n":
             case "s":
-                return action.move(order[0]);
+                return action.move(order[0]) ? 1 : 0;
             // bomb (x) (y)
             case "b":
                 int y = Integer.parseInt(order[2]) - 1;
                 int x = Integer.parseInt(order[1]) - 1;
-                return action.detonate(y, x);
+                return action.detonate(y, x) ? 1 : 0;
+            case "c":
+                action.cancel();
+                return -1;
             default:
-                return false;
+                return 0;
         }
     }
 }

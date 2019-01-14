@@ -23,7 +23,7 @@ public class Main extends UI {
                 exitGame();
             }
 
-            // finish が指定されるまで
+            // ターン終了 (f) が指定されるまで
             while(true) {
                 display.selection();
 
@@ -39,12 +39,17 @@ public class Main extends UI {
                 // ユニットの行動が完了するまで
                 while(true) {
                     display.action(ally);
-                    if(receiver.actuate(ally)) {
+
+                    int result = receiver.actuate(ally);
+                    if(result == 0)
+                        continue;
+                    if(result == 1)
                         ally.acted = true;
-                        ally.updateAvailable(false);
-                        break;
-                    }
+
+                    break;
                 }
+
+                ally.updateAvailable(false);
             }
 
             resetAllies();
@@ -52,6 +57,7 @@ public class Main extends UI {
             opponent.start();
         }
     }
+
     private static void resetAllies() {
         for(Unit ally:allies)
             ally.acted = false;

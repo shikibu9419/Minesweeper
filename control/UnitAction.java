@@ -77,10 +77,15 @@ public class UnitAction extends Control {
         if(cell instanceof Mine) {
             new ExplodeAnimation().start(y, x);
             ((Mine) cell).bomb();
-        }
+            Information.addNotification("Mine on (" + (x + 1) + ", " + (y + 1) + ") bombed.");
+        } else
+            Information.addNotification("There is no mine on (" + (x + 1) + ", " + (y + 1) + ").");
 
-        Information.addNotification("Mine on (" + (x + 1) + ", " + (y + 1) + ") bombed.");
         return true;
+    }
+
+    public void cancel() {
+        Information.addNotification("Selection Unit " + unit.character + " canceled.");
     }
 
     // 周囲の平地の調査
