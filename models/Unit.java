@@ -14,14 +14,14 @@ public class Unit extends Cell {
         setCoordinate(y, x);
         this.type = type;
         if(isAlly())
-            setLooks(allyChars[index], "green");
+            setLooks(allyChars[index], "blue");
         else
             setLooks("X", "red");
     }
 
     // ユニットが死んだとき (暫定実装)
     public void death() {
-        Field.fieldmap[y][x] = new Flatland(this.surroundMines, isDetected);
+        Field.fieldmap[y][x] = new Flatland(this.surroundMines - 1, isDetected);
         this.isDead = true;
         if(type.equals("ally"))
             Field.allies_count--;
@@ -31,5 +31,9 @@ public class Unit extends Cell {
 
     public boolean isAlly() {
         return type.equals("ally");
+    }
+
+    public boolean acted() {
+        return color == "green";
     }
 }

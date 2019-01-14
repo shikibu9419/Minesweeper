@@ -6,7 +6,7 @@ public class Flatland extends Cell {
     public Flatland() {}
 
     public Flatland(int num, boolean isDetected) {
-        surroundMines = num;
+        this.surroundMines = num;
         if(isDetected)
             detected();
     }

@@ -14,19 +14,22 @@ public class UnitAction extends Control {
 
     // left/right/up/down のいずれかに移動する
     public boolean move(String direction) {
+        if(disabled())
+            return false;
+
         int y2 = unit.y;
         int x2 = unit.x;
         switch(direction) {
-            case "l":
+            case "w":
                 x2--;
                 break;
-            case "r":
+            case "e":
                 x2++;
                 break;
-            case "u":
+            case "n":
                 y2--;
                 break;
-            case "d":
+            case "s":
                 y2++;
                 break;
             default:
@@ -65,6 +68,9 @@ public class UnitAction extends Control {
 
     //敵を爆破
     public boolean detonate(int y, int x) {
+        if(disabled())
+            return false;
+
         Cell cell = Field.fieldmap[y][x];
         if(cell instanceof Mine) {
             new ExplodeAnimation().start(y, x);
@@ -80,5 +86,9 @@ public class UnitAction extends Control {
         for(int i = 0; i < surround.length; i++) {
             Field.fieldmap[surround[i][0]][surround[i][1]].detected();
         }
+    }
+
+    private boolean disabled() {
+        return (unit.isDead || unit.acted()) ? true : false;
     }
 }

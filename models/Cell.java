@@ -18,9 +18,9 @@ public class Cell implements Cloneable {
         if(this instanceof Unit)
             return;
         else if(this instanceof Flatland && surroundMines > 0)
-            setLooks(String.valueOf(surroundMines), "blue");
+            setLooks(String.valueOf(surroundMines), "green");
         else
-            setLooks(".", "blue");
+            setLooks(".", "green");
     }
 
     public void setCoordinate(int y, int x) {

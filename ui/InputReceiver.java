@@ -9,26 +9,39 @@ public class InputReceiver extends UI {
 
     private static Scanner scan = new Scanner(System.in).useDelimiter("\n");
 
-    public boolean receive(Unit unit) {
+    public int select() {
+        String[] order = scan.next().split(" |　");
+        switch (order[0]) {
+            // units
+            case "A":
+            case "B":
+            case "C":
+                return (int)(order[0].getBytes()[0] - "A".getBytes()[0]);
+            // finish
+            case "f":
+                return -1;
+            default:
+                return -2;
+        }
+    }
+
+    public boolean actuate(Unit unit) {
         UnitAction action = new UnitAction(unit);
         String[] order = scan.next().split(" |　");
 
         // 入力命令の解釈
         switch(order[0]) {
-            // r/l/u/d
-            case "r":
-            case "l":
-            case "u":
-            case "d":
+            // east/west/north/south
+            case "e":
+            case "w":
+            case "n":
+            case "s":
                 return action.move(order[0]);
             // bomb (x) (y)
-            case "bomb":
+            case "b":
                 int y = Integer.parseInt(order[2]) - 1;
                 int x = Integer.parseInt(order[1]) - 1;
                 return action.detonate(y, x);
-            // exit
-            case "exit":
-                exitGame();
             default:
                 return false;
         }

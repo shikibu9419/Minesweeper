@@ -6,13 +6,19 @@ import control.Field;
 // 基本的な表示を行うクラス
 public class Display extends Color {
 
-    public void show() {
+    public void action() {
+        displayField(Field.fieldmap);
+        showInformation();
+    }
+
+    public void selection() {
         displayField(Field.fieldmap);
         showInformation();
     }
 
     private void showInformation() {
         System.out.println("");
+        System.out.print("> ");
     }
 
     // fieldを表示

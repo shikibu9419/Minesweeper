@@ -13,6 +13,7 @@ public class Main extends UI {
     private static Opponent opponent = new Opponent();
 
     public static void start() {
+        // ゲーム開始
         while(true) {
             if(Information.allDead("ally")) {
                 System.out.println("You lose...");
@@ -22,20 +23,36 @@ public class Main extends UI {
                 exitGame();
             }
 
-            for(int count = 0; count < allies.length; count++) {
-                Unit ally = allies[count];
+            // finish が指定されるまで
+            while(true) {
+                display.selection();
 
-                if(ally.isDead)
+                int index = receiver.select();
+                if(index == -1)
+                    break;
+                else if(index < -1)
                     continue;
 
-                display.show();
+                Unit ally = allies[index];
+                ally.color = "sky";
 
-                System.out.print(ally.character + " > ");
-
-                if(! receiver.receive(ally))
-                    count--;
+                // ユニットの行動が完了するまで
+                while(true) {
+                    display.action();
+                    if(receiver.actuate(ally)) {
+                        ally.color = "green";
+                        break;
+                    }
+                }
             }
+
+            resetAllies();
             opponent.start();
         }
+    }
+
+    private static void resetAllies() {
+        for(Unit ally:allies)
+            ally.color = "blue";
     }
 }
