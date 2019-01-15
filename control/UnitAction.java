@@ -59,7 +59,8 @@ public class UnitAction extends Control {
         if(unit.isAlly())
             detect();
 
-        notice(String.format("Unit %s moved to (%d, %d).", unit.character, unit.x + 1, unit.y + 1));
+        notice(String.format("Moved to (%d, %d).", unit.x + 1, unit.y + 1));
+
         return true;
     }
 
@@ -67,6 +68,11 @@ public class UnitAction extends Control {
     public boolean detonate(int y, int x) {
         if(disabled())
             return false;
+
+        if(outOfField(y, x)) {
+            notice(String.format("(%d, %d) is out of field!"));
+            return false;
+        }
 
         Cell cell = fieldmap[y][x];
         if(cell instanceof Mine) {
@@ -80,7 +86,7 @@ public class UnitAction extends Control {
     }
 
     public void cancel() {
-        notice("Selection Unit " + unit.character + " canceled.");
+        notice("Selection canceled.");
     }
 
     // 周囲の平地の調査
@@ -93,17 +99,17 @@ public class UnitAction extends Control {
 
     private boolean disabled() {
         if(unit.dead) {
-            notice("Unit " + unit.character + " is Dead.");
+            notice("Already dead.");
             return true;
         }
         if(unit.acted) {
-            notice("Unit " + unit.character + " acted.");
+            notice("Already acted.");
             return true;
         }
-        return (unit.dead || unit.acted) ? true : false;
+        return false;
     }
 
     private void notice(String msg) {
-        Information.addNotification(msg);
+        Information.addNotification(String.format("Unit %s: %s", unit.character, msg));
     }
 }

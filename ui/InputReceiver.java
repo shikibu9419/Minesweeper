@@ -27,27 +27,27 @@ public class InputReceiver extends UI {
 
     public int actuate(Unit unit) {
         UnitAction action = new UnitAction(unit);
-        String[] order = scan.next().split(" |　");
+        String[] order = scan.next().split(" ");
 
         // 入力命令の解釈
-        // boolean を 1 or 0 にして返すの実装の敗北
+        // boolean を 1 or -2 にして返す(実装の敗北)
         switch(order[0]) {
             // east/west/north/south
-            case "e":
             case "w":
+            case "e":
             case "n":
             case "s":
-                return action.move(order[0]) ? 1 : 0;
+                return action.move(order[0]) ? 1 : -2;
             // bomb (x) (y)
             case "b":
                 int y = Integer.parseInt(order[2]) - 1;
                 int x = Integer.parseInt(order[1]) - 1;
-                return action.detonate(y, x) ? 1 : 0;
+                return action.detonate(y, x) ? 1 : -2;
             case "c":
                 action.cancel();
                 return -1;
             default:
-                return 0;
+                return -2;
         }
     }
 }

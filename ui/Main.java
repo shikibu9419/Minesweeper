@@ -28,10 +28,13 @@ public class Main extends UI {
                 display.selection();
 
                 int index = receiver.select();
+
+                // error
+                if(index < -1)
+                    continue;
+                // finish
                 if(index == -1)
                     break;
-                else if(index < -1)
-                    continue;
 
                 Unit ally = allies[index];
                 ally.updateAvailable(true);
@@ -41,8 +44,11 @@ public class Main extends UI {
                     display.action(ally);
 
                     int result = receiver.actuate(ally);
-                    if(result == 0)
+
+                    // error
+                    if(result < -1)
                         continue;
+                    // success
                     if(result == 1)
                         ally.acted = true;
 

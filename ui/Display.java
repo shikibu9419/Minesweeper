@@ -9,28 +9,26 @@ public class Display extends Color {
     public void selection() {
         showInformation();
 
-        System.out.println("Enter one of following commands:");
-        System.out.println("  A/B/C  Select unit A / B / C");
-        System.out.println("  f      Finish your turn");
-        System.out.println("");
+        print("Enter one of following commands:",
+              "   A/B/C  Select unit A / B / C",
+              "   f      Finish your turn");
+
         System.out.print("> ");
     }
 
     public void action(Cell cell) {
         showInformation();
 
-        System.out.println("Enter one of following commands:");
-        System.out.println("  e/w/n/s     Move to east / west / north / south");
-        System.out.println("  b (x) (y)   If the mine is on (x, y) blow it up");
-        System.out.println("  c           Cancel selection");
-        System.out.println("");
+        print("Enter one of following commands:",
+              "   w/e/n/s     Move to west / east / north / south",
+              "   b (x) (y)   If the mine is on (x, y) blow it up (within the range of light blue)",
+              "   c           Cancel selection");
+
         System.out.print("Unit " + decorate(cell) + " > ");
     }
 
     private void showInformation() {
         displayField(Information.fieldmap);
-
-        System.out.println("");
         System.out.println(Information.notification);
     }
 
@@ -54,6 +52,8 @@ public class Display extends Color {
                 System.out.printf(" %s ", decorate(fieldmap[i][j]));
             System.out.println("");
         }
+
+        System.out.println("");
     }
 
     // shellコンソール表示のクリア
@@ -64,5 +64,11 @@ public class Display extends Color {
             e.printStackTrace();
             System.exit(1);
         }
+    }
+
+    private void print(String... msgs) {
+        for(String msg:msgs)
+            System.out.println(msg);
+        System.out.println("");
     }
 }
