@@ -18,7 +18,7 @@ public class Field extends Information {
     public static void initFieldmap() {
         for(int i = 0; i < MAX_Y; i++)
             for(int j = 0; j < MAX_X; j++)
-                fieldmap[i][j] = new Flatland();
+                fieldmap[i][j] = new Flatland(i, j);
 
         setUnits();
         setMines();

@@ -11,7 +11,7 @@ public class Unit extends Cell {
     public boolean acted = false;
 
     public Unit(int y, int x, int index, String type) {
-        setCoordinate(y, x);
+        super(y, x);
         this.type = type;
         if(isAlly()) {
             character = allyChars[index];
@@ -22,11 +22,22 @@ public class Unit extends Cell {
         }
     }
 
+    // ユニット移動 (前にいたところは平地になる)
+    public void moveTo(Cell dest) {
+        Information.fieldmap[y][x] = new Flatland(y, x, surroundMines, detected);
+
+        setCoordinate(dest.y, dest.x);
+        surroundMines = dest.surroundMines;
+        detected      = dest.detected;
+
+        Information.fieldmap[dest.y][dest.x] = this;
+    }
+
     // ユニットが死んだとき (暫定実装)
     public void death() {
-        Information.fieldmap[y][x] = new Flatland(this.surroundMines - 1, detected);
-        this.dead = true;
-        if(type.equals("ally"))
+        Information.fieldmap[y][x] = new Flatland(y, x, surroundMines - 1, detected);
+        dead = true;
+        if(isAlly())
             Information.allies_count--;
         else
             Information.enemies_count--;

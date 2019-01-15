@@ -11,6 +11,10 @@ public class Cell implements Cloneable {
     public boolean detected  = false;  // 調査済か
     public boolean available = false;  // ユニット選択中 or detonate にて選択可能か
 
+    public Cell(int y, int x) {
+        setCoordinate(y, x);
+    }
+
     // 調査済みの平地は周囲の地雷の数が表示される
     public void detect() {
         detected = true;
@@ -30,7 +34,7 @@ public class Cell implements Cloneable {
 
     // Cellオブジェクトのディープコピー
     public Cell clone() {
-        Cell res = new Cell();
+        Cell res = new Cell(-1, -1);  // 特に使用しないので負数を代入 (実装の敗北)
         try {
             res = (Cell)super.clone();
         } catch (Exception e) {

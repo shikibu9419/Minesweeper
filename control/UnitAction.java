@@ -54,12 +54,7 @@ public class UnitAction extends Control {
             }
         }
 
-        // ユニット移動 (前にいたところは平地になる)
-        fieldmap[unit.y][unit.x] = new Flatland(unit.surroundMines, unit.detected);
-        unit.setCoordinate(y2, x2);
-        unit.surroundMines = cell.surroundMines;
-        unit.detected = cell.detected;
-        fieldmap[y2][x2] = unit;
+        unit.moveTo(cell);
 
         if(unit.isAlly())
             detect();
@@ -68,7 +63,7 @@ public class UnitAction extends Control {
         return true;
     }
 
-    //敵を爆破
+    // 敵を爆破
     public boolean detonate(int y, int x) {
         if(disabled())
             return false;

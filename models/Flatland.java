@@ -3,9 +3,12 @@ package models;
 // 平地マス
 public class Flatland extends Cell {
 
-    public Flatland() {}
+    public Flatland(int y, int x) {
+        super(y, x);
+    }
 
-    public Flatland(int num, boolean detected) {
+    public Flatland(int y, int x, int num, boolean detected) {
+        super(y, x);
         this.surroundMines = num;
         if(detected)
             detect();

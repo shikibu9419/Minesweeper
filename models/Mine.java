@@ -6,12 +6,12 @@ import control.*;
 public class Mine extends Cell {
 
     public Mine(int y, int x) {
-        setCoordinate(y, x);
+        super(y, x);
         Field.fieldmap[y][x] = this;
     }
 
     public void bomb() {
-        Field.fieldmap[y][x] = new Flatland(surroundMines, detected); // 爆発後は平地になる
+        Field.fieldmap[y][x] = new Flatland(y, x, surroundMines, detected); // 爆発後は平地になる
 
         // 周囲は爆発に巻き込まれる
         int[][] surround = Control.surroundField(y, x);
