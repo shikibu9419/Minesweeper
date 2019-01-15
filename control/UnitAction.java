@@ -92,9 +92,8 @@ public class UnitAction extends Control {
     // 周囲の平地の調査
     private void detect() {
         int[][] surround = surroundField(unit.y, unit.x);
-        for(int i = 0; i < surround.length; i++) {
+        for(int i = 0; i < surround.length; i++)
             fieldmap[surround[i][0]][surround[i][1]].detect();
-        }
     }
 
     private boolean disabled() {

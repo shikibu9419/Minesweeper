@@ -47,6 +47,7 @@ public class Unit extends Cell {
         return type.equals("ally");
     }
 
+    // 自分と周囲2マスのavailableを変更
     public void updateAvailable(boolean available) {
         this.available = available;
 

@@ -25,9 +25,8 @@ public class Control {
 
         // ArrayList -> Array の変換でおそらく最善の方法
         int[][] res = new int[surround.size()][2];
-        for(int i = 0; i < surround.size(); i++) {
+        for(int i = 0; i < surround.size(); i++)
             res[i] = surround.get(i);
-        }
 
         return res;
     }

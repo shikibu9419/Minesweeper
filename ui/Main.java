@@ -15,6 +15,7 @@ public class Main extends UI {
     public static void start() {
         // ゲーム開始
         while(true) {
+            // 暫定実装
             if(Information.isAllDead("ally")) {
                 System.out.println("You lose...");
                 exitGame();
@@ -27,32 +28,31 @@ public class Main extends UI {
             while(true) {
                 display.selection();
 
-                int index = receiver.select();
-
+                int selected = receiver.select();
                 // error
-                if(index < -1)
+                if(selected < -1)
                     continue;
                 // finish
-                if(index == -1)
+                if(selected == -1)
                     break;
 
-                Unit ally = allies[index];
+                Unit ally = allies[selected];
                 ally.updateAvailable(true);
 
                 // ユニットの行動が完了するまで
-                while(true) {
+                while(! ally.acted) {
                     display.action(ally);
 
                     int result = receiver.actuate(ally);
-
                     // error
                     if(result < -1)
                         continue;
+                    // cancel
+                    if(result == -1)
+                        break;
                     // success
                     if(result == 1)
                         ally.acted = true;
-
-                    break;
                 }
 
                 ally.updateAvailable(false);
