@@ -19,6 +19,7 @@ public class Cell implements Cloneable {
     public void detect() {
         detected = true;
 
+        // TODO: surroundMinesの更新
         if(this instanceof Unit)
             return;
         else if(this instanceof Flatland && surroundMines > 0)

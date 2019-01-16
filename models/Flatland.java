@@ -7,9 +7,9 @@ public class Flatland extends Cell {
         super(y, x);
     }
 
-    public Flatland(int y, int x, int num, boolean detected) {
+    public Flatland(int y, int x, int surroundMines, boolean detected) {
         super(y, x);
-        this.surroundMines = num;
+        this.surroundMines = surroundMines;
         if(detected)
             detect();
     }

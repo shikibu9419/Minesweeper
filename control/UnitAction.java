@@ -4,10 +4,9 @@ import models.*;
 import ui.animations.*;
 
 // ユニットの行動関連
-public class UnitAction extends Control {
+public class UnitAction extends Information {
 
     private Unit unit;
-    private Cell[][] fieldmap = Information.fieldmap;
 
     public UnitAction(Unit unit) {
         this.unit = unit;
@@ -15,9 +14,6 @@ public class UnitAction extends Control {
 
     // left/right/up/down のいずれかに移動する
     public boolean move(String direction) {
-        if(disabled())
-            return false;
-
         int y2 = unit.y;
         int x2 = unit.x;
         switch(direction) {
@@ -66,9 +62,6 @@ public class UnitAction extends Control {
 
     // 敵を爆破
     public boolean detonate(int y, int x) {
-        if(disabled())
-            return false;
-
         if(outOfField(y, x)) {
             notice(String.format("(%d, %d) is out of field!"));
             return false;
@@ -96,19 +89,7 @@ public class UnitAction extends Control {
             fieldmap[surround[i][0]][surround[i][1]].detect();
     }
 
-    private boolean disabled() {
-        if(unit.dead) {
-            notice("Already dead.");
-            return true;
-        }
-        if(unit.acted) {
-            notice("Already acted.");
-            return true;
-        }
-        return false;
-    }
-
     private void notice(String msg) {
-        Information.addNotification(String.format("Unit %s: %s", unit.character, msg));
+        addNotification(String.format("Unit %s: %s", unit.character, msg));
     }
 }
