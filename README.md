@@ -25,7 +25,6 @@ nitac_programming_task
 |   `-- Unit.java
 |-- ui                            ユーザインターフェース関連
 |   |-- UI.java
-|   |-- Main.java
 |   |-- Display.java
 |   |-- InputReceiver.java
 |   |-- Color.java

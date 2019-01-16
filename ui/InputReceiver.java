@@ -16,15 +16,7 @@ public class InputReceiver extends UI {
     public void start() {
         // ゲーム開始
         while(true) {
-            // 暫定実装
-            if(Information.isAllDead("ally")) {
-                System.out.println("You lose...");
-                exitGame();
-            } else if(Information.isAllDead("enemy")) {
-                System.out.println("You win!");
-                exitGame();
-            }
-
+            judge();
             select();
 
             for(Unit ally:allies)
@@ -34,9 +26,10 @@ public class InputReceiver extends UI {
         }
     }
 
-    public boolean select() {
+    private boolean select() {
         Unit ally;
         while(true) {
+            judge();
             display.selection();
 
             String[] order = scan.next().split(" ");
@@ -70,7 +63,7 @@ public class InputReceiver extends UI {
         }
     }
 
-    public boolean actuate(Unit ally) {
+    private boolean actuate(Unit ally) {
         boolean result = false;
         UnitAction action = new UnitAction(ally);
 
@@ -104,6 +97,27 @@ public class InputReceiver extends UI {
 
         ally.acted = true;
         return true;
+    }
+
+    private void judge() {
+        if(Information.isAllDead("ally")) {
+            System.out.println("You lose...");
+            exitGame();
+        } else if(Information.isAllDead("enemy")) {
+            System.out.println("You win!");
+            exitGame();
+        }
+    }
+
+    private void exitGame() {
+        System.out.println("Continue? (y/n)");
+        System.out.print("> ");
+
+        String[] order = scan.next().split(" ");
+        if(order[0].equals("n")) {
+            System.out.println("See you next time!");
+            System.exit(0);
+        }
     }
 
     private boolean isDisabled(Unit ally) {

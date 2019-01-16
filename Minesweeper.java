@@ -4,7 +4,9 @@ import ui.InputReceiver;
 // ゲームをスタートさせるクラス
 public class Minesweeper {
     public static void main(String[] args) {
-        Field.initFieldmap();
-        new InputReceiver().start();
+        while(true) {
+            Field.initFieldmap();
+            new InputReceiver().start();
+        }
     }
 }
