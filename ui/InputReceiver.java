@@ -73,9 +73,9 @@ public class InputReceiver extends UI {
             String[] order = scan.next().split(" ");
             switch(order[0]) {
                 // east/west/north/south
+                case "a":
+                case "d":
                 case "w":
-                case "e":
-                case "n":
                 case "s":
                     result = action.move(order[0]);
                     break;

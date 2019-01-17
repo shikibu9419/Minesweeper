@@ -17,13 +17,13 @@ public class UnitAction extends Information {
         int y2 = unit.y;
         int x2 = unit.x;
         switch(direction) {
-            case "w":
+            case "a":
                 x2--;
                 break;
-            case "e":
+            case "d":
                 x2++;
                 break;
-            case "n":
+            case "w":
                 y2--;
                 break;
             case "s":

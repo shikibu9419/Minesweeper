@@ -20,8 +20,8 @@ public class Display extends Color {
         showInformation();
 
         print("Enter one of following commands:",
-              "   w/e/n/s     Move to west / east / north / south",
-              "   b (x) (y)   If the mine is on (x, y) blow it up (within the range of light blue)",
+              "   w/s/a/d     Move to up / down / left / right",
+              "   b (x) (y)   If the mine is on (x, y), blow it up (within the range of light blue)",
               "   c           Cancel selection");
 
         System.out.print("Unit " + decorate(cell) + " > ");
