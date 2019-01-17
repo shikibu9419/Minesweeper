@@ -1,18 +1,35 @@
 package ui;
 
 import models.Cell;
-import control.Field;
+import control.Information;
 
 // 基本的な表示を行うクラス
-public class Display extends UI {
+public class Display extends Color {
 
-    public void show() {
-        displayField(Field.fieldmap);
+    public void selection() {
         showInformation();
+
+        print("Enter one of following commands:",
+              "   A/B/C  Select unit A / B / C",
+              "   f      Finish your turn");
+
+        System.out.print("> ");
+    }
+
+    public void action(Cell cell) {
+        showInformation();
+
+        print("Enter one of following commands:",
+              "   w/e/n/s     Move to west / east / north / south",
+              "   b (x) (y)   If the mine is on (x, y) blow it up (within the range of light blue)",
+              "   c           Cancel selection");
+
+        System.out.print("Unit " + decorate(cell) + " > ");
     }
 
     private void showInformation() {
-        System.out.println("");
+        displayField(Information.fieldmap);
+        System.out.println(Information.notification);
     }
 
     // fieldを表示
@@ -32,9 +49,11 @@ public class Display extends UI {
             System.out.printf("%2d ", i + 1);
             // fieldの表示
             for(int j = 0; j < MAX_X; j++)
-                System.out.printf("%2s ", fieldmap[i][j].character);
+                System.out.printf(" %s ", decorate(fieldmap[i][j]));
             System.out.println("");
         }
+
+        System.out.println("");
     }
 
     // shellコンソール表示のクリア
@@ -45,5 +64,11 @@ public class Display extends UI {
             e.printStackTrace();
             System.exit(1);
         }
+    }
+
+    private void print(String... msgs) {
+        for(String msg:msgs)
+            System.out.println(msg);
+        System.out.println("");
     }
 }

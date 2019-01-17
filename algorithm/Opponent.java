@@ -11,20 +11,26 @@ public class Opponent extends Algorithm {
     }
 
     public void start() {
-        for(Unit enemy:Field.enemies)
+        for(Unit enemy:Information.enemies) {
+            if(enemy.dead)
+                continue;
             if(moveToClosestAlly(enemy))
                 System.out.println("");
+        }
     }
 
     // 敵ユニットの動き(暫定実装)
     private boolean moveToClosestAlly(Unit enemy) {
-        int disy = Field.MAX_Y;
-        int disx = Field.MAX_X;
+        int disy = Information.MAX_Y;
+        int disx = Information.MAX_X;
         Unit closest;
         UnitAction action = new UnitAction(enemy);
 
         // 一番近いユニットとその距離を計算
-        for(Unit ally:Field.allies) {
+        for(Unit ally:Information.allies) {
+            if(ally.dead)
+                continue;
+
             int disy2 = ally.y - enemy.y;
             int disx2 = ally.x - enemy.x;
             if(Math.abs(disy2) + Math.abs(disx2) < Math.abs(disy) + Math.abs(disx)) {
@@ -38,14 +44,14 @@ public class Opponent extends Algorithm {
         String direction;
         if(disy > disx) {
             if(disx > 0)
-                direction = "r";
+                direction = "e";
             else
-                direction = "l";
+                direction = "w";
         } else {
             if(disy > 0)
-                direction = "d";
+                direction = "s";
             else
-                direction = "u";
+                direction = "n";
         }
 
         return action.move(direction);

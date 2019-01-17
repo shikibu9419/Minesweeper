@@ -3,19 +3,20 @@ package models;
 // 平地マス
 public class Flatland extends Cell {
 
-    public boolean isDetected = false;
-
-    public Flatland() {}
-
-    public Flatland(int num) {
-        surroundingBombs = num;
+    public Flatland(int y, int x) {
+        super(y, x);
     }
 
-    // その平地を調査した的なメソッド
-    // (調査済みの平地は周囲の地雷の数が表示される)
-    public void detected() {
-        isDetected = true;
-        if(surroundingBombs > 0)
-            character = (char)('0' + surroundingBombs);
+    public Flatland(int y, int x, int surroundMines, boolean detected) {
+        super(y, x);
+        this.surroundMines = surroundMines;
+        if(detected)
+            detect();
+    }
+
+    public void decrementBombs() {
+        surroundMines--;
+        if(detected)
+            detect();
     }
 }

@@ -4,7 +4,7 @@ import models.*;
 import ui.animations.*;
 
 // ユニットの行動関連
-public class UnitAction extends Control {
+public class UnitAction extends Information {
 
     private Unit unit;
 
@@ -17,16 +17,16 @@ public class UnitAction extends Control {
         int y2 = unit.y;
         int x2 = unit.x;
         switch(direction) {
-            case "l":
+            case "w":
                 x2--;
                 break;
-            case "r":
+            case "e":
                 x2++;
                 break;
-            case "u":
+            case "n":
                 y2--;
                 break;
-            case "d":
+            case "s":
                 y2++;
                 break;
             default:
@@ -37,50 +37,59 @@ public class UnitAction extends Control {
         if(outOfField(y2, x2))
             return false;
 
-        Cell cell = Field.fieldmap[y2][x2];
+        Cell cell = fieldmap[y2][x2];
 
         // 地形ごとの設定
         if(unit.isAlly()) {
             if(cell instanceof Unit)
                 return false;
-            else if(cell instanceof Flatland)
-                unit.surroundingBombs = ((Flatland) cell).surroundingBombs;
-            else {
+            else if(cell instanceof Mine){
                 ((Mine) cell).bomb();
                 new ExplodeAnimation().start(y2, x2);
                 return true;
             }
         }
 
-        // ユニット移動 (前にいたところは平地になる)
-        Field.fieldmap[y2][x2] = unit;
-        Field.fieldmap[unit.y][unit.x] = new Flatland(unit.surroundingBombs);
-        unit.setCoordinate(y2, x2);
+        unit.moveTo(cell);
 
         if(unit.isAlly())
             detect();
 
+        notice(String.format("Moved to (%d, %d).", unit.x + 1, unit.y + 1));
+
         return true;
     }
 
-    //敵を爆破
+    // 敵を爆破
     public boolean detonate(int y, int x) {
-        Cell cell = Field.fieldmap[y][x];
-        if(cell instanceof Mine) {
-            ((Mine) cell).bomb();
-            new ExplodeAnimation().start(y, x);
+        if(outOfField(y, x)) {
+            notice(String.format("(%d, %d) is out of field!"));
+            return false;
         }
 
+        Cell cell = fieldmap[y][x];
+        if(cell instanceof Mine) {
+            new ExplodeAnimation().start(y, x);
+            ((Mine) cell).bomb();
+            notice(String.format("Mine on (%d, %d) bombed.", x + 1, y + 1));
+        } else
+            notice(String.format("There is no mine on (%d, %d).", x + 1, y + 1));
+
         return true;
+    }
+
+    public void cancel() {
+        notice("Selection canceled.");
     }
 
     // 周囲の平地の調査
     private void detect() {
-        int[][] surround = surroundingField(unit.y, unit.x);
-        for(int i = 0; i < surround.length; i++) {
-            Cell cell = Field.fieldmap[surround[i][0]][surround[i][1]];
-            if(cell instanceof Flatland)
-                ((Flatland) cell).detected();
-        }
+        int[][] surround = surroundField(unit.y, unit.x);
+        for(int i = 0; i < surround.length; i++)
+            fieldmap[surround[i][0]][surround[i][1]].detect();
+    }
+
+    private void notice(String msg) {
+        addNotification(String.format("Unit %s: %s", unit.character, msg));
     }
 }

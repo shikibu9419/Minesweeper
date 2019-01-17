@@ -9,6 +9,7 @@ public class Information extends Control {
     public static final int MAX_Y = 20;
     public static final int MAX_X = 20;
     public static final int MINE_COUNT = 50;
+    public static Cell[][] fieldmap = new Cell[MAX_Y][MAX_X];
 
     // Unit informations
     public static int allies_count  = 3;
@@ -16,10 +17,23 @@ public class Information extends Control {
     public static Unit[] allies  = new Unit[allies_count];
     public static Unit[] enemies = new Unit[enemies_count];
 
-    // Colors
-    public static String red = "\u001b[00;31m";
-    public static String colorEnd = "\u001b[00m";
+    public static boolean isAllDead(String type) {
+        Unit[] units = type.equals("ally") ? allies : enemies;
+        boolean res = true;
+        for(Unit unit:units)
+            if(! unit.dead)
+                res = false;
+        return res;
+    }
 
     // Others
     public static String notification = "";
+
+    public static void addNotification(String str) {
+        notification += str + "\n";
+    }
+
+    public static void resetNotification() {
+        notification = "";
+    }
 }
