@@ -1,4 +1,4 @@
-package ui.animations;
+package animations;
 
 // ゲームクリアアニメーション
 public class GameClearAnimation extends Animation {

@@ -1,4 +1,4 @@
-package ui.animations;
+package animations;
 
 import ui.Display;
 import models.Cell;

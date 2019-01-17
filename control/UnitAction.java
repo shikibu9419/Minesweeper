@@ -1,7 +1,7 @@
 package control;
 
 import models.*;
-import ui.animations.*;
+import animations.ExplodeAnimation;
 
 // ユニットの行動関連
 public class UnitAction extends Information {
