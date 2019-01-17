@@ -7,19 +7,25 @@ import java.util.*;
 // 爆発アニメーション
 public class ExplodeAnimation extends Animation {
 
-    private Queue<int[]> queue = new ArrayDeque<>();
+    private List<Queue<int []>> queue = new ArrayList<>();
+    private int enqueueIndex = 1, dequeueIndex = 0;
 
     public ExplodeAnimation() {
         super();
+        queue.add(new ArrayDeque<int []>());
+        queue.add(new ArrayDeque<int []>());
     }
 
     public void start(int y, int x) {
         int[] yx = {y, x};
-        queue.add(yx);
+        queue.get(enqueueIndex).add(yx);
 
         // 幅優先爆発
-        while(!queue.isEmpty()) {
-            yx = queue.remove();
+        while(! queue.get(enqueueIndex).isEmpty()) {
+          enqueueIndex = (enqueueIndex+1) % 2;
+          dequeueIndex = (dequeueIndex+1) % 2;
+          while(! queue.get(dequeueIndex).isEmpty()){
+            yx = queue.get(dequeueIndex).remove();
             y = yx[0];
             x = yx[1];
 
@@ -29,6 +35,7 @@ public class ExplodeAnimation extends Animation {
 
             explode(y, x);
             sleep(5); // sleep 0.5s
+          }
         }
     }
 
@@ -46,7 +53,7 @@ public class ExplodeAnimation extends Animation {
             if(!(fieldmap[y2][x2] instanceof Mine))
                 fieldmap[y2][x2].character = "*";
             else
-                queue.add(surround[i]);
+                (queue.get(enqueueIndex)).add(surround[i]);
         }
 
         displayField(fieldmap);
