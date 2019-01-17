@@ -3,14 +3,9 @@ package control;
 import models.*;
 
 // ステージ(field)の管理をするクラス
-public class Field extends Control {
+public class Field extends Information {
 
-    // ゲームにつき1つのためクラス変数で管理する子たち
-    public static final int MAX_Y = 30;
-    public static final int MAX_X = 30;
-    public static final int MINE_COUNT = 500;
     public static Cell[][] fieldmap = new Cell[MAX_Y][MAX_X];
-    public static Unit unit;
 
     // 本体に影響がないようにfieldmapのディープコピーを渡すメソッド
     public static Cell[][] getClone() {
@@ -26,14 +21,39 @@ public class Field extends Control {
         for(int i = 0; i < MAX_Y; i++)
             for(int j = 0; j < MAX_X; j++)
                 fieldmap[i][j] = new Flatland();
+
         setUnits();
         setMines();
     }
 
+    // ユニットの設定 (暫定)
     private static void setUnits() {
-        unit = new Unit(0, 0);
+        for(int i = 0; i < allies.length; i++) {
+            int y = randomInt(3);
+            int x = randomInt(3);
+            if(fieldmap[y][x] instanceof Unit){
+                i--;
+                continue;
+            }
+
+            allies[i] = new Unit(y, x, (char)('A' + i), "ally");
+            fieldmap[y][x] = allies[i];
+        }
+
+        for(int i = 0; i < enemies.length; i++) {
+            int y = MAX_Y - 1 - randomInt(3);
+            int x = MAX_X - 1 - randomInt(3);
+            if(fieldmap[y][x] instanceof Unit){
+                i--;
+                continue;
+            }
+
+            enemies[i] = new Unit(y, x, 'X', "enemy");
+            fieldmap[y][x] = enemies[i];
+        }
     }
 
+    // 地雷の設定
     private static void setMines() {
         int count = 0;
         while(count < MINE_COUNT) {
@@ -41,9 +61,7 @@ public class Field extends Control {
             int x = randomInt(MAX_X);
 
             // スタート周辺orゴールor平地でない ときは飛ばす
-            if((y < 2 && x < 2) ||
-               (y == MAX_Y - 1 && x == MAX_X - 1) ||
-               !(fieldmap[y][x] instanceof Flatland))
+            if((y < 4 && x < 4) || (y == MAX_Y - 4 && x == MAX_X - 4) || !(fieldmap[y][x] instanceof Flatland))
                 continue;
 
             Mine mine = new Mine(y, x);  // 地雷を設置

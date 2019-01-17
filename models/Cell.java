@@ -17,8 +17,11 @@ public class Cell implements Cloneable {
 
     public void decrementBombs() {
         surroundingBombs--;
-        if(surroundingBombs == 0)
-            character = '.';
+        if(character != '.')
+            if(surroundingBombs == 0)
+                character = '.';
+            else
+                character = (char)('0' + surroundingBombs);  // int -> char のキャスト
     }
 
     // Cellオブジェクトのディープコピー

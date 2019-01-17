@@ -1,13 +1,12 @@
 package algorithm;
 
-import control.*;
+import control.Field;
+import models.Cell;
 
 // algorithmパッケージのメインクラス
 public class Algorithm {
 
-    protected Cell[][] fieldmap;
-
     public Algorithm() {
-        fieldmap = Field.fieldmap;
+        Cell[][] fieldmap = Field.fieldmap;
     }
 }
