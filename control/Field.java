@@ -18,7 +18,7 @@ public class Field extends Information {
     public static void initFieldmap() {
         for(int i = 0; i < MAX_Y; i++)
             for(int j = 0; j < MAX_X; j++)
-                fieldmap[i][j] = new Flatland(i, j);
+                new Flatland(i, j);
 
         setUnits();
         setMines();
@@ -26,28 +26,26 @@ public class Field extends Information {
 
     // ユニットの設定 (暫定)
     private static void setUnits() {
-        for(int i = 0; i < allies.length; i++) {
-            int y = randomInt(3);
-            int x = randomInt(3);
-            if(fieldmap[y][x] instanceof Unit){
-                i--;
+        int count = 0;
+        while(count < allies.length) {
+            int y = randomInt(MAX_Y);
+            int x = randomInt(MAX_X);
+            if(fieldmap[y][x] instanceof Unit)
                 continue;
-            }
 
-            allies[i] = new Unit(y, x, i, "ally");
-            fieldmap[y][x] = allies[i];
+            allies[count] = new Unit(y, x, count, "ally");
+            count++;
         }
 
-        for(int i = 0; i < enemies.length; i++) {
-            int y = MAX_Y - 1 - randomInt(3);
-            int x = MAX_X - 1 - randomInt(3);
-            if(fieldmap[y][x] instanceof Unit){
-                i--;
+        count = 0;
+        while(count < enemies.length) {
+            int y = randomInt(MAX_Y);
+            int x = randomInt(MAX_X);
+            if(fieldmap[y][x] instanceof Unit)
                 continue;
-            }
 
-            enemies[i] = new Unit(y, x, -1, "enemy");
-            fieldmap[y][x] = enemies[i];
+            enemies[count] = new Unit(y, x, count, "enemy");
+            count++;
         }
     }
 
@@ -59,7 +57,7 @@ public class Field extends Information {
             int x = randomInt(MAX_X);
 
             // スタート周辺orゴールor平地でない ときは飛ばす
-            if((y < 4 && x < 4) || (y == MAX_Y - 4 && x == MAX_X - 4) || !(fieldmap[y][x] instanceof Flatland))
+            if(! judgeMine(y, x))
                 continue;
 
             Mine mine = new Mine(y, x);  // 地雷を設置
@@ -70,5 +68,17 @@ public class Field extends Information {
             for(int i = 0; i < surround.length; i++)
                 fieldmap[surround[i][0]][surround[i][1]].surroundMines++;
         }
+    }
+
+    private static  boolean judgeMine(int y, int x) {
+        if(!(fieldmap[y][x] instanceof Flatland))
+            return false;
+
+        int[][] surround = surroundField(y, x);
+        for(int i = 0; i < surround.length; i++)
+            if(fieldmap[surround[i][0]][surround[i][1]] instanceof Unit)
+                return false;
+
+        return true;
     }
 }

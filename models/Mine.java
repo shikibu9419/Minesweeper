@@ -7,7 +7,6 @@ public class Mine extends Cell {
 
     public Mine(int y, int x) {
         super(y, x);
-        Field.fieldmap[y][x] = this;
     }
 
     public void bomb() {

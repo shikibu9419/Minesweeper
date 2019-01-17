@@ -1,5 +1,7 @@
 package models;
 
+import control.Information;
+
 // マス目のメインクラス
 // 変数のディープコピーを行うためにimplementしている
 public class Cell implements Cloneable {
@@ -12,7 +14,10 @@ public class Cell implements Cloneable {
     public boolean available = false;  // ユニット選択中 or detonate にて選択可能か
 
     public Cell(int y, int x) {
+        if(Information.outOfField(y, x))
+            return;
         setCoordinate(y, x);
+        Information.fieldmap[y][x] = this;
     }
 
     // 調査済みの平地は周囲の地雷の数が表示される

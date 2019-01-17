@@ -12,10 +12,11 @@ public class Information extends Control {
     public static Cell[][] fieldmap = new Cell[MAX_Y][MAX_X];
 
     // Unit informations
-    public static int allies_count  = 3;
-    public static int enemies_count = 3;
-    public static Unit[] allies  = new Unit[allies_count];
-    public static Unit[] enemies = new Unit[enemies_count];
+    public static final int availableRange = 3;
+    public static int alliesCount  = 5;
+    public static int enemiesCount = 5;
+    public static Unit[] allies  = new Unit[alliesCount];
+    public static Unit[] enemies = new Unit[enemiesCount];
 
     public static boolean isAllDead(String type) {
         Unit[] units = type.equals("ally") ? allies : enemies;

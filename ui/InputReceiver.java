@@ -47,6 +47,14 @@ public class InputReceiver extends UI {
                 case "C":
                     ally = allies[2];
                     break;
+                case "d":
+                case "D":
+                    ally = allies[3];
+                    break;
+                case "e":
+                case "E":
+                    ally = allies[4];
+                    break;
                 // finish
                 case "f":
                     return true;

@@ -5,7 +5,7 @@ import control.Information;
 // 動かす駒
 public class Unit extends Cell {
 
-    private static String[] allyChars = {"A", "B", "C"};
+    private static String[] allyChars = {"A", "B", "C", "D", "E"};
     public String type;
     public boolean dead  = false;
     public boolean acted = false;
@@ -38,9 +38,9 @@ public class Unit extends Cell {
         Information.fieldmap[y][x] = new Flatland(y, x, surroundMines - 1, detected);
         dead = true;
         if(isAlly())
-            Information.allies_count--;
+            Information.alliesCount--;
         else
-            Information.enemies_count--;
+            Information.enemiesCount--;
     }
 
     public boolean isAlly() {
@@ -49,10 +49,13 @@ public class Unit extends Cell {
 
     // 自分と周囲2マスのavailableを変更
     public void updateAvailable(boolean available) {
+        int range = Information.availableRange;
+        range += available ? 0 : 1;
+
         this.available = available;
 
-        for(int i = y - 3; i < y + 3; i++) {
-            for(int j = x - 3; j < x + 3; j++) {
+        for(int i = y - range; i < y + range + 1; i++) {
+            for(int j = x - range; j < x + range + 1; j++) {
                 if(Information.outOfField(i, j))
                     continue;
                 if(Information.fieldmap[i][j] instanceof Unit)
