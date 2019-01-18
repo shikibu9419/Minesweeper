@@ -1,11 +1,11 @@
-import control.Field;
+import control.Information;
 import ui.InputReceiver;
 
 // ゲームをスタートさせるクラス
 public class Minesweeper {
     public static void main(String[] args) {
         while(true) {
-            Field.initFieldmap();
+            Information.init();
             new InputReceiver().start();
         }
     }

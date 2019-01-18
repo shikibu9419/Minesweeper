@@ -71,7 +71,7 @@ public class UnitAction extends Information {
         if(cell instanceof Mine) {
             new ExplodeAnimation().start(y, x);
             ((Mine) cell).bomb();
-            notice(String.format("Mine on (%d, %d) bombed.", x + 1, y + 1));
+            notice(String.format("Exploded on (%d, %d).", x + 1, y + 1));
         } else
             notice(String.format("There is no mine on (%d, %d).", x + 1, y + 1));
 
@@ -83,7 +83,7 @@ public class UnitAction extends Information {
     }
 
     // 周囲の平地の調査
-    private void detect() {
+    public void detect() {
         int[][] surround = surroundField(unit.y, unit.x);
         for(int i = 0; i < surround.length; i++)
             fieldmap[surround[i][0]][surround[i][1]].detect();

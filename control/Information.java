@@ -6,28 +6,21 @@ import models.*;
 public class Information extends Control {
 
     // Field informations
-    public static final int MAX_Y = 20;
-    public static final int MAX_X = 20;
-    public static final int MINE_COUNT = 100;
+    protected static final int MAX_Y = 20;
+    protected static final int MAX_X = 20;
+    protected static final int MINE_COUNT = 100;
     public static Cell[][] fieldmap = new Cell[MAX_Y][MAX_X];
 
     // Unit informations
-    public static final int availableRange = 3;
-    public static int alliesCount  = 3;
-    public static int enemiesCount = 3;
-    public static Unit[] allies  = new Unit[alliesCount];
-    public static Unit[] enemies = new Unit[enemiesCount];
+    private static final int MAX_ALLIES  = 3;
+    private static final int MAX_ENEMIES = 3;
+    public static final int AVAILABLE_RANGE = 3;
+    public static Unit[] allies  = new Unit[MAX_ALLIES];
+    public static Unit[] enemies = new Unit[MAX_ENEMIES];
+    public static int alliesCount;
+    public static int enemiesCount;
 
-    public static boolean isAllDead(String type) {
-        Unit[] units = type.equals("ally") ? allies : enemies;
-        boolean res = true;
-        for(Unit unit:units)
-            if(! unit.dead)
-                res = false;
-        return res;
-    }
-
-    // Others
+    // Notification
     public static String notification = "";
 
     public static void addNotification(String str) {
@@ -36,5 +29,13 @@ public class Information extends Control {
 
     public static void resetNotification() {
         notification = "";
+    }
+
+    // Others
+    public static void init() {
+        alliesCount  = MAX_ALLIES;
+        enemiesCount = MAX_ENEMIES;
+        Field.initFieldmap();
+        resetNotification();
     }
 }

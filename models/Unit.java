@@ -1,11 +1,11 @@
 package models;
 
-import control.Information;
+import control.*;
 
 // 動かす駒
 public class Unit extends Cell {
 
-    private static String[] allyChars = {"A", "B", "C", "D", "E"};
+    private static final String[] CHARACTERS = {"A", "B", "C", "D", "E"};
     public String type;
     public boolean dead  = false;
     public boolean acted = false;
@@ -14,7 +14,7 @@ public class Unit extends Cell {
         super(y, x);
         this.type = type;
         if(isAlly()) {
-            character = allyChars[index];
+            character = CHARACTERS[index];
             detected  = true;
         } else {
             character = "X";
@@ -41,6 +41,7 @@ public class Unit extends Cell {
             Information.alliesCount--;
         else
             Information.enemiesCount--;
+        Information.addNotification("Unit " + this.character + " died.");
     }
 
     public boolean isAlly() {
@@ -49,7 +50,7 @@ public class Unit extends Cell {
 
     // 自分と周囲2マスのavailableを変更
     public void updateAvailable(boolean available) {
-        int range = Information.availableRange;
+        int range = Information.AVAILABLE_RANGE;
         range += available ? 0 : 1;
 
         this.available = available;

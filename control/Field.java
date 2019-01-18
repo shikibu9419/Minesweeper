@@ -22,6 +22,9 @@ public class Field extends Information {
 
         setUnits();
         setMines();
+
+        for(Unit ally:allies)
+            new UnitAction(ally).detect();
     }
 
     // ユニットの設定 (暫定)

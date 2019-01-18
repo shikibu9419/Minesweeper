@@ -16,7 +16,12 @@ public class InputReceiver extends UI {
     public void start() {
         // ゲーム開始
         while(true) {
-            judge();
+            if(judge()) {
+                exitGame();
+                return;
+            }
+
+            Information.addNotification("YOUR TURN:");
             select();
 
             for(Unit ally:allies)
@@ -29,7 +34,9 @@ public class InputReceiver extends UI {
     private boolean select() {
         Unit ally;
         while(true) {
-            judge();
+            if(judge())
+                return true;
+
             display.selection();
 
             String[] order = scan.next().split(" ");
@@ -107,17 +114,16 @@ public class InputReceiver extends UI {
         return true;
     }
 
-    private void judge() {
-        if(Information.isAllDead("ally")) {
-            System.out.println("You lose...");
-            exitGame();
-        } else if(Information.isAllDead("enemy")) {
-            System.out.println("You win!");
-            exitGame();
-        }
+    private boolean judge() {
+        return Information.alliesCount == 0 || Information.enemiesCount == 0;
     }
 
     private void exitGame() {
+        if(Information.alliesCount == 0)
+            System.out.println("You lose...");
+        else if(Information.enemiesCount == 0)
+            System.out.println("You win!");
+
         System.out.println("Continue? (y/n)");
         System.out.print("> ");
 

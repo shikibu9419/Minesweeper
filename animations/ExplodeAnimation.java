@@ -49,10 +49,11 @@ public class ExplodeAnimation extends Animation {
             // 周囲の地雷以外のマスの文字を*に変更
             // (爆発していない地雷マスはqueueに追加)
             Cell cell = fieldmap[y2][x2];
-            if(!(cell instanceof Mine))
+            if(cell instanceof Mine) {
+                if(! (cell.character.equals("*") || queue.get(enqueued).contains(cell)))
+                    queue.get(enqueued).add(surround[i]);
+            } else
                 cell.character = "*";
-            else if(! cell.character.equals("*"))
-                queue.get(enqueued).add(surround[i]);
         }
     }
 }
