@@ -50,7 +50,7 @@ public class ExplodeAnimation extends Animation {
             // (爆発していない地雷マスはqueueに追加)
             Cell cell = fieldmap[y2][x2];
             if(cell instanceof Mine) {
-                if(! (cell.character.equals("*") || queue.get(enqueued).contains(cell)))
+                if(! (cell.character.equals("*") || queue.get(enqueued).contains(surround[i])))
                     queue.get(enqueued).add(surround[i]);
             } else
                 cell.character = "*";

@@ -63,7 +63,7 @@ public class UnitAction extends Information {
     // 敵を爆破
     public boolean detonate(int y, int x) {
         if(outOfField(y, x)) {
-            notice(String.format("(%d, %d) is out of field!"));
+            notice(String.format("(%d, %d) is out of field!", x + 1, y + 1));
             return false;
         }
 

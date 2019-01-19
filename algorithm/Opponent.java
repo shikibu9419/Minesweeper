@@ -26,8 +26,8 @@ public class Opponent extends Algorithm {
     // 敵ユニットの動き(暫定実装)
     private boolean moveToClosestAlly(Unit enemy) {
         Unit closest;
-        int disy = MAX_Y;
-        int disx = MAX_X;
+        int disy = Information.MAX_Y;
+        int disx = Information.MAX_X;
         UnitAction action = new UnitAction(enemy);
 
         // 一番近いユニットとその距離を計算

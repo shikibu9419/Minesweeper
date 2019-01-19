@@ -6,9 +6,9 @@ import models.*;
 public class Information extends Control {
 
     // Field informations
-    protected static final int MAX_Y = 20;
-    protected static final int MAX_X = 20;
     protected static final int MINE_COUNT = 100;
+    public static final int MAX_Y = 20;
+    public static final int MAX_X = 20;
     public static Cell[][] fieldmap = new Cell[MAX_Y][MAX_X];
 
     // Unit informations
