@@ -41,7 +41,7 @@ public class Unit extends Cell {
             Information.alliesCount--;
         else
             Information.enemiesCount--;
-        Information.addNotification("Unit " + this.character + " died.");
+        Information.addNotification(String.format("%s: Died.", this.character));
     }
 
     public boolean isAlly() {

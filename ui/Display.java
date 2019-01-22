@@ -18,9 +18,9 @@ public class Display extends Color {
     public void selection() {
         showInformation();
 
-        print("Enter one of following commands:",
-              "   A/B/C  Select unit A / B / C",
-              "   f      Finish your turn");
+        showMessage("Enter one of following commands:",
+                    "   A/B/C  Select unit A / B / C",
+                    "   f      Finish your turn");
 
         System.out.print("> ");
     }
@@ -28,12 +28,13 @@ public class Display extends Color {
     public void action(Cell cell) {
         showInformation();
 
-        print("Enter one of following commands:",
-              "   w/s/a/d     Move to up / down / left / right",
-              "   b (x) (y)   If the mine is on (x, y), blow it up (within the range of light blue)",
-              "   c           Cancel selection");
+        showMessage("Enter one of following commands:",
+                    "   w/s/a/d     Move to up / down / left / right",
+                    "   b (x) (y)   If the mine is on (x, y), blow it up (within the range of light blue)",
+                    "   c           Cancel selection");
 
-        System.out.print("Unit " + decorate(cell) + " > ");
+        System.out.println("Unit " + decorate(cell));
+        System.out.print("> ");
     }
 
     private void showInformation() {
@@ -75,7 +76,7 @@ public class Display extends Color {
         }
     }
 
-    private void print(String... msgs) {
+    private void showMessage(String... msgs) {
         for(String msg:msgs)
             System.out.println(msg);
         System.out.println("");

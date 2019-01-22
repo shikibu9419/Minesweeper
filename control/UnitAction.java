@@ -90,6 +90,6 @@ public class UnitAction extends Information {
     }
 
     private void notice(String msg) {
-        addNotification(String.format("Unit %s: %s", unit.character, msg));
+        addNotification(String.format("%s: %s", unit.character, msg));
     }
 }

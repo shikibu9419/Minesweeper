@@ -5,7 +5,7 @@ import models.Unit;
 import control.*;
 import algorithm.Opponent;
 
-// 入力受け付け
+// 入力受け付けクラス
 public class InputReceiver extends UI {
 
     private Unit[]   allies;
@@ -16,10 +16,9 @@ public class InputReceiver extends UI {
     // ゲーム開始
     public void start() {
         selectDiff();
-
         while(true) {
             if(judge()) {
-                exitGame();
+                finish();
                 return;
             }
 
@@ -116,11 +115,11 @@ public class InputReceiver extends UI {
                     break;
                 // bomb (x) (y)
                 case "b":
-                    if(order.length < 3)
-                        return false;
-                    int y = Integer.parseInt(order[2]) - 1;
-                    int x = Integer.parseInt(order[1]) - 1;
-                    result = action.detonate(y, x);
+                    if(order.length >= 3) {
+                        int y = Integer.parseInt(order[2]) - 1;
+                        int x = Integer.parseInt(order[1]) - 1;
+                        result = action.detonate(y, x);
+                    }
                     break;
                 case "c":
                     action.cancel();
@@ -129,19 +128,19 @@ public class InputReceiver extends UI {
                     exitGame();
                     break;
                 default:
-                    return false;
             }
         }
 
-        ally.acted = true;
-        return true;
+        // この時resultはtrue
+        ally.acted = result;
+        return result;
     }
 
     private boolean judge() {
         return Information.alliesCount == 0 || Information.enemiesCount == 0;
     }
 
-    private void exitGame() {
+    private void finish() {
         if(Information.alliesCount == 0)
             System.out.println("You lose...");
         else if(Information.enemiesCount == 0)
