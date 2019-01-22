@@ -13,9 +13,10 @@ public class InputReceiver extends UI {
     private Display  display  = new Display();
     private Opponent opponent = new Opponent();
 
+    // ゲーム開始
     public void start() {
-        // ゲーム開始i
-        selectDiff(); 
+        selectDiff();
+
         while(true) {
             if(judge()) {
                 exitGame();
@@ -33,8 +34,6 @@ public class InputReceiver extends UI {
     }
 
     private void selectDiff(){
-        //display.difficulty();
-
         String[] order = scan.next().split(" ");
         switch (order[0]) {
           //difficulty
@@ -42,16 +41,17 @@ public class InputReceiver extends UI {
           case "2":
           case "3":
             Information.init(order[0]);
-            break; 
+            break;
         }
         allies = Information.allies;
     }
 
+    // プレイヤーターン終了時にreturn
     private boolean selectUnit() {
         Unit ally;
         while(true) {
             if(judge())
-                return true;
+                return;
 
             display.selection();
 
@@ -78,12 +78,12 @@ public class InputReceiver extends UI {
                 case "E":
                     ally = allies[4];
                     break;
-                // finish
-                case "f":
-                    return true;
+                // quit game
                 case "q":
                     exitGame();
-                    return true;
+                // finish
+                case "f":
+                    return;
                 default:
                     continue;
             }
@@ -97,6 +97,7 @@ public class InputReceiver extends UI {
         }
     }
 
+    // true: 行動完了, false: 行動失敗
     private boolean actuate(Unit ally) {
         boolean result = false;
         UnitAction action = new UnitAction(ally);
@@ -125,7 +126,7 @@ public class InputReceiver extends UI {
                     action.cancel();
                     return true;
                 case "q":
-                    exitGame();                    
+                    exitGame();
                     break;
                 default:
                     return false;

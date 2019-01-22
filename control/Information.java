@@ -9,8 +9,8 @@ public class Information extends Control {
 //    protected static final int MAX_MINES = 100;
     public static final int MAX_Y = 20;
     public static final int MAX_X = 20;
-    public static int minesCount;
     public static Cell[][] fieldmap = new Cell[MAX_Y][MAX_X];
+    public static int minesCount;
 
     // Unit informations
 //    private static final int MAX_ALLIES  = 3;
