@@ -20,7 +20,8 @@ public class Display extends Color {
 
         showMessage("Enter one of following commands:",
                     "   A/B/C  Select unit A / B / C",
-                    "   f      Finish your turn");
+                    "   f      Finish your turn",
+                    "   q      Quit this game");
 
         System.out.print("> ");
     }

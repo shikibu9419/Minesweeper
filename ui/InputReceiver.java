@@ -79,7 +79,7 @@ public class InputReceiver extends UI {
                     break;
                 // quit game
                 case "q":
-                    exitGame();
+                    finish();
                 // finish
                 case "f":
                     return;
@@ -124,10 +124,8 @@ public class InputReceiver extends UI {
                 case "c":
                     action.cancel();
                     return true;
-                case "q":
-                    exitGame();
-                    break;
                 default:
+                    continue;
             }
         }
 
@@ -145,6 +143,8 @@ public class InputReceiver extends UI {
             System.out.println("You lose...");
         else if(Information.enemiesCount == 0)
             System.out.println("You win!");
+        else
+            System.out.println("");
 
         System.out.println("Continue? (y/n)");
         System.out.print("> ");
