@@ -65,6 +65,9 @@ public class InputReceiver extends UI {
                 // finish
                 case "f":
                     return true;
+                case "q":
+                    exitGame();
+                    return true;
                 default:
                     continue;
             }
@@ -105,6 +108,9 @@ public class InputReceiver extends UI {
                 case "c":
                     action.cancel();
                     return true;
+                case "q":
+                    exitGame();                    
+                    break;
                 default:
                     return false;
             }

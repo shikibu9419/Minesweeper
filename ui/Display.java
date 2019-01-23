@@ -6,6 +6,15 @@ import control.Information;
 // 基本的な表示を行うクラス
 public class Display extends Color {
 
+    public void battleProgress(){
+      String progress = String.format("Allies: %d  Enemies: %d  Mines:  %d",
+                                      Information.alliesCount,
+                                      Information.enemiesCount,
+                                      Information.minesCount);
+      System.out.printf("%62s\n", progress);
+      System.out.println();
+    }
+
     public void selection() {
         showInformation();
 
@@ -29,6 +38,7 @@ public class Display extends Color {
 
     private void showInformation() {
         displayField(Information.fieldmap);
+        battleProgress();
         System.out.println(Information.notification);
     }
 
@@ -53,7 +63,6 @@ public class Display extends Color {
             System.out.println("");
         }
 
-        System.out.println("");
     }
 
     // shellコンソール表示のクリア

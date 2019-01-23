@@ -55,7 +55,7 @@ public class Field extends Information {
     // 地雷の設定
     private static void setMines() {
         int count = 0;
-        while(count < MINE_COUNT) {
+        while(count < MAX_MINES) {
             int y = randomInt(MAX_Y);
             int x = randomInt(MAX_X);
 
