@@ -25,14 +25,16 @@ public class Opponent extends Algorithm {
 
     private boolean bombToAlly(Unit enemy){
 
+
         UnitAction action = new UnitAction(enemy);
+        int maxMines = 0;
+        //適当なおっきい値(意味はないです)
+        int mine_x = 10000;
+        int mine_y = 10000;
+
         for (Unit ally:Information.allies){
             if(ally.dead)
                 continue;
-
-            int maxMines = 0;
-            int mine_x = 10000;
-            int mine_y = 10000;
 
             for(int i = -1; i < 2; i++){
                 for (int j = -1; j < 2; j++){
@@ -49,12 +51,10 @@ public class Opponent extends Algorithm {
                     }
                 }
             }
-            System.out.print ((mine_x + 1) + " " + (mine_y + 1) + "  ");
-            System.out.println (maxMines);
-            if ((mine_x != 10000) && Information.fieldmap[mine_y][mine_x].bombed == false){
-                Information.fieldmap[mine_y][mine_x].bombed = true;
-                return action.detonate(mine_y, mine_x);
-            }
+        }
+        if ((mine_x != 10000) && (Information.fieldmap[mine_y][mine_x].bombed == false)){
+            Information.fieldmap[mine_y][mine_x].bombed = true;
+            return action.detonate(mine_y, mine_x);
         }
         return false;
     }
