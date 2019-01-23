@@ -1,5 +1,6 @@
 package algorithm;
 
+import java.util.Random;
 import java.lang.Math;
 import models.*;
 import control.*;
@@ -100,19 +101,38 @@ public class Opponent extends Algorithm {
         }
 
         // closestに向かって移動
+        Random rdm = new Random();
+        int rnum = rdm.nextInt(2);
+        System.out.println(rnum);
         String direction;
-        if(disy > disx) {
-            if(disx > 0)
-                direction = "d";
-            else
-                direction = "a";
-        } else {
-            if(disy > 0)
-                direction = "s";
-            else
-                direction = "w";
-        }
-
+        if(disx > 0) {
+            if (disy > 0){
+                if (rnum > 0)
+                    direction = "s";
+                else
+                    direction = "d";
+            }else{
+                if (rnum > 0)
+                    direction = "d";
+                else
+                    direction = "w";
+            }
+        }else{
+            if (disy > 0){
+                if (rnum > 0){
+                    direction = "a";
+                }else{
+                    direction = "s";
+                }
+            }else{
+                if (rnum > 0){
+                    direction = "a";
+                }else{
+                    direction = "w";
+                }
+            }
+        }   
         return action.move(direction);
     }
+
 }
