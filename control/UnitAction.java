@@ -55,7 +55,7 @@ public class UnitAction extends Information {
         if(unit.isAlly())
             detect();
 
-        notice(String.format("Moved to (%d, %d).", unit.x + 1, unit.y + 1));
+        noticeAction(String.format("Moved to (%d, %d).", unit.x + 1, unit.y + 1));
 
         return true;
     }
@@ -63,23 +63,28 @@ public class UnitAction extends Information {
     // 敵を爆破
     public boolean detonate(int y, int x) {
         if(outOfField(y, x)) {
-            notice(String.format("(%d, %d) is out of field!", x + 1, y + 1));
+            addNotification(String.format("(%d, %d) is out of field!", x + 1, y + 1));
             return false;
         }
 
         Cell cell = fieldmap[y][x];
+        if(cell.available == false) {
+            addNotification(String.format("You can't select (%d, %d).", x + 1, y + 1));
+            return false;
+        }
+
         if(cell instanceof Mine) {
             new ExplodeAnimation().start(y, x);
             ((Mine) cell).bomb();
-            notice(String.format("Exploded on (%d, %d).", x + 1, y + 1));
+            noticeAction(String.format("Exploded on (%d, %d).", x + 1, y + 1));
         } else
-            notice(String.format("There is no mine on (%d, %d).", x + 1, y + 1));
+            noticeAction(String.format("There is no mine on (%d, %d).", x + 1, y + 1));
 
         return true;
     }
 
     public void cancel() {
-        notice("Selection canceled.");
+        noticeAction("Selection canceled.");
     }
 
     // 周囲の平地の調査
@@ -89,7 +94,7 @@ public class UnitAction extends Information {
             fieldmap[surround[i][0]][surround[i][1]].detect();
     }
 
-    private void notice(String msg) {
+    private void noticeAction(String msg) {
         addNotification(String.format("%s: %s", unit.character, msg));
     }
 }
