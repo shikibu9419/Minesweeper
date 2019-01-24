@@ -8,13 +8,14 @@ import algorithm.Opponent;
 // 入力受け付け
 public class InputReceiver extends UI {
 
-    private Unit[]   allies   = Information.allies;
+    private Unit[]   allies;
     private Scanner  scan     = new Scanner(System.in).useDelimiter("\n");
     private Display  display  = new Display();
     private Opponent opponent = new Opponent();
 
     public void start() {
-        // ゲーム開始
+        // ゲーム開始i
+        selectDiff(); 
         while(true) {
             if(judge()) {
                 exitGame();
@@ -22,7 +23,7 @@ public class InputReceiver extends UI {
             }
 
             Information.addNotification("YOUR TURN:");
-            select();
+            selectUnit();
 
             for(Unit ally:allies)
                 ally.acted = false;
@@ -31,7 +32,22 @@ public class InputReceiver extends UI {
         }
     }
 
-    private boolean select() {
+    private void selectDiff(){
+        //display.difficulty();
+
+        String[] order = scan.next().split(" ");
+        switch (order[0]) {
+          //difficulty
+          case "1":
+          case "2":
+          case "3":
+            Information.init(order[0]);
+            break; 
+        }
+        allies = Information.allies;
+    }
+
+    private boolean selectUnit() {
         Unit ally;
         while(true) {
             if(judge())
