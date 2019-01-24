@@ -40,7 +40,7 @@ public class UnitAction extends Information {
         Cell cell = fieldmap[y2][x2];
 
         // 地形ごとの設定
-        if(unit.isAlly()) {
+        //if(unit.isAlly()) {
             if(cell instanceof Unit)
                 return false;
             else if(cell instanceof Mine){
@@ -48,7 +48,7 @@ public class UnitAction extends Information {
                 new ExplodeAnimation().start(y2, x2);
                 return true;
             }
-        }
+        //}
 
         unit.moveTo(cell);
 

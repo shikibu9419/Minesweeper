@@ -12,6 +12,7 @@ public class Cell implements Cloneable {
     public String character  = ".";    // 画面上で表示される文字
     public boolean detected  = false;  // 調査済か
     public boolean available = false;  // ユニット選択中 or detonate にて選択可能か
+    public boolean bombed = false;
 
     public Cell(int y, int x) {
         if(Information.outOfField(y, x))
