@@ -44,8 +44,8 @@ public class UnitAction extends Information {
             if(cell instanceof Unit)
                 return false;
             else if(cell instanceof Mine){
-                ((Mine) cell).bomb();
                 new ExplodeAnimation().start(y2, x2);
+                ((Mine) cell).bomb();
                 return true;
             }
         //}

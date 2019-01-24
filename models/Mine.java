@@ -24,5 +24,6 @@ public class Mine extends Cell {
             else if(cell instanceof Unit)
                 ((Unit) cell).death();  // 人は死ぬ
         }
+        Information.minesCount--;
     }
 }

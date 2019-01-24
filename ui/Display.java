@@ -6,16 +6,16 @@ import control.Information;
 // 基本的な表示を行うクラス
 public class Display extends Color {
 
-    public void battleProgress(){
-      String progress = String.format("Allies: %d  Enemies: %d  Mines:  %d",
-                                      Information.alliesCount,
-                                      Information.enemiesCount,
-                                      Information.minesCount);
-      System.out.printf("%62s\n", progress);
-      System.out.println();
+    public void diffSelection() {
+        showMessage("Select difficulty number:",
+                    "   1  easy",
+                    "   2  normal",
+                    "   3  CRAZY");
+
+        System.out.print("> ");
     }
 
-    public void selection() {
+    public void unitSelection() {
         showInformation();
 
         showMessage("Enter one of following commands:",
@@ -42,6 +42,15 @@ public class Display extends Color {
         displayField(Information.fieldmap);
         battleProgress();
         System.out.println(Information.notification);
+    }
+
+    private void battleProgress(){
+      String progress = String.format("Allies: %d  Enemies: %d  Mines:  %d",
+                                      Information.alliesCount,
+                                      Information.enemiesCount,
+                                      Information.minesCount);
+      System.out.printf("%62s\n", progress);
+      System.out.println();
     }
 
     // fieldを表示
