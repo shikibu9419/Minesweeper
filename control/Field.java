@@ -50,7 +50,6 @@ public class Field extends Information {
             int y = randomInt(MAX_Y);
             int x = randomInt(MAX_X);
 
-            // スタート周辺orゴールor平地でない ときは飛ばす
             if(! judgeMine(y, x))
                 continue;
 
@@ -69,10 +68,14 @@ public class Field extends Information {
         if(!(fieldmap[y][x] instanceof Flatland))
             return false;
 
-        int[][] surround = surroundField(y, x);
-        for(int i = 0; i < surround.length; i++)
-            if(fieldmap[surround[i][0]][surround[i][1]] instanceof Unit)
-                return false;
+        if(y - 1 > 0 && fieldmap[y - 1][x] instanceof Unit)
+            return false;
+        if(y + 1 < 0 && fieldmap[y + 1][x] instanceof Unit)
+            return false;
+        if(x - 1 > 0 && fieldmap[y][x - 1] instanceof Unit)
+            return false;
+        if(x + 1 < 0 && fieldmap[y][x + 1] instanceof Unit)
+            return false;
 
         return true;
     }
