@@ -57,11 +57,8 @@ public class Unit extends Cell {
 
         for(int i = y - range; i < y + range + 1; i++) {
             for(int j = x - range; j < x + range + 1; j++) {
-                if(Information.outOfField(i, j))
+                if(Information.outOfField(i, j) || Information.fieldmap[i][j] instanceof Unit)
                     continue;
-                if(Information.fieldmap[i][j] instanceof Unit)
-                    continue;
-
                 Information.fieldmap[i][j].available = available;
             }
         }

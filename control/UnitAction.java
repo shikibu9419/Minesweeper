@@ -63,13 +63,13 @@ public class UnitAction extends Information {
     // 敵を爆破
     public boolean detonate(int y, int x) {
         if(outOfField(y, x)) {
-            addNotification(String.format("(%d, %d) is out of field!", x + 1, y + 1));
+            noticeAction(String.format("(%d, %d) is out of field!", x + 1, y + 1));
             return false;
         }
 
         Cell cell = fieldmap[y][x];
         if(cell.available == false) {
-            addNotification(String.format("You can't select (%d, %d).", x + 1, y + 1));
+            noticeAction(String.format("Can't select (%d, %d).", x + 1, y + 1));
             return false;
         }
 

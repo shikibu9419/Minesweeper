@@ -5,7 +5,7 @@ import java.lang.Math;
 import models.*;
 import control.*;
 
-public class Opponent extends Algorithm {
+public class Opponent {
 
     public Opponent() {
         super();
