@@ -1,10 +1,10 @@
 package ui;
 
-import models.Cell;
+import models.*;
 import control.Information;
 
 // 基本的な表示を行うクラス
-public class Display extends Color {
+public class Display implements Color {
 
     public void diffSelection() {
         showMessage("Select difficulty number:",
@@ -53,6 +53,12 @@ public class Display extends Color {
       System.out.println();
     }
 
+    private void showMessage(String... msgs) {
+        for(String msg:msgs)
+            System.out.println(msg);
+        System.out.println("");
+    }
+
     // fieldを表示
     protected void displayField(Cell[][] fieldmap) {
         final int MAX_Y = fieldmap.length;
@@ -76,6 +82,25 @@ public class Display extends Color {
 
     }
 
+    private String decorate(Cell cell) {
+        String color = WHITE;
+
+        if(cell.character.equals("*"))
+            color = YELLOW;  // exploded
+        else if(cell.available)
+            color = SKY;     // available
+        else if(cell instanceof Unit) {
+            Unit unit = (Unit)cell;
+            if(unit.isAlly())
+                color = unit.acted ? GREEN : BLUE;  // ally
+            else
+                color = RED;  // enemy
+        } else
+            color = cell.detected ? GREEN : WHITE;  // mine, flatland
+
+        return color + cell.character + END;
+    }
+
     // shellコンソール表示のクリア
     private void clearScreen() {
         try {
@@ -84,11 +109,5 @@ public class Display extends Color {
             e.printStackTrace();
             System.exit(1);
         }
-    }
-
-    private void showMessage(String... msgs) {
-        for(String msg:msgs)
-            System.out.println(msg);
-        System.out.println("");
     }
 }

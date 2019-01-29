@@ -6,7 +6,7 @@ import control.*;
 import algorithm.Opponent;
 
 // 入力受け付けクラス
-public class InputReceiver extends UI {
+public class InputReceiver {
 
     private Scanner  scan     = new Scanner(System.in).useDelimiter("\n");
     private Display  display  = new Display();
