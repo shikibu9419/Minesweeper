@@ -68,14 +68,11 @@ public class Field extends Information {
         if(!(fieldmap[y][x] instanceof Flatland))
             return false;
 
-        if(y - 1 > 0 && fieldmap[y - 1][x] instanceof Unit)
-            return false;
-        if(y + 1 < 0 && fieldmap[y + 1][x] instanceof Unit)
-            return false;
-        if(x - 1 > 0 && fieldmap[y][x - 1] instanceof Unit)
-            return false;
-        if(x + 1 < 0 && fieldmap[y][x + 1] instanceof Unit)
-            return false;
+        if((y - 1 > 0 && fieldmap[y - 1][x] instanceof Unit) ||
+           (y + 1 < 0 && fieldmap[y + 1][x] instanceof Unit) ||
+           (x - 1 > 0 && fieldmap[y][x - 1] instanceof Unit) ||
+           (x + 1 < 0 && fieldmap[y][x + 1] instanceof Unit))
+            continue;
 
         return true;
     }
