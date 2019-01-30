@@ -73,7 +73,7 @@ public class Opponent {
                 if ((x + i) < Information.MAX_X && (y + j) < Information.MAX_Y && (x + i) >= 0 && (y + j) >= 0){
                     numberOfMines = Math.max(Information.fieldmap[y + j][x + i].surroundMines, numberOfMines);
                 }
-            } 
+            }
         }
         return numberOfMines;
     }
@@ -131,7 +131,7 @@ public class Opponent {
                     direction = "w";
                 }
             }
-        }   
+        }
         return action.move(direction);
     }
 

@@ -55,12 +55,11 @@ public class Unit extends Cell {
 
         this.available = available;
 
-        for(int i = y - range; i < y + range + 1; i++) {
-            for(int j = x - range; j < x + range + 1; j++) {
-                if(Information.outOfField(i, j) || Information.fieldmap[i][j] instanceof Unit)
-                    continue;
-                Information.fieldmap[i][j].available = available;
-            }
+        int[][] surround = Information.surroundField(y, x, range);
+        for(int i = 0; i < surround.length; i++) {
+            Cell cell = Information.fieldmap[surround[i][0]][surround[i][1]];
+            if(!(cell instanceof Unit))
+                cell.available = available;
         }
     }
 }

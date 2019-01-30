@@ -40,15 +40,13 @@ public class UnitAction extends Information {
         Cell cell = fieldmap[y2][x2];
 
         // 地形ごとの設定
-        //if(unit.isAlly()) {
-            if(cell instanceof Unit)
-                return false;
-            else if(cell instanceof Mine){
-                new ExplodeAnimation().start(y2, x2);
-                ((Mine) cell).bomb();
-                return true;
-            }
-        //}
+        if(cell instanceof Unit)
+            return false;
+        else if(cell instanceof Mine){
+            new ExplodeAnimation().start(y2, x2);
+            ((Mine) cell).bomb();
+            return true;
+        }
 
         unit.moveTo(cell);
 
@@ -89,7 +87,7 @@ public class UnitAction extends Information {
 
     // 周囲の平地の調査
     public void detect() {
-        int[][] surround = surroundField(unit.y, unit.x);
+        int[][] surround = surroundField(unit.y, unit.x, 1);
         for(int i = 0; i < surround.length; i++)
             fieldmap[surround[i][0]][surround[i][1]].detect();
     }

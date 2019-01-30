@@ -58,18 +58,17 @@ public class Information {
     private static int[] dy = {-1,  0,  1, -1, 1, -1, 0, 1};
     private static int[] dx = {-1, -1, -1,  0, 0,  1, 1, 1};
 
-    // 周囲のfield範囲内の座標一覧を[y][x]の配列にして返す
-    public static int[][] surroundField(int y, int x) {
+    // 周囲rangeマスのfield範囲内の座標一覧を[y][x]の配列にして返す
+    public static int[][] surroundField(int y, int x, int range) {
         ArrayList<int[]> surround = new ArrayList<>();
 
-        for(int i = 0; i < 8; i++) {
-            int y2 = y + dy[i];
-            int x2 = x + dx[i];
-            if (outOfField(y2, x2))
-                continue;
-
-            int[] yx = {y2, x2};
-            surround.add(yx);
+        for(int i = y - range; i <= y + range; i++) {
+            for(int j = x - range; j <= x + range; j++) {
+                if(outOfField(i, j))
+                    continue;
+                int[] yx = {i, j};
+                surround.add(yx);
+            }
         }
 
         // ArrayList -> Array の変換でおそらく最善の方法
@@ -78,6 +77,10 @@ public class Information {
             res[i] = surround.get(i);
 
         return res;
+    }
+
+    public static int[][] surroundField(int y, int x) {
+        return surroundField(y, x, 1);
     }
 
     // fieldの外の座標ならtrueを返す
