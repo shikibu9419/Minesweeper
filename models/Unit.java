@@ -30,7 +30,7 @@ public class Unit extends Cell {
         Information.fieldmap[dest.y][dest.x] = this;
     }
 
-    // ユニットが死んだとき (暫定実装)
+    // ユニットが死んだとき
     public void death() {
         Information.fieldmap[y][x] = new Flatland(y, x, surroundMines - 1, detected);
         dead = true;
@@ -45,11 +45,8 @@ public class Unit extends Cell {
         return type.isAlly();
     }
 
-    // 自分と周囲2マスのavailableを変更
     public void updateAvailable(boolean available) {
-        int range = Information.AVAILABLE_RANGE;
-        range += available ? 0 : 1;
-
+        int range = Information.AVAILABLE_RANGE + available ? 0 : 1;
         this.available = available;
 
         int[][] surround = Information.surroundField(y, x, range);

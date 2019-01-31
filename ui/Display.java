@@ -29,7 +29,6 @@ public class Display implements Color {
 
     public void selection() {
         showInformation();
-
         showMessage("Enter one of following commands:",
                     "   A/B/C  Select unit A / B / C",
                     "   f      Finish your turn",
@@ -39,7 +38,6 @@ public class Display implements Color {
 
     public void action(Cell cell) {
         showInformation();
-
         showMessage("Enter one of following commands:",
                     "   w/s/a/d     Move to up / down / left / right",
                     "   b (x) (y)   If the mine is on (x, y), blow it up (within the range of light blue)",
@@ -73,7 +71,7 @@ public class Display implements Color {
         // yの目盛表示
         for(int i = 0; i < MAX_Y; i++) {
             System.out.printf("%2d ", i + 1);
-            // fieldの表示
+            // fieldmapの表示
             for(int j = 0; j < MAX_X; j++)
                 System.out.printf(" %s ", decorate(fieldmap[i][j]));
             System.out.println();
@@ -105,7 +103,6 @@ public class Display implements Color {
         System.out.println();
     }
 
-    // shellコンソール表示のクリア
     private void clearScreen() {
         try {
             new ProcessBuilder("/bin/bash", "-c", "clear").inheritIO().start().waitFor();

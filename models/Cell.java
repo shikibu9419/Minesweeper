@@ -11,11 +11,11 @@ public class Cell implements Cloneable {
     public int surroundMines = 0;      // 周りの地雷の数
     public String character  = ".";    // 画面上で表示される文字
     public boolean detected  = false;  // 調査済か
-    public boolean available = false;  // ユニット選択中 or detonate にて選択可能か
-    public boolean bombed    = false;  // 爆発済か (algorithm.Opponent 専用)
+    public boolean available = false;  // ユニット選択中 / detonateにて選択可能か
+    public boolean bombed    = false;  // 爆発済か (control.Opponent専用)
 
     public Cell(int y, int x) {
-        if(Information.outOfField(y, x))
+        if(Information.isOutOfField(y, x))
             return;
         setCoordinate(y, x);
         Information.fieldmap[y][x] = this;
@@ -24,13 +24,8 @@ public class Cell implements Cloneable {
     // 調査済みの平地は周囲の地雷の数が表示される
     public void detect() {
         detected = true;
-
-        if(this instanceof Unit)
-            return;
-        else if(this instanceof Flatland && surroundMines > 0)
-            character = String.valueOf(surroundMines);
-        else
-            character = ".";
+        if(! (this instanceof Unit))
+            character = (this instanceof Flatland && surroundMines > 0) ? String.valueOf(surroundMines) : ".";
     }
 
     public void setCoordinate(int y, int x) {

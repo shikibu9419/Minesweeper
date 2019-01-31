@@ -56,13 +56,13 @@ public class Information {
     }
 
     // Utilities
-    // 周囲rangeマスのfield範囲内の座標一覧を[y][x]の配列にして返す
+    // 周囲rangeマスのfield範囲内の座標一覧を{{y, x}, {{y, x}, ...}の配列にして返す
     public static int[][] surroundField(int y, int x, int range) {
         ArrayList<int[]> surround = new ArrayList<>();
 
         for(int i = y - range; i <= y + range; i++) {
             for(int j = x - range; j <= x + range; j++) {
-                if(outOfField(i, j))
+                if(isOutOfField(i, j))
                     continue;
                 int[] yx = {i, j};
                 surround.add(yx);
@@ -80,8 +80,7 @@ public class Information {
         return surroundField(y, x, 1);
     }
 
-    // fieldの外の座標ならtrueを返す
-    public static boolean outOfField(int y, int x) {
+    public static boolean isOutOfField(int y, int x) {
         return (x < 0 || x >= Field.MAX_X || y < 0 || y >= Field.MAX_Y);
     }
 }

@@ -34,7 +34,7 @@ public class UnitAction extends Information {
         }
 
         // fieldの範囲外へは移動しない
-        if(outOfField(y2, x2))
+        if(isOutOfField(y2, x2))
             return false;
 
         Cell cell = fieldmap[y2][x2];
@@ -60,7 +60,7 @@ public class UnitAction extends Information {
 
     // 敵を爆破
     public boolean detonate(int y, int x) {
-        if(outOfField(y, x)) {
+        if(isOutOfField(y, x)) {
             noticeAction(String.format("(%d, %d) is out of field!", x + 1, y + 1));
             return false;
         }

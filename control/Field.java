@@ -58,7 +58,7 @@ public class Field extends Information {
             if(! judgeMine(y, x))
                 continue;
 
-            Mine mine = new Mine(y, x);  // 地雷を設置
+            Mine mine = new Mine(y, x);
             count++;
 
             // 地雷周辺の平地の地雷数をインクリメント
@@ -73,10 +73,10 @@ public class Field extends Information {
         if(!(fieldmap[y][x] instanceof Flatland))
             return false;
 
-        if((y - 1 > 0 && fieldmap[y - 1][x] instanceof Unit) ||
-           (y + 1 < 0 && fieldmap[y + 1][x] instanceof Unit) ||
-           (x - 1 > 0 && fieldmap[y][x - 1] instanceof Unit) ||
-           (x + 1 < 0 && fieldmap[y][x + 1] instanceof Unit))
+        if(y - 1 > 0 && fieldmap[y - 1][x] instanceof Unit ||
+           y + 1 < 0 && fieldmap[y + 1][x] instanceof Unit ||
+           x - 1 > 0 && fieldmap[y][x - 1] instanceof Unit ||
+           x + 1 < 0 && fieldmap[y][x + 1] instanceof Unit)
             return false;
 
         return true;

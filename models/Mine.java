@@ -18,11 +18,11 @@ public class Mine extends Cell {
             Cell cell = Field.fieldmap[surround[i][0]][surround[i][1]];
 
             if(cell instanceof Flatland)
-                ((Flatland) cell).decrementBombs();  // 平地は地雷の数情報が更新される
+                ((Flatland) cell).decrementBombs();
             else if(cell instanceof Mine)
-                ((Mine) cell).bomb();   // 地雷は誘爆する
+                ((Mine) cell).bomb();
             else if(cell instanceof Unit)
-                ((Unit) cell).death();  // 人は死ぬ
+                ((Unit) cell).death();
         }
         Information.minesCount--;
     }
