@@ -1,9 +1,12 @@
 package control;
 
+import java.util.Random;
 import models.*;
 
 // ステージ(field)の管理をするクラス
 public class Field extends Information {
+
+    private static Random rand = new Random();
 
     // 本体に影響がないようにfieldmapのディープコピーを渡すメソッド
     public static Cell[][] getClone() {
@@ -26,19 +29,20 @@ public class Field extends Information {
 
         for(Unit ally:allies)
             new UnitAction(ally).detect();
+        for(Unit enemy:enemies)
+            new UnitAction(enemy).detect();
     }
 
-    // ユニットの設定 (暫定)
     private static void setUnits(String type) {
         Unit[] units = type.equals("ally") ? allies : enemies;
         int count = 0;
         while(count < units.length) {
-            int y = randomInt(MAX_Y);
-            int x = randomInt(MAX_X);
+            int y = rand.nextInt(MAX_Y);
+            int x = rand.nextInt(MAX_X);
             if(fieldmap[y][x] instanceof Unit)
                 continue;
 
-            units[count] = new Unit(y, x, count, type);
+            units[count] = new Unit(y, x, type, count);
             count++;
         }
     }
@@ -47,8 +51,8 @@ public class Field extends Information {
     private static void setMines() {
         int count = 0;
         while(count < minesCount) {
-            int y = randomInt(MAX_Y);
-            int x = randomInt(MAX_X);
+            int y = rand.nextInt(MAX_Y);
+            int x = rand.nextInt(MAX_X);
 
             if(! judgeMine(y, x))
                 continue;
@@ -72,7 +76,7 @@ public class Field extends Information {
            (y + 1 < 0 && fieldmap[y + 1][x] instanceof Unit) ||
            (x - 1 > 0 && fieldmap[y][x - 1] instanceof Unit) ||
            (x + 1 < 0 && fieldmap[y][x + 1] instanceof Unit))
-            continue;
+            return false;
 
         return true;
     }

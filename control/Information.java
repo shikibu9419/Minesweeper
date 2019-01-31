@@ -1,6 +1,6 @@
 package control;
 
-import java.util.*;
+import java.util.ArrayList;
 import models.*;
 
 // ゲーム全体の情報を管理する
@@ -71,7 +71,6 @@ public class Information {
             }
         }
 
-        // ArrayList -> Array の変換でおそらく最善の方法
         int[][] res = new int[surround.size()][2];
         for(int i = 0; i < surround.size(); i++)
             res[i] = surround.get(i);
@@ -86,10 +85,5 @@ public class Information {
     // fieldの外の座標ならtrueを返す
     public static boolean outOfField(int y, int x) {
         return (x < 0 || x >= Field.MAX_X || y < 0 || y >= Field.MAX_Y);
-    }
-
-    // max未満のランダムな自然数を返す
-    public static int randomInt(int max) {
-        return rand.nextInt(max);
     }
 }
