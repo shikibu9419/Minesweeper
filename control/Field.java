@@ -23,8 +23,8 @@ public class Field extends Information {
             for(int j = 0; j < MAX_X; j++)
                 new Flatland(i, j);
 
-        setUnits("ally");
-        setUnits("enemy");
+        setUnits(UnitType.ALLY);
+        setUnits(UnitType.ENEMY);
         setMines();
 
         for(Unit ally:allies)
@@ -33,8 +33,8 @@ public class Field extends Information {
             new UnitAction(enemy).detect();
     }
 
-    private static void setUnits(String type) {
-        Unit[] units = type.equals("ally") ? allies : enemies;
+    private static void setUnits(UnitType type) {
+        Unit[] units = type.isAlly() ? allies : enemies;
         int count = 0;
         while(count < units.length) {
             int y = rand.nextInt(MAX_Y);

@@ -1,19 +1,19 @@
 package control;
 
 public enum GameMode {
-    PvP, // Player   vs Player
-    PvC, // Player   vs Computer
-    CvC; // Computer vs Computer
+    P_V_P, // Player   vs Player
+    P_V_C, // Player   vs Computer
+    C_V_C; // Computer vs Computer
 
     public boolean isPvP() {
-        return this == PvP;
+        return this == P_V_P;
     }
 
     public boolean isPvC() {
-        return this == PvC;
+        return this == P_V_C;
     }
 
     public boolean isCvC() {
-        return this == CvC;
+        return this == C_V_C;
     }
 }

@@ -3,7 +3,7 @@ package ui;
 import java.util.*;
 import algorithm.*;
 import control.*;
-import models.Unit;
+import models.*;
 
 // 入力受け付けクラス
 public class InputReceiver {
@@ -27,7 +27,7 @@ public class InputReceiver {
 
             // ally turn
             if(Information.mode.isPvP() || Information.mode.isPvC())
-                playerMode("ally");
+                playerMode(UnitType.ALLY);
             else
                 ally.start();
 
@@ -35,7 +35,7 @@ public class InputReceiver {
 
             // enemy turn
             if(Information.mode.isPvP())
-                playerMode("enemy");
+                playerMode(UnitType.ENEMY);
             else
                 enemy.start();
 
@@ -76,10 +76,10 @@ public class InputReceiver {
     }
 
     // プレイヤーが動かす
-    private void playerMode(String type) {
-        Unit[] units = type.equals("ally") ? Information.allies : Information.enemies;
+    private void playerMode(UnitType type) {
+        Unit[] units = type.isAlly() ? Information.allies : Information.enemies;
 
-        Information.addNotification(type.toUpperCase() + " TURN:");
+        Information.addNotification(type.name() + " TURN:");
         selectUnit(units);
 
         for(Unit unit:units)

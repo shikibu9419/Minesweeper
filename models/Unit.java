@@ -5,16 +5,16 @@ import control.Information;
 // 動かす駒
 public class Unit extends Cell {
 
-    private static final String[] CHARACTERS = {"A", "B", "C", "D", "E"};
+    private static final String[] CHARACTERS = {"A", "B", "C"};
 
-    public String type;
-    public boolean dead  = false;
-    public boolean acted = false;
+    public UnitType type;
+    public boolean  dead  = false;
+    public boolean  acted = false;
 
-    public Unit(int y, int x, String type, int index) {
+    public Unit(int y, int x, UnitType type, int index) {
         super(y, x);
         this.type = type;
-        this.character = (isAlly() || Information.mode.isPvP()) ? CHARACTERS[index] : "X";
+        this.character = (type.isAlly() || Information.mode.isPvP()) ? CHARACTERS[index] : "X";
         detected  = true;
     }
 
@@ -41,7 +41,7 @@ public class Unit extends Cell {
     }
 
     public boolean isAlly() {
-        return type.equals("ally");
+        return type.isAlly();
     }
 
     // 自分と周囲2マスのavailableを変更

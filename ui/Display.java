@@ -49,7 +49,7 @@ public class Display implements Color {
 
 
     private void showInformation() {
-        String progress = String.format("Allies: %d  Enemies: %d  Mines:  %d",
+        String progress = String.format("Allies: %d  Enemies: %d  Mines: %d",
                                         Information.alliesCount, Information.enemiesCount, Information.minesCount);
 
         displayField(Information.fieldmap);

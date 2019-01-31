@@ -44,7 +44,7 @@ public class Information {
 
     public static void init() {
         alliesCount  = difficulty.allies;
-        enemiesCount = mode.isPvP() ? alliesCount : difficulty.enemies;
+        enemiesCount = mode.isPvC() ? difficulty.enemies : alliesCount;
         minesCount   = difficulty.mines;
 
         allies  = new Unit[alliesCount];
