@@ -5,20 +5,20 @@ import models.Unit;
 import control.*;
 import algorithm.Opponent;
 
-// 入力受け付け
-public class InputReceiver extends UI {
+// 入力受け付けクラス
+public class InputReceiver {
 
-    private Unit[]   allies;
     private Scanner  scan     = new Scanner(System.in).useDelimiter("\n");
     private Display  display  = new Display();
     private Opponent opponent = new Opponent();
+    private Unit[] allies;
 
+    // ゲーム開始
     public void start() {
-        // ゲーム開始i
-        selectDiff(); 
+        selectDiff();
         while(true) {
             if(judge()) {
-                exitGame();
+                finish();
                 return;
             }
 
@@ -32,28 +32,34 @@ public class InputReceiver extends UI {
         }
     }
 
+    // select difficulty
     private void selectDiff(){
-        //display.difficulty();
+        display.diffSelection();
 
-        String[] order = scan.next().split(" ");
-        switch (order[0]) {
-          //difficulty
-          case "1":
-          case "2":
-          case "3":
-            Information.init(order[0]);
-            break; 
+        while(true) {
+            String[] order = scan.next().split(" ");
+            switch (order[0]) {
+                case "1":
+                case "2":
+                case "3":
+                    Information.init(order[0]);
+                    break;
+                default:
+                    continue;
+            }
+            break;
         }
         allies = Information.allies;
     }
 
-    private boolean selectUnit() {
+    // プレイヤーターン終了時にreturn
+    private void selectUnit() {
         Unit ally;
         while(true) {
             if(judge())
-                return true;
+                return;
 
-            display.selection();
+            display.unitSelection();
 
             String[] order = scan.next().split(" ");
             switch (order[0]) {
@@ -70,20 +76,12 @@ public class InputReceiver extends UI {
                 case "C":
                     ally = allies[2];
                     break;
-                case "d":
-                case "D":
-                    ally = allies[3];
-                    break;
-                case "e":
-                case "E":
-                    ally = allies[4];
-                    break;
+                // quit game
+                case "q":
+                    finish();
                 // finish
                 case "f":
-                    return true;
-                case "q":
-                    exitGame();
-                    return true;
+                    return;
                 default:
                     continue;
             }
@@ -97,6 +95,7 @@ public class InputReceiver extends UI {
         }
     }
 
+    // true: 行動完了, false: 行動失敗
     private boolean actuate(Unit ally) {
         boolean result = false;
         UnitAction action = new UnitAction(ally);
@@ -115,36 +114,36 @@ public class InputReceiver extends UI {
                     break;
                 // bomb (x) (y)
                 case "b":
-                    if(order.length < 3)
-                        return false;
-                    int y = Integer.parseInt(order[2]) - 1;
-                    int x = Integer.parseInt(order[1]) - 1;
-                    result = action.detonate(y, x);
+                    if(order.length >= 3) {
+                        int y = Integer.parseInt(order[2]) - 1;
+                        int x = Integer.parseInt(order[1]) - 1;
+                        result = action.detonate(y, x);
+                    }
                     break;
                 case "c":
                     action.cancel();
                     return true;
-                case "q":
-                    exitGame();                    
-                    break;
                 default:
-                    return false;
+                    continue;
             }
         }
 
-        ally.acted = true;
-        return true;
+        // この時resultはtrue
+        ally.acted = result;
+        return result;
     }
 
     private boolean judge() {
         return Information.alliesCount == 0 || Information.enemiesCount == 0;
     }
 
-    private void exitGame() {
+    private void finish() {
         if(Information.alliesCount == 0)
             System.out.println("You lose...");
         else if(Information.enemiesCount == 0)
             System.out.println("You win!");
+        else
+            System.out.println("");
 
         System.out.println("Continue? (y/n)");
         System.out.print("> ");

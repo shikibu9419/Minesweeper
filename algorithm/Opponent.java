@@ -5,7 +5,7 @@ import java.lang.Math;
 import models.*;
 import control.*;
 
-public class Opponent extends Algorithm {
+public class Opponent {
 
     public Opponent() {
         super();
@@ -73,7 +73,7 @@ public class Opponent extends Algorithm {
                 if ((x + i) < Information.MAX_X && (y + j) < Information.MAX_Y && (x + i) >= 0 && (y + j) >= 0){
                     numberOfMines = Math.max(Information.fieldmap[y + j][x + i].surroundMines, numberOfMines);
                 }
-            } 
+            }
         }
         return numberOfMines;
     }
@@ -131,7 +131,7 @@ public class Opponent extends Algorithm {
                     direction = "w";
                 }
             }
-        }   
+        }
         return action.move(direction);
     }
 

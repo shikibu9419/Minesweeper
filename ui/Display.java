@@ -1,12 +1,50 @@
 package ui;
 
-import models.Cell;
+import models.*;
 import control.Information;
 
 // 基本的な表示を行うクラス
-public class Display extends Color {
+public class Display implements Color {
 
-    public void battleProgress(){
+    public void diffSelection() {
+        showMessage("Select difficulty number:",
+                    "   1  easy",
+                    "   2  normal",
+                    "   3  CRAZY");
+
+        System.out.print("> ");
+    }
+
+    public void unitSelection() {
+        showInformation();
+
+        showMessage("Enter one of following commands:",
+                    "   A/B/C  Select unit A / B / C",
+                    "   f      Finish your turn",
+                    "   q      Quit this game");
+
+        System.out.print("> ");
+    }
+
+    public void action(Cell cell) {
+        showInformation();
+
+        showMessage("Enter one of following commands:",
+                    "   w/s/a/d     Move to up / down / left / right",
+                    "   b (x) (y)   If the mine is on (x, y), blow it up (within the range of light blue)",
+                    "   c           Cancel selection");
+
+        System.out.println("Unit " + decorate(cell));
+        System.out.print("> ");
+    }
+
+    private void showInformation() {
+        displayField(Information.fieldmap);
+        battleProgress();
+        System.out.println(Information.notification);
+    }
+
+    private void battleProgress(){
       String progress = String.format("Allies: %d  Enemies: %d  Mines:  %d",
                                       Information.alliesCount,
                                       Information.enemiesCount,
@@ -15,31 +53,10 @@ public class Display extends Color {
       System.out.println();
     }
 
-    public void selection() {
-        showInformation();
-
-        print("Enter one of following commands:",
-              "   A/B/C  Select unit A / B / C",
-              "   f      Finish your turn");
-
-        System.out.print("> ");
-    }
-
-    public void action(Cell cell) {
-        showInformation();
-
-        print("Enter one of following commands:",
-              "   w/s/a/d     Move to up / down / left / right",
-              "   b (x) (y)   If the mine is on (x, y), blow it up (within the range of light blue)",
-              "   c           Cancel selection");
-
-        System.out.print("Unit " + decorate(cell) + " > ");
-    }
-
-    private void showInformation() {
-        displayField(Information.fieldmap);
-        battleProgress();
-        System.out.println(Information.notification);
+    private void showMessage(String... msgs) {
+        for(String msg:msgs)
+            System.out.println(msg);
+        System.out.println("");
     }
 
     // fieldを表示
@@ -65,6 +82,25 @@ public class Display extends Color {
 
     }
 
+    private String decorate(Cell cell) {
+        String color = WHITE;
+
+        if(cell.character.equals("*"))
+            color = YELLOW;  // exploded
+        else if(cell.available)
+            color = SKY;     // available
+        else if(cell instanceof Unit) {
+            Unit unit = (Unit)cell;
+            if(unit.isAlly())
+                color = unit.acted ? GREEN : BLUE;  // ally
+            else
+                color = RED;  // enemy
+        } else
+            color = cell.detected ? GREEN : WHITE;  // mine, flatland
+
+        return color + cell.character + END;
+    }
+
     // shellコンソール表示のクリア
     private void clearScreen() {
         try {
@@ -73,11 +109,5 @@ public class Display extends Color {
             e.printStackTrace();
             System.exit(1);
         }
-    }
-
-    private void print(String... msgs) {
-        for(String msg:msgs)
-            System.out.println(msg);
-        System.out.println("");
     }
 }

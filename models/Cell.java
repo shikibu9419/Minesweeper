@@ -12,7 +12,7 @@ public class Cell implements Cloneable {
     public String character  = ".";    // 画面上で表示される文字
     public boolean detected  = false;  // 調査済か
     public boolean available = false;  // ユニット選択中 or detonate にて選択可能か
-    public boolean bombed = false;
+    public boolean bombed    = false;  // 爆発済か (algorithm.Opponent 専用)
 
     public Cell(int y, int x) {
         if(Information.outOfField(y, x))
@@ -25,7 +25,6 @@ public class Cell implements Cloneable {
     public void detect() {
         detected = true;
 
-        // TODO: surroundMinesの更新
         if(this instanceof Unit)
             return;
         else if(this instanceof Flatland && surroundMines > 0)
@@ -41,7 +40,7 @@ public class Cell implements Cloneable {
 
     // Cellオブジェクトのディープコピー
     public Cell clone() {
-        Cell res = new Cell(-1, -1);  // 特に使用しないので負数を代入 (実装の敗北)
+        Cell res = new Cell(-1, -1);
         try {
             res = (Cell)super.clone();
         } catch (Exception e) {

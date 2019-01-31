@@ -40,22 +40,20 @@ public class UnitAction extends Information {
         Cell cell = fieldmap[y2][x2];
 
         // 地形ごとの設定
-        //if(unit.isAlly()) {
-            if(cell instanceof Unit)
-                return false;
-            else if(cell instanceof Mine){
-                ((Mine) cell).bomb();
-                new ExplodeAnimation().start(y2, x2);
-                return true;
-            }
-        //}
+        if(cell instanceof Unit)
+            return false;
+        else if(cell instanceof Mine){
+            new ExplodeAnimation().start(y2, x2);
+            ((Mine) cell).bomb();
+            return true;
+        }
 
         unit.moveTo(cell);
 
         if(unit.isAlly())
             detect();
 
-        notice(String.format("Moved to (%d, %d).", unit.x + 1, unit.y + 1));
+        noticeAction(String.format("Moved to (%d, %d).", unit.x + 1, unit.y + 1));
 
         return true;
     }
@@ -63,33 +61,38 @@ public class UnitAction extends Information {
     // 敵を爆破
     public boolean detonate(int y, int x) {
         if(outOfField(y, x)) {
-            notice(String.format("(%d, %d) is out of field!", x + 1, y + 1));
+            noticeAction(String.format("(%d, %d) is out of field!", x + 1, y + 1));
             return false;
         }
 
         Cell cell = fieldmap[y][x];
+        if(cell.available == false) {
+            noticeAction(String.format("Can't select (%d, %d).", x + 1, y + 1));
+            return false;
+        }
+
         if(cell instanceof Mine) {
             new ExplodeAnimation().start(y, x);
             ((Mine) cell).bomb();
-            notice(String.format("Exploded on (%d, %d).", x + 1, y + 1));
+            noticeAction(String.format("Exploded on (%d, %d).", x + 1, y + 1));
         } else
-            notice(String.format("There is no mine on (%d, %d).", x + 1, y + 1));
+            noticeAction(String.format("There is no mine on (%d, %d).", x + 1, y + 1));
 
         return true;
     }
 
     public void cancel() {
-        notice("Selection canceled.");
+        noticeAction("Selection canceled.");
     }
 
     // 周囲の平地の調査
     public void detect() {
-        int[][] surround = surroundField(unit.y, unit.x);
+        int[][] surround = surroundField(unit.y, unit.x, 1);
         for(int i = 0; i < surround.length; i++)
             fieldmap[surround[i][0]][surround[i][1]].detect();
     }
 
-    private void notice(String msg) {
-        addNotification(String.format("Unit %s: %s", unit.character, msg));
+    private void noticeAction(String msg) {
+        addNotification(String.format("%s: %s", unit.character, msg));
     }
 }

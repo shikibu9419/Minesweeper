@@ -20,7 +20,8 @@ public class Field extends Information {
             for(int j = 0; j < MAX_X; j++)
                 new Flatland(i, j);
 
-        setUnits();
+        setUnits("ally");
+        setUnits("enemy");
         setMines();
 
         for(Unit ally:allies)
@@ -28,26 +29,16 @@ public class Field extends Information {
     }
 
     // ユニットの設定 (暫定)
-    private static void setUnits() {
+    private static void setUnits(String type) {
+        Unit[] units = type.equals("ally") ? allies : enemies;
         int count = 0;
-        while(count < allies.length) {
+        while(count < units.length) {
             int y = randomInt(MAX_Y);
             int x = randomInt(MAX_X);
             if(fieldmap[y][x] instanceof Unit)
                 continue;
 
-            allies[count] = new Unit(y, x, count, "ally");
-            count++;
-        }
-
-        count = 0;
-        while(count < enemies.length) {
-            int y = randomInt(MAX_Y);
-            int x = randomInt(MAX_X);
-            if(fieldmap[y][x] instanceof Unit)
-                continue;
-
-            enemies[count] = new Unit(y, x, count, "enemy");
+            units[count] = new Unit(y, x, count, type);
             count++;
         }
     }
@@ -59,7 +50,6 @@ public class Field extends Information {
             int y = randomInt(MAX_Y);
             int x = randomInt(MAX_X);
 
-            // スタート周辺orゴールor平地でない ときは飛ばす
             if(! judgeMine(y, x))
                 continue;
 
@@ -73,14 +63,16 @@ public class Field extends Information {
         }
     }
 
-    private static  boolean judgeMine(int y, int x) {
+    // 地雷設置時の判定処理
+    private static boolean judgeMine(int y, int x) {
         if(!(fieldmap[y][x] instanceof Flatland))
             return false;
 
-        int[][] surround = surroundField(y, x);
-        for(int i = 0; i < surround.length; i++)
-            if(fieldmap[surround[i][0]][surround[i][1]] instanceof Unit)
-                return false;
+        if((y - 1 > 0 && fieldmap[y - 1][x] instanceof Unit) ||
+           (y + 1 < 0 && fieldmap[y + 1][x] instanceof Unit) ||
+           (x - 1 > 0 && fieldmap[y][x - 1] instanceof Unit) ||
+           (x + 1 < 0 && fieldmap[y][x + 1] instanceof Unit))
+            continue;
 
         return true;
     }

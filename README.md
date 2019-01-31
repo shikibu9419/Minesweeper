@@ -14,9 +14,8 @@
 nitac_programming_task
 |-- Minesweeper.java
 |-- control                       ゲームシステム関連
-|   |-- Control.java
-|   |-- Field.java
 |   |-- Information.java
+|   |-- Field.java
 |   `-- UnitAction.java
 |-- models                        データ関連
 |   |-- Cell.java
@@ -24,7 +23,6 @@ nitac_programming_task
 |   |-- Mine.java
 |   `-- Unit.java
 |-- ui                            ユーザインターフェース関連
-|   |-- UI.java
 |   |-- Display.java
 |   |-- InputReceiver.java
 |   |-- Color.java
@@ -32,8 +30,6 @@ nitac_programming_task
 |       |-- Animation.java
 |       `-- ExplodeAnimation.java
 `-- algorithm                     アルゴリズム関連
-    |-- Algorithm.java
-    |-- Solver.java
     `-- Opponent.java
 ```
 
