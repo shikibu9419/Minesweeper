@@ -16,7 +16,7 @@ public class Information {
     public static final int AVAILABLE_RANGE = 3;
     public static Unit[] allies;
     public static Unit[] enemies;
-    public static int alliesCount = 3;
+    public static int alliesCount;
     public static int enemiesCount;
 
     // Notification
@@ -30,34 +30,31 @@ public class Information {
         notification = "";
     }
 
-    // Others
-    public static void init(String n) {
-        switch(n){
-          case "1":
-            difficultymode(1,100);
-            break;
-          case "2":
-            difficultymode(5,100);
-            break;
-          case "3":
-            difficultymode(50,100);
-            break;
-        }
-        allies = new Unit[alliesCount];
+    // Initialization
+    public static GameMode mode;
+    public static Difficulty difficulty;
+
+    public static void setGameMode(String order) {
+        mode = GameMode.values()[Integer.parseInt(order) - 1];
+    }
+
+    public static void setDifficulty(String order) {
+        difficulty = Difficulty.values()[Integer.parseInt(order) - 1];
+    }
+
+    public static void init() {
+        alliesCount  = difficulty.allies;
+        enemiesCount = mode.isPvP() ? alliesCount : difficulty.enemies;
+        minesCount   = difficulty.mines;
+
+        allies  = new Unit[alliesCount];
         enemies = new Unit[enemiesCount];
+
         Field.initFieldmap();
         resetNotification();
     }
 
-    public static void difficultymode(int e, int m){
-       enemiesCount = e;
-       minesCount = m;
-    }
-
-    private static Random rand = new Random();
-    private static int[] dy = {-1,  0,  1, -1, 1, -1, 0, 1};
-    private static int[] dx = {-1, -1, -1,  0, 0,  1, 1, 1};
-
+    // Utilities
     // 周囲rangeマスのfield範囲内の座標一覧を[y][x]の配列にして返す
     public static int[][] surroundField(int y, int x, int range) {
         ArrayList<int[]> surround = new ArrayList<>();

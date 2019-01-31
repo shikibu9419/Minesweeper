@@ -1,80 +1,114 @@
 package ui;
 
 import java.util.*;
-import models.Unit;
+import algorithm.*;
 import control.*;
-import algorithm.Opponent;
+import models.Unit;
 
 // 入力受け付けクラス
 public class InputReceiver {
 
-    private Scanner  scan     = new Scanner(System.in).useDelimiter("\n");
-    private Display  display  = new Display();
-    private Opponent opponent = new Opponent();
-    private Unit[] allies;
+    private Scanner  scan    = new Scanner(System.in).useDelimiter("\n");
+    private Display  display = new Display();
+    private Opponent ally    = new Opponent();
+    private Opponent enemy   = new Opponent();
 
     // ゲーム開始
     public void start() {
-        selectDiff();
+        selectGameMode();
+        selectDifficulty();
+        Information.init();
+
         while(true) {
             if(judge()) {
                 finish();
-                return;
+                break;
             }
 
-            Information.addNotification("YOUR TURN:");
-            selectUnit();
+            // ally turn
+            if(Information.mode.isPvP() || Information.mode.isPvC())
+                playerMode("ally");
+            else
+                ally.start();
 
-            for(Unit ally:allies)
-                ally.acted = false;
+            Information.addNotification("");
+
+            // enemy turn
+            if(Information.mode.isPvP())
+                playerMode("enemy");
+            else
+                enemy.start();
+
             Information.resetNotification();
-            opponent.start();
         }
     }
 
-    // select difficulty
-    private void selectDiff(){
-        display.diffSelection();
-
+    // select game mode
+    private void selectGameMode() {
         while(true) {
+            display.modeSelection();
             String[] order = scan.next().split(" ");
             switch (order[0]) {
                 case "1":
                 case "2":
                 case "3":
-                    Information.init(order[0]);
-                    break;
+                    Information.setGameMode(order[0]);
+                    return;
                 default:
-                    continue;
             }
-            break;
         }
-        allies = Information.allies;
+    }
+
+    // select difficulty
+    private void selectDifficulty() {
+        while(true) {
+            display.diffSelection();
+            String[] order = scan.next().split(" ");
+            switch (order[0]) {
+                case "1":
+                case "2":
+                case "3":
+                    Information.setDifficulty(order[0]);
+                    return;
+                default:
+            }
+        }
+    }
+
+    // プレイヤーが動かす
+    private void playerMode(String type) {
+        Unit[] units = type.equals("ally") ? Information.allies : Information.enemies;
+
+        Information.addNotification(type.toUpperCase() + " TURN:");
+        selectUnit(units);
+
+        for(Unit unit:units)
+            unit.acted = false;
     }
 
     // プレイヤーターン終了時にreturn
-    private void selectUnit() {
-        Unit ally;
+    private void selectUnit(Unit[] units) {
+        Unit unit;
         while(true) {
             if(judge())
                 return;
 
-            display.unitSelection();
+            display.selection();
 
             String[] order = scan.next().split(" ");
             switch (order[0]) {
                 // units
                 case "a":
                 case "A":
-                    ally = allies[0];
+                    unit = units[0];
                     break;
                 case "b":
                 case "B":
-                    ally = allies[1];
+                    unit = units[1];
                     break;
                 case "c":
                 case "C":
-                    ally = allies[2];
+                    unit = units[2];
                     break;
                 // quit game
                 case "q":
@@ -86,22 +120,22 @@ public class InputReceiver {
                     continue;
             }
 
-            if(isDisabled(ally))
+            if(isDisabled(unit))
                 continue;
 
-            ally.updateAvailable(true);
-            while(! actuate(ally));
-            ally.updateAvailable(false);
+            unit.updateAvailable(true);
+            while(! actuate(unit));
+            unit.updateAvailable(false);
         }
     }
 
     // true: 行動完了, false: 行動失敗
-    private boolean actuate(Unit ally) {
+    private boolean actuate(Unit unit) {
         boolean result = false;
-        UnitAction action = new UnitAction(ally);
+        UnitAction action = new UnitAction(unit);
 
         while(! result) {
-            display.action(ally);
+            display.action(unit);
 
             String[] order = scan.next().split(" ");
             switch(order[0]) {
@@ -129,7 +163,7 @@ public class InputReceiver {
         }
 
         // この時resultはtrue
-        ally.acted = result;
+        unit.acted = result;
         return result;
     }
 
@@ -139,9 +173,9 @@ public class InputReceiver {
 
     private void finish() {
         if(Information.alliesCount == 0)
-            System.out.println("You lose...");
+            System.out.println("Enemy wins!");
         else if(Information.enemiesCount == 0)
-            System.out.println("You win!");
+            System.out.println("Ally wins!");
         else
             System.out.println("");
 
@@ -155,13 +189,13 @@ public class InputReceiver {
         }
     }
 
-    private boolean isDisabled(Unit ally) {
-        if(ally.dead) {
-            Information.addNotification(String.format("Unit %s is already dead.", ally.character));
+    private boolean isDisabled(Unit unit) {
+        if(unit.dead) {
+            Information.addNotification(String.format("Unit %s is already dead.", unit.character));
             return true;
         }
-        if(ally.acted) {
-            Information.addNotification(String.format("Unit %s already acted.", ally.character));
+        if(unit.acted) {
+            Information.addNotification(String.format("Unit %s already acted.", unit.character));
             return true;
         }
         return false;

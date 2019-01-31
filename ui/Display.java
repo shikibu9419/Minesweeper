@@ -6,7 +6,18 @@ import control.Information;
 // 基本的な表示を行うクラス
 public class Display implements Color {
 
+    public void modeSelection() {
+        clearScreen();
+        showMessage("Select game mode:",
+                    "   1  player   vs player",
+                    "   2  player   vs computer",
+                    "   3  computer vs computer");
+
+        System.out.print("> ");
+    }
+
     public void diffSelection() {
+        clearScreen();
         showMessage("Select difficulty number:",
                     "   1  easy",
                     "   2  normal",
@@ -15,14 +26,13 @@ public class Display implements Color {
         System.out.print("> ");
     }
 
-    public void unitSelection() {
+    public void selection() {
         showInformation();
 
         showMessage("Enter one of following commands:",
                     "   A/B/C  Select unit A / B / C",
                     "   f      Finish your turn",
                     "   q      Quit this game");
-
         System.out.print("> ");
     }
 

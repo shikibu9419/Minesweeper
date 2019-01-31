@@ -1,25 +1,21 @@
 package models;
 
-import control.*;
+import control.Information;
 
 // 動かす駒
 public class Unit extends Cell {
 
     private static final String[] CHARACTERS = {"A", "B", "C", "D", "E"};
+
     public String type;
     public boolean dead  = false;
     public boolean acted = false;
 
-    public Unit(int y, int x, int index, String type) {
+    public Unit(int y, int x, String type, int index) {
         super(y, x);
         this.type = type;
-        if(isAlly()) {
-            character = CHARACTERS[index];
-            detected  = true;
-        } else {
-            character = "X";
-            detected  = false;
-        }
+        this.character = (isAlly() || Information.mode.isPvP()) ? CHARACTERS[index] : "X";
+        detected  = true;
     }
 
     // ユニット移動 (前にいたところは平地になる)
