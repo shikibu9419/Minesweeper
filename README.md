@@ -16,22 +16,23 @@ nitac_programming_task
 |-- control                       ゲームシステム関連
 |   |-- Information.java
 |   |-- Field.java
-|   |-- UnitAction.java
-|   |-- GameMode.java
-|   `-- Difficulty.java
+|   `-- UnitAction.java
 |-- models                        データ関連
 |   |-- Cell.java
 |   |-- Flatland.java
 |   |-- Mine.java
-|   |-- Unit.java
-|   `-- UnitType.java
+|   `-- Unit.java
 |-- ui                            ユーザインターフェース関連
 |   |-- Display.java
 |   |-- InputReceiver.java
-|   |-- Color.java
 |   `-- animations                アニメーション関連
 |       |-- Animation.java
 |       `-- ExplodeAnimation.java
+|-- configs                       コンフィグ関連
+|   |-- Color.java
+|   |-- Difficulty.java
+|   |-- GameMode.java
+|   `-- UnitType.java
 `-- algorithm                     アルゴリズム関連
     `-- Opponent.java
 ```
