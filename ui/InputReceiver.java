@@ -9,10 +9,10 @@ import configs.UnitType;
 // 入力受け付けクラス
 public class InputReceiver {
 
-    private Scanner  scan    = new Scanner(System.in).useDelimiter("\n");
-    private Display  display = new Display();
-    private Opponent ally    = new Opponent();
-    private Opponent enemy   = new Opponent();
+    private Scanner  scan     = new Scanner(System.in).useDelimiter("\n");
+    private Display  display  = new Display();
+    private Opponent allyCom  = new Opponent();
+    private Opponent enemyCom = new Opponent();
 
     // ゲーム開始
     public void start() {
@@ -30,7 +30,7 @@ public class InputReceiver {
             if(Information.mode.isPvP() || Information.mode.isPvC())
                 playerMode(UnitType.ALLY);
             else
-                ally.start();
+                allyCom.start();
 
             Information.addNotification("");
 
@@ -38,7 +38,7 @@ public class InputReceiver {
             if(Information.mode.isPvP())
                 playerMode(UnitType.ENEMY);
             else
-                enemy.start();
+                enemyCom.start();
 
             Information.resetNotification();
         }
@@ -173,12 +173,13 @@ public class InputReceiver {
     }
 
     private void finish() {
+        System.out.println();
         if(Information.alliesCount == 0)
             System.out.println("Enemy wins!");
         else if(Information.enemiesCount == 0)
             System.out.println("Ally wins!");
         else
-            System.out.println("");
+            System.out.println();
 
         System.out.println("Continue? (y/n)");
         System.out.print("> ");

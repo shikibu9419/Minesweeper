@@ -46,7 +46,7 @@ public class Unit extends Cell {
     }
 
     public void updateAvailable(boolean available) {
-        int range = Information.AVAILABLE_RANGE + available ? 0 : 1;
+        int range = Information.AVAILABLE_RANGE + (available ? 0 : 1);
         this.available = available;
 
         int[][] surround = Information.surroundField(y, x, range);

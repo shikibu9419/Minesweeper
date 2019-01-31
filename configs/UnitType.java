@@ -1,8 +1,7 @@
 package configs;
 
 public enum UnitType {
-    ALLY,
-    ENEMY;
+    ALLY, ENEMY;
 
     public boolean isAlly() {
         return this == ALLY;

@@ -33,7 +33,7 @@ public class ExplodeAnimation extends Animation {
             }
 
             displayField(fieldmap);
-            sleep(3); // sleep 0.3s
+            sleep(2); // sleep 0.3s
         }
     }
 

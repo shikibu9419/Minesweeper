@@ -23,13 +23,13 @@ nitac_programming_task
 |   |-- Mine.java
 |   `-- Unit.java
 |-- ui                            ユーザインターフェース関連
+|   |-- Color.java
 |   |-- Display.java
 |   |-- InputReceiver.java
 |   `-- animations                アニメーション関連
 |       |-- Animation.java
 |       `-- ExplodeAnimation.java
 |-- configs                       コンフィグ関連
-|   |-- Color.java
 |   |-- Difficulty.java
 |   |-- GameMode.java
 |   `-- UnitType.java

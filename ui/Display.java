@@ -2,7 +2,6 @@ package ui;
 
 import models.*;
 import control.Information;
-import configs.Color;
 
 // 基本的な表示を行うクラス
 public class Display implements Color {
@@ -10,9 +9,9 @@ public class Display implements Color {
     public void modeSelection() {
         clearScreen();
         showMessage("Select game mode:",
-                    "   1  player   vs player",
-                    "   2  player   vs computer",
-                    "   3  computer vs computer");
+                    "   1  Player vs Player",
+                    "   2  Player vs Computer",
+                    "   3  Computer vs Computer");
 
         System.out.print("> ");
     }
