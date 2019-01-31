@@ -16,12 +16,15 @@ nitac_programming_task
 |-- control                       ゲームシステム関連
 |   |-- Information.java
 |   |-- Field.java
-|   `-- UnitAction.java
+|   |-- UnitAction.java
+|   |-- GameMode.java
+|   `-- Difficulty.java
 |-- models                        データ関連
 |   |-- Cell.java
 |   |-- Flatland.java
 |   |-- Mine.java
-|   `-- Unit.java
+|   |-- Unit.java
+|   `-- UnitType.java
 |-- ui                            ユーザインターフェース関連
 |   |-- Display.java
 |   |-- InputReceiver.java
