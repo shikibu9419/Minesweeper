@@ -1,4 +1,4 @@
-package models;
+package configs;
 
 public enum UnitType {
     ALLY,

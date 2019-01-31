@@ -1,6 +1,7 @@
 package models;
 
 import control.Information;
+import configs.UnitType;
 
 // 動かす駒
 public class Unit extends Cell {

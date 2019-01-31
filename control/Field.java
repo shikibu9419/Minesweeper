@@ -2,6 +2,7 @@ package control;
 
 import java.util.Random;
 import models.*;
+import configs.UnitType;
 
 // ステージ(field)の管理をするクラス
 public class Field extends Information {

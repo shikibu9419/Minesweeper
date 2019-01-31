@@ -2,6 +2,7 @@ package control;
 
 import java.util.ArrayList;
 import models.*;
+import configs.*;
 
 // ゲーム全体の情報を管理する
 public class Information {

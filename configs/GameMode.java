@@ -1,4 +1,4 @@
-package control;
+package configs;
 
 public enum GameMode {
     P_V_P, // Player   vs Player

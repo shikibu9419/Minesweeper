@@ -1,4 +1,4 @@
-package ui;
+package configs;
 
 public interface Color {
     String RED    = "\u001b[01;31m";  // for enemy

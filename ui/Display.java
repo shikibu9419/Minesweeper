@@ -2,6 +2,7 @@ package ui;
 
 import models.*;
 import control.Information;
+import configs.Color;
 
 // 基本的な表示を行うクラス
 public class Display implements Color {
