@@ -1,4 +1,4 @@
-package configs;
+package options;
 
 public enum Difficulty {
     EASY(1, 50),

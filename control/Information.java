@@ -2,7 +2,7 @@ package control;
 
 import java.util.ArrayList;
 import models.*;
-import configs.*;
+import options.*;
 
 // ゲーム全体の情報を管理する
 public class Information {
@@ -45,7 +45,7 @@ public class Information {
 
     public static void init() {
         alliesCount  = difficulty.allies;
-        enemiesCount = mode.isPvC() ? difficulty.enemies : alliesCount;
+        enemiesCount = mode.isPvP() ? alliesCount : difficulty.enemies;  // PvPのみユニットの数は同じ
         minesCount   = difficulty.mines;
 
         allies  = new Unit[alliesCount];

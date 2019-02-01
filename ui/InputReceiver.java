@@ -4,7 +4,7 @@ import java.util.Scanner;
 import algorithm.*;
 import control.*;
 import models.*;
-import configs.UnitType;
+import options.UnitType;
 
 // 入力受け付けクラス
 public class InputReceiver {
