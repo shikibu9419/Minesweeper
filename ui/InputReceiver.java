@@ -14,7 +14,7 @@ public class InputReceiver {
     private Opponent allyCom  = new Opponent();
     private Opponent enemyCom = new Opponent();
 
-    // ゲーム開始
+    // Start game
     public void start() {
         selectGameMode();
         selectDifficulty();
@@ -44,7 +44,6 @@ public class InputReceiver {
         }
     }
 
-    // select game mode
     private void selectGameMode() {
         while(true) {
             display.modeSelection();
@@ -60,7 +59,6 @@ public class InputReceiver {
         }
     }
 
-    // select difficulty
     private void selectDifficulty() {
         while(true) {
             display.diffSelection();
@@ -76,7 +74,7 @@ public class InputReceiver {
         }
     }
 
-    // プレイヤーが動かす
+    // When the user plays
     private void playerMode(UnitType type) {
         Unit[] units = type.isAlly() ? Information.allies : Information.enemies;
 
@@ -87,7 +85,7 @@ public class InputReceiver {
             unit.acted = false;
     }
 
-    // プレイヤーターン終了時にreturn
+    // Return only when player finishes his turn
     private void selectUnit(Unit[] units) {
         Unit unit;
         while(true) {
@@ -130,7 +128,7 @@ public class InputReceiver {
         }
     }
 
-    // true: 行動完了, false: 行動失敗
+    // return true: action completed / false: action failed
     private boolean actuate(Unit unit) {
         boolean result = false;
         UnitAction action = new UnitAction(unit);
@@ -163,9 +161,8 @@ public class InputReceiver {
             }
         }
 
-        // この時resultはtrue
-        unit.acted = result;
-        return result;
+        unit.acted = true;
+        return true;
     }
 
     private boolean judge() {

@@ -33,13 +33,11 @@ public class UnitAction extends Field {
                 return false;
         }
 
-        // fieldの範囲外へは移動しない
         if(isOutOfField(y2, x2))
             return false;
 
         Cell cell = fieldmap[y2][x2];
 
-        // 地形ごとの設定
         if(cell instanceof Unit)
             return false;
         else if(cell instanceof Mine){
@@ -58,7 +56,6 @@ public class UnitAction extends Field {
         return true;
     }
 
-    // 敵を爆破
     public boolean detonate(int y, int x) {
         if(isOutOfField(y, x)) {
             noticeAction(String.format("(%d, %d) is out of field!", x + 1, y + 1));
@@ -85,7 +82,6 @@ public class UnitAction extends Field {
         noticeAction("Selection canceled.");
     }
 
-    // 周囲の平地の調査
     public void detect() {
         int[][] surround = surroundField(unit.y, unit.x, 1);
         for(int i = 0; i < surround.length; i++)
