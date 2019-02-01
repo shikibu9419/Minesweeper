@@ -124,9 +124,9 @@ public class InputReceiver {
             if(isDisabled(unit))
                 continue;
 
-            unit.updateAvailable(true);
+            Field.updateAvailable(unit.y, unit.x, true);
             while(! actuate(unit));
-            unit.updateAvailable(false);
+            Field.updateAvailable(unit.y, unit.x, false);
         }
     }
 

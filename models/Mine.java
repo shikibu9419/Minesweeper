@@ -1,6 +1,6 @@
 package models;
 
-import control.*;
+import control.Field;
 
 // 地雷マス
 public class Mine extends Cell {
@@ -13,7 +13,7 @@ public class Mine extends Cell {
         Field.fieldmap[y][x] = new Flatland(y, x, surroundMines, detected); // 爆発後は平地になる
 
         // 周囲は爆発に巻き込まれる
-        int[][] surround = Information.surroundField(y, x);
+        int[][] surround = Field.surroundField(y, x);
         for(int i = 0; i < surround.length; i++) {
             Cell cell = Field.fieldmap[surround[i][0]][surround[i][1]];
 
@@ -24,6 +24,6 @@ public class Mine extends Cell {
             else if(cell instanceof Unit)
                 ((Unit) cell).death();
         }
-        Information.minesCount--;
+        Field.minesCount--;
     }
 }

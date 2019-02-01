@@ -1,6 +1,5 @@
 package control;
 
-import java.util.ArrayList;
 import models.*;
 import options.*;
 
@@ -53,34 +52,5 @@ public class Information {
 
         Field.initFieldmap();
         resetNotification();
-    }
-
-    // Utilities
-    // 周囲rangeマスのfield範囲内の座標一覧を{{y, x}, {{y, x}, ...}の配列にして返す
-    public static int[][] surroundField(int y, int x, int range) {
-        ArrayList<int[]> surround = new ArrayList<>();
-
-        for(int i = y - range; i <= y + range; i++) {
-            for(int j = x - range; j <= x + range; j++) {
-                if(isOutOfField(i, j))
-                    continue;
-                int[] yx = {i, j};
-                surround.add(yx);
-            }
-        }
-
-        int[][] res = new int[surround.size()][2];
-        for(int i = 0; i < surround.size(); i++)
-            res[i] = surround.get(i);
-
-        return res;
-    }
-
-    public static int[][] surroundField(int y, int x) {
-        return surroundField(y, x, 1);
-    }
-
-    public static boolean isOutOfField(int y, int x) {
-        return (x < 0 || x >= Field.MAX_X || y < 0 || y >= Field.MAX_Y);
     }
 }

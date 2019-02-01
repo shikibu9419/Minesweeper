@@ -4,7 +4,7 @@ import models.*;
 import ui.animations.ExplodeAnimation;
 
 // ユニットの行動関連
-public class UnitAction extends Information {
+public class UnitAction extends Field {
 
     private Unit unit;
 
