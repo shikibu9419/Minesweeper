@@ -55,7 +55,6 @@ public class Display implements Color {
         showMessage("", "", Information.notification);
     }
 
-    // fieldを表示
     protected void displayField(Cell[][] fieldmap) {
         final int MAX_Y = fieldmap.length;
         final int MAX_X = fieldmap[0].length;

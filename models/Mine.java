@@ -12,7 +12,6 @@ public class Mine extends Cell {
     public void bomb() {
         Field.fieldmap[y][x] = new Flatland(y, x, surroundMines, detected); // 爆発後は平地になる
 
-        // 周囲は爆発に巻き込まれる
         int[][] surround = Field.surroundField(y, x);
         for(int i = 0; i < surround.length; i++) {
             Cell cell = Field.fieldmap[surround[i][0]][surround[i][1]];

@@ -7,8 +7,8 @@ import options.*;
 public class Information {
 
     // Field informations
-    public static final int MAX_Y = 20;
-    public static final int MAX_X = 20;
+    public static final int MAX_Y   = 20;
+    public static final int MAX_X   = 20;
     public static Cell[][] fieldmap = new Cell[MAX_Y][MAX_X];
     public static int minesCount;
 
@@ -43,9 +43,9 @@ public class Information {
     }
 
     public static void init() {
-        alliesCount  = difficulty.allies;
-        enemiesCount = mode.isPvP() ? alliesCount : difficulty.enemies;  // PvPのみユニットの数は同じ
-        minesCount   = difficulty.mines;
+        alliesCount  = difficulty.ALLIES;
+        enemiesCount = mode.isPvP() ? alliesCount : difficulty.ENEMIES;  // PvPのみユニットの数は同じ
+        minesCount   = difficulty.MINES;
 
         allies  = new Unit[alliesCount];
         enemies = new Unit[enemiesCount];

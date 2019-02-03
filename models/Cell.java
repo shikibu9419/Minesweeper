@@ -3,7 +3,6 @@ package models;
 import control.Field;
 
 // マス目のメインクラス
-// 変数のディープコピーを行うためにimplementしている
 public class Cell implements Cloneable {
 
     public int y;

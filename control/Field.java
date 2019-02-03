@@ -4,7 +4,7 @@ import java.util.*;
 import models.*;
 import options.UnitType;
 
-// ステージ(field)の管理をするクラス
+// ステージ(fieldmap)の管理をするクラス
 public class Field extends Information {
 
     private static Random rand = new Random();
