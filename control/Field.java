@@ -34,7 +34,7 @@ public class Field extends Information {
     }
 
     public static boolean isOutOfField(int y, int x) {
-        return (x < 0 || x >= Field.MAX_X || y < 0 || y >= Field.MAX_Y);
+        return (x < 0 || x >= MAX_X || y < 0 || y >= MAX_Y);
     }
 
     public static Cell[][] getClone() {

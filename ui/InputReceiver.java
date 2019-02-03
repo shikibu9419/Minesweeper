@@ -112,6 +112,7 @@ public class InputReceiver {
                 // quit game
                 case "q":
                     finish();
+                    continue;
                 // finish
                 case "f":
                     return;
@@ -138,19 +139,21 @@ public class InputReceiver {
 
             String[] order = scan.next().split(" ");
             switch(order[0]) {
-                // east/west/north/south
-                case "a":
-                case "d":
+                // up/down/left/right
                 case "w":
                 case "s":
+                case "a":
+                case "d":
                     result = action.move(order[0]);
                     break;
                 // bomb (x) (y)
                 case "b":
-                    if(order.length >= 3) {
+                    try {
                         int y = Integer.parseInt(order[2]) - 1;
                         int x = Integer.parseInt(order[1]) - 1;
                         result = action.detonate(y, x);
+                    } catch(Exception e) {
+                        continue;
                     }
                     break;
                 case "c":
