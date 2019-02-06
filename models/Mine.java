@@ -19,6 +19,7 @@ public class Mine extends Cell {
                 ((Mine) cell).bomb();
             else if(cell instanceof Unit)
                 ((Unit) cell).death();
+
         Field.minesCount--;
     }
 }

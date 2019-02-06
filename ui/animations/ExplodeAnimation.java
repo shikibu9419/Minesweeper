@@ -38,11 +38,11 @@ public class ExplodeAnimation extends Animation {
 
         // 周囲の地雷以外のマスの文字を*に変更
         // (爆発していない地雷マスはqueueListに追加)
-        for(Cell cell:Field.surroundCells(mine, 1, fieldmap)) {
-            if(cell instanceof Mine)
+        for(Cell cell:Field.surroundCells(mine, fieldmap)) {
+            if(cell instanceof Mine) {
                 if(! (cell.character.equals("*") || queueList.get(enqueued).contains(cell)))
                     queueList.get(enqueued).add(cell);
-            else
+            } else
                 cell.character = "*";
         }
     }

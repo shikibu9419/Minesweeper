@@ -10,31 +10,28 @@ public class Field extends Information {
     private static Random rand = new Random();
 
     // 周囲rangeマス以内でfield範囲内のマス一覧返す
-    public static Cell[] surroundCells(Cell center, int range, Cell[][] fieldmap) {
+    private static Cell[] surrounds(Cell center, int range, Cell[][] map) {
         ArrayList<Cell> cells = new ArrayList<>();
 
         for(int i = center.y - range; i <= center.y + range; i++)
             for(int j = center.x - range; j <= center.x + range; j++)
-                if(! isOutOfField(i, j) && fieldmap[i][j] != center)
-                    cells.add(fieldmap[i][j]);
-
-//         Cell[] res = new Cell[cells.size()];
-//         cells.toArray(res);
+                if(! isOutOfField(i, j) && map[i][j] != center)
+                    cells.add(map[i][j]);
 
         return cells.toArray(new Cell[cells.size()]);
     }
 
     public static Cell[] surroundCells(Cell center) {
-        return surroundCells(center, 1, fieldmap);
+        return surrounds(center, 1, fieldmap);
     }
 
     public static Cell[] surroundCells(Cell center, int range) {
-        return surroundCells(center, range, fieldmap);
+        return surrounds(center, range, fieldmap);
     }
 
     // For animations
     public static Cell[] surroundCells(Cell center, Cell[][] map) {
-        return surroundCells(center, 1, map);
+        return surrounds(center, 1, map);
     }
 
     public static boolean isOutOfField(int y, int x) {
