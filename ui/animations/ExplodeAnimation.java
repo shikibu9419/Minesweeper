@@ -7,30 +7,25 @@ import models.*;
 // 爆発アニメーション
 public class ExplodeAnimation extends Animation {
 
-    private List<Queue<int[]>> queueList = new ArrayList<>();
+    private List<Queue<Cell>> queueList = new ArrayList<>();
     private int enqueued = 0, dequeued = 1;
 
     public ExplodeAnimation() {
         super();
-        queueList.add(new ArrayDeque<int[]>());
-        queueList.add(new ArrayDeque<int[]>());
+        queueList.add(new ArrayDeque<Cell>());
+        queueList.add(new ArrayDeque<Cell>());
     }
 
     public void start(int y, int x) {
-        int[] yx = {y, x};
-        queueList.get(enqueued).add(yx);
+        queueList.get(enqueued).add(fieldmap[y][x]);
 
         // 幅優先爆発
         while(! queueList.get(enqueued).isEmpty()) {
             enqueued = (enqueued + 1) % 2;
             dequeued = (dequeued + 1) % 2;
 
-            while(! queueList.get(dequeued).isEmpty()) {
-                yx = queueList.get(dequeued).remove();
-                y = yx[0];
-                x = yx[1];
-                explode(y, x);
-            }
+            while(! queueList.get(dequeued).isEmpty())
+                explode(queueList.get(dequeued).remove());
 
             displayField(fieldmap);
             sleep(2); // sleep 0.2s
@@ -38,21 +33,16 @@ public class ExplodeAnimation extends Animation {
     }
 
     // 爆発に巻き込まれたところを*で表示
-    private void explode(int y, int x) {
-        fieldmap[y][x].character = "*";
+    private void explode(Cell mine) {
+        mine.character = "*";
 
-        int[][] surround = Field.surroundField(y, x);
-        for(int i = 0; i < surround.length; i++) {
-            int y2 = surround[i][0];
-            int x2 = surround[i][1];
-
-            // 周囲の地雷以外のマスの文字を*に変更
-            // (爆発していない地雷マスはqueueListに追加)
-            Cell cell = fieldmap[y2][x2];
-            if(cell instanceof Mine) {
-                if(! (cell.character.equals("*") || queueList.get(enqueued).contains(surround[i])))
-                    queueList.get(enqueued).add(surround[i]);
-            } else
+        // 周囲の地雷以外のマスの文字を*に変更
+        // (爆発していない地雷マスはqueueListに追加)
+        for(Cell cell:Field.surroundCells(mine, 1, fieldmap)) {
+            if(cell instanceof Mine)
+                if(! (cell.character.equals("*") || queueList.get(enqueued).contains(cell)))
+                    queueList.get(enqueued).add(cell);
+            else
                 cell.character = "*";
         }
     }

@@ -9,28 +9,32 @@ public class Field extends Information {
 
     private static Random rand = new Random();
 
-    // 周囲rangeマスのfield範囲内の座標一覧を{{y, x}, {{y, x}, ...}の配列にして返す
-    public static int[][] surroundField(int y, int x, int range) {
-        ArrayList<int[]> surround = new ArrayList<>();
+    // 周囲rangeマス以内でfield範囲内のマス一覧返す
+    public static Cell[] surroundCells(Cell center, int range, Cell[][] fieldmap) {
+        ArrayList<Cell> cells = new ArrayList<>();
 
-        for(int i = y - range; i <= y + range; i++) {
-            for(int j = x - range; j <= x + range; j++) {
-                if(isOutOfField(i, j))
-                    continue;
-                int[] yx = {i, j};
-                surround.add(yx);
-            }
-        }
+        for(int i = center.y - range; i <= center.y + range; i++)
+            for(int j = center.x - range; j <= center.x + range; j++)
+                if(! isOutOfField(i, j) && fieldmap[i][j] != center)
+                    cells.add(fieldmap[i][j]);
 
-        int[][] res = new int[surround.size()][2];
-        for(int i = 0; i < surround.size(); i++)
-            res[i] = surround.get(i);
+//         Cell[] res = new Cell[cells.size()];
+//         cells.toArray(res);
 
-        return res;
+        return cells.toArray(new Cell[cells.size()]);
     }
 
-    public static int[][] surroundField(int y, int x) {
-        return surroundField(y, x, 1);
+    public static Cell[] surroundCells(Cell center) {
+        return surroundCells(center, 1, fieldmap);
+    }
+
+    public static Cell[] surroundCells(Cell center, int range) {
+        return surroundCells(center, range, fieldmap);
+    }
+
+    // For animations
+    public static Cell[] surroundCells(Cell center, Cell[][] map) {
+        return surroundCells(center, 1, map);
     }
 
     public static boolean isOutOfField(int y, int x) {
@@ -49,12 +53,9 @@ public class Field extends Information {
         int range = AVAILABLE_RANGE + (available ? 0 : 1);
         fieldmap[y][x].available = available;
 
-        int[][] surround = surroundField(y, x, range);
-        for(int i = 0; i < surround.length; i++) {
-            Cell cell = fieldmap[surround[i][0]][surround[i][1]];
+        for(Cell cell:surroundCells(fieldmap[y][x], range))
             if(!(cell instanceof Unit))
                 cell.available = available;
-        }
     }
 
     // fieldの初期化
@@ -100,9 +101,8 @@ public class Field extends Information {
             count++;
 
             // 地雷周辺の平地の地雷数をインクリメント
-            int[][] surround = surroundField(y, x);
-            for(int i = 0; i < surround.length; i++)
-                fieldmap[surround[i][0]][surround[i][1]].surroundMines++;
+            for(Cell cell:surroundCells(mine))
+                cell.surroundMines++;
         }
     }
 

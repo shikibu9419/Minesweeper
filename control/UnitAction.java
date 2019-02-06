@@ -83,9 +83,9 @@ public class UnitAction extends Field {
     }
 
     public void detect() {
-        int[][] surround = surroundField(unit.y, unit.x, 1);
-        for(int i = 0; i < surround.length; i++)
-            fieldmap[surround[i][0]][surround[i][1]].detect();
+        Cell[] cells = surroundCells(unit);
+        for(Cell cell:cells)
+            cell.detect();
     }
 
     private void noticeAction(String msg) {
