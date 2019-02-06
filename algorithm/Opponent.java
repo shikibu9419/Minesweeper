@@ -4,30 +4,39 @@ import java.util.Random;
 import java.lang.Math;
 import models.*;
 import control.*;
+import options.*;
+import ui.*;
 
 public class Opponent {
 
-    public Opponent() {
-        super();
+    UnitType type;
+    Display display = new Display();
+
+    public Opponent(UnitType type) {
+        this.type = type;
     }
 
     public void start() {
-        for(Unit enemy:Information.enemies) {
-            if(enemy.dead)
+        Unit[] units = type.isAlly() ? Information.allies : Information.enemies;
+
+        for(Unit unit:units) {
+            if(unit.dead)
                 continue;
 
-            if(bombToAlly(enemy)){
+            if(bombToAlly(unit)){
                 System.out.println("");
-            }else if(moveToClosestAlly(enemy)){
+            }else if(moveToClosestAlly(unit)){
                 System.out.println("");
             }
+
+            display.showInformation();
         }
     }
 
-    private boolean bombToAlly(Unit enemy){
+    private boolean bombToAlly(Unit unit){
 
 
-        UnitAction action = new UnitAction(enemy);
+        UnitAction action = new UnitAction(unit);
         int maxMines = 0;
         //適当なおっきい値(意味はないです)
         int mine_x = 10000;
@@ -40,9 +49,9 @@ public class Opponent {
             for(int i = -1; i < 2; i++){
                 for (int j = -1; j < 2; j++){
                     if (i != 0 || j != 0){
-                        if ((ally.x + i) < Information.MAX_X && (ally.y + j) < Information.MAX_Y && (ally.x + i) >= 0 && (ally.y + j) >= 0){
+                        if (InOfField(ally.x + i, ally.y + j)){
                             if (getMaxNumberOfMines(ally.y + j, ally.x + i) > maxMines){
-                                if ((enemy.x - Information.AVAILABLE_RANGE) <= (ally.x + i) && (ally.x + i) < (enemy.x + Information.AVAILABLE_RANGE) && (enemy.y - Information.AVAILABLE_RANGE) <= (ally.y + j) && (ally.y + j) < (enemy.y + Information.AVAILABLE_RANGE)){
+                                if ((unit.x - Information.AVAILABLE_RANGE) <= (ally.x + i) && (ally.x + i) < (unit.x + Information.AVAILABLE_RANGE) && (unit.y - Information.AVAILABLE_RANGE) <= (ally.y + j) && (ally.y + j) < (unit.y + Information.AVAILABLE_RANGE)){
                                     maxMines = getMaxNumberOfMines(ally.y + j, ally.x + i);
                                     mine_x = ally.x + i;
                                     mine_y = ally.y + j;
@@ -70,7 +79,7 @@ public class Opponent {
         int numberOfMines = 0;
         for(int i = -1; i < 2; i++){
             for (int j = -1; j < 2; j++){
-                if ((x + i) < Information.MAX_X && (y + j) < Information.MAX_Y && (x + i) >= 0 && (y + j) >= 0){
+                if (InOfField(x + i, y + j)){
                     numberOfMines = Math.max(Information.fieldmap[y + j][x + i].surroundMines, numberOfMines);
                 }
             }
@@ -78,21 +87,28 @@ public class Opponent {
         return numberOfMines;
     }
 
+    private boolean InOfField(int x, int y){
+        if (x < Information.MAX_X && y < Information.MAX_Y && x >= 0 && y >= 0)
+            return true;
+        else
+            return false;
+    }
+
     // 敵ユニットの動き(暫定実装)
-    private boolean moveToClosestAlly(Unit enemy) {
+    private boolean moveToClosestAlly(Unit unit) {
 
         int disy = Information.MAX_Y;
         int disx = Information.MAX_X;
         Unit closest;
-        UnitAction action = new UnitAction(enemy);
+        UnitAction action = new UnitAction(unit);
 
         // 一番近いユニットとその距離を計算
         for(Unit ally:Information.allies) {
             if(ally.dead)
                 continue;
 
-            int disy2 = ally.y - enemy.y;
-            int disx2 = ally.x - enemy.x;
+            int disy2 = ally.y - unit.y;
+            int disx2 = ally.x - unit.x;
             if(Math.abs(disy2) + Math.abs(disx2) < Math.abs(disy) + Math.abs(disx)) {
                 closest = ally;
                 disy = disy2;
@@ -100,39 +116,46 @@ public class Opponent {
             }
         }
 
+        int dirx[] = {1, 0, -1, 0, 1, 0, -1};
+        int diry[] = {0, -1, 0, 1, 0, -1, 0};
+        String s = "dwasdwas";
+
         // closestに向かって移動
-        Random rdm = new Random();
+        /*Random rdm = new Random();
         int rnum = rdm.nextInt(2);
-        System.out.println(rnum);
-        String direction;
+        String direction;*/
         if(disx > 0) {
             if (disy > 0){
-                if (rnum > 0)
-                    direction = "s";
-                else
-                    direction = "d";
+                for (int i = 3; i < 7; i++){
+                    if(InOfField(unit.x + dirx[i], unit.y + diry[i]) &&
+                    !(Information.fieldmap[unit.y + diry[i]][unit.x + dirx[i]] instanceof Mine)){
+                       return action.move(s.substring(i, i + 1));
+                    }
+                }
             }else{
-                if (rnum > 0)
-                    direction = "d";
-                else
-                    direction = "w";
+                for (int i = 0; i < 4; i++){
+                    if(InOfField(unit.x + dirx[i], unit.y + diry[i]) && !(Information.fieldmap[unit.y + diry[i]][unit.x + dirx[i]] instanceof Mine)){
+                       return action.move(s.substring(i, i + 1));
+                    }
+                }
             }
         }else{
             if (disy > 0){
-                if (rnum > 0){
-                    direction = "a";
-                }else{
-                    direction = "s";
+                for (int i = 2; i < 6; i++){
+                    if(InOfField(unit.x + dirx[i], unit.y + diry[i]) && !(Information.fieldmap[unit.y + diry[i]][unit.x + dirx[i]] instanceof Mine)){
+                       return action.move(s.substring(i, i + 1));
+                    }
                 }
             }else{
-                if (rnum > 0){
-                    direction = "a";
-                }else{
-                    direction = "w";
+                for (int i = 1; i < 5; i++){
+                    if(InOfField(unit.x + dirx[i], unit.y + diry[i]) && !(Information.fieldmap[unit.y + diry[i]][unit.x + dirx[i]] instanceof Mine)){
+                       return action.move(s.substring(i, i + 1));
+                    }
                 }
             }
         }
-        return action.move(direction);
+
+        return action.move("d");
     }
 
 }

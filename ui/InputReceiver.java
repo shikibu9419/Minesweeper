@@ -11,14 +11,15 @@ public class InputReceiver {
 
     private Scanner  scan     = new Scanner(System.in).useDelimiter("\n");
     private Display  display  = new Display();
-    private Opponent allyCom  = new Opponent();
-    private Opponent enemyCom = new Opponent();
 
     // Start game
     public void start() {
         selectGameMode();
         selectDifficulty();
         Information.init();
+
+        Opponent allyCom  = new Opponent(UnitType.ALLY);
+        Opponent enemyCom = new Opponent(UnitType.ENEMY);
 
         while(true) {
             if(judge()) {
