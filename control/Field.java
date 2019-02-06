@@ -9,7 +9,22 @@ public class Field extends Information {
 
     private static Random rand = new Random();
 
-    // 周囲rangeマス以内でfield範囲内のマス一覧返す
+    // Range: default
+    public static Cell[] surrounds(Cell center) {
+        return surrounds(center, 1, fieldmap);
+    }
+
+    // Range: specified
+    public static Cell[] surrounds(Cell center, int range) {
+        return surrounds(center, range, fieldmap);
+    }
+
+    // For only animations
+    public static Cell[] surrounds(Cell center, Cell[][] map) {
+        return surrounds(center, 1, map);
+    }
+
+    // 周囲rangeマス以内でfield範囲内のマス一覧を返す
     private static Cell[] surrounds(Cell center, int range, Cell[][] map) {
         ArrayList<Cell> cells = new ArrayList<>();
 
@@ -21,41 +36,27 @@ public class Field extends Information {
         return cells.toArray(new Cell[cells.size()]);
     }
 
-    public static Cell[] surroundCells(Cell center) {
-        return surrounds(center, 1, fieldmap);
-    }
-
-    public static Cell[] surroundCells(Cell center, int range) {
-        return surrounds(center, range, fieldmap);
-    }
-
-    // For animations
-    public static Cell[] surroundCells(Cell center, Cell[][] map) {
-        return surrounds(center, 1, map);
-    }
-
     public static boolean isOutOfField(int y, int x) {
         return (x < 0 || x >= MAX_X || y < 0 || y >= MAX_Y);
     }
 
     public static Cell[][] getClone() {
-        Cell[][] res = new Cell[MAX_Y][MAX_X];
+        Cell[][] clone = new Cell[MAX_Y][MAX_X];
         for(int i = 0; i < MAX_Y; i++)
             for(int j = 0; j < MAX_X; j++)
-                res[i][j] = fieldmap[i][j].clone();
-        return res;
+                clone[i][j] = fieldmap[i][j].clone();
+        return clone;
     }
 
     public static void updateAvailable(int y, int x, boolean available) {
         int range = AVAILABLE_RANGE + (available ? 0 : 1);
         fieldmap[y][x].available = available;
 
-        for(Cell cell:surroundCells(fieldmap[y][x], range))
+        for(Cell cell:surrounds(fieldmap[y][x], range))
             if(!(cell instanceof Unit))
                 cell.available = available;
     }
 
-    // fieldの初期化
     public static void initFieldmap() {
         for(int i = 0; i < MAX_Y; i++)
             for(int j = 0; j < MAX_X; j++)
@@ -98,7 +99,7 @@ public class Field extends Information {
             count++;
 
             // 地雷周辺の平地の地雷数をインクリメント
-            for(Cell cell:surroundCells(mine))
+            for(Cell cell:surrounds(mine))
                 cell.surroundMines++;
         }
     }

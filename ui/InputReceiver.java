@@ -89,10 +89,10 @@ public class InputReceiver {
     private void selectUnit(Unit[] units) {
         Unit unit;
         while(true) {
-            display.selection();
-
             if(judge())
                 return;
+
+            display.selection();
 
             String[] order = scan.next().split(" ");
             switch (order[0]) {

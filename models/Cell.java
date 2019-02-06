@@ -34,13 +34,13 @@ public class Cell implements Cloneable {
 
     // Cellオブジェクトのディープコピー
     public Cell clone() {
-        Cell res = new Cell(-1, -1);
+        Cell clone = new Cell(-1, -1);
         try {
-            res = (Cell)super.clone();
+            clone = (Cell)super.clone();
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
         }
-        return res;
+        return clone;
     }
 }

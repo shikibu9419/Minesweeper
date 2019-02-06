@@ -32,13 +32,11 @@ public class ExplodeAnimation extends Animation {
         }
     }
 
-    // 爆発に巻き込まれたところを*で表示
+    // 爆発に巻き込まれたところを*で表示 (未爆発の地雷は誘爆する)
     private void explode(Cell mine) {
         mine.character = "*";
 
-        // 周囲の地雷以外のマスの文字を*に変更
-        // (爆発していない地雷マスはqueueListに追加)
-        for(Cell cell:Field.surroundCells(mine, fieldmap)) {
+        for(Cell cell:Field.surrounds(mine, fieldmap)) {
             if(cell instanceof Mine) {
                 if(! (cell.character.equals("*") || queueList.get(enqueued).contains(cell)))
                     queueList.get(enqueued).add(cell);

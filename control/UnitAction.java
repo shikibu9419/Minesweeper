@@ -83,7 +83,7 @@ public class UnitAction extends Field {
     }
 
     public void detect() {
-        Cell[] cells = surroundCells(unit);
+        Cell[] cells = surrounds(unit);
         for(Cell cell:cells)
             cell.detect();
     }

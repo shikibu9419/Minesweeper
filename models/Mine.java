@@ -12,7 +12,7 @@ public class Mine extends Cell {
     public void bomb() {
         Field.fieldmap[y][x] = new Flatland(y, x, surroundMines, detected); // 爆発後は平地になる
 
-        for(Cell cell:Field.surroundCells(this))
+        for(Cell cell:Field.surrounds(this))
             if(cell instanceof Flatland)
                 ((Flatland) cell).decrementBombs();
             else if(cell instanceof Mine)
