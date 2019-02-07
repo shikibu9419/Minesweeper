@@ -18,8 +18,8 @@ public class InputReceiver {
         selectDifficulty();
         Information.init();
 
-        Opponent allyCom  = new Opponent(UnitType.ALLY);
-        Opponent enemyCom = new Opponent(UnitType.ENEMY);
+        Computer allyCom  = new Computer(UnitType.ALLY);
+        Computer enemyCom = new Computer(UnitType.ENEMY);
 
         while(true) {
             if(Information.judge()) {

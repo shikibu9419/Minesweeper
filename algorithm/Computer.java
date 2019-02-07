@@ -7,12 +7,12 @@ import control.*;
 import options.*;
 import ui.*;
 
-public class Opponent {
+public class Computer {
 
     UnitType type;
     Display display = new Display();
 
-    public Opponent(UnitType type) {
+    public Computer(UnitType type) {
         this.type = type;
     }
 
@@ -26,48 +26,39 @@ public class Opponent {
                 continue;
 
             Field.updateAvailable(unit.y, unit.x, true);
-            
-            if(bombToAlly(unit)){
-                //System.out.print("a");
-                System.out.println("");
 
-            }else if(moveToClosestAlly(unit)){
-                //System.out.print("b");
-                System.out.println("");
+            if(bombToAlly(unit))
+                System.out.print("");
+            else if(moveToClosestAlly(unit))
+                System.out.print("");
 
-            }
             Field.updateAvailable(unit.y, unit.x, false);
             display.showInformation();
         }
         sleep(5);
     }
 
-    private boolean bombToAlly(Unit enemy){
-        UnitAction action = new UnitAction(enemy);
+    private boolean bombToAlly(Unit unit){
+        UnitAction action = new UnitAction(unit);
         int maxMines = 0;
-        //適当なおっきい値(意味はないです)
         int mine_x = 10000;
         int mine_y = 10000;
 
-        Unit[] tekisan = type.isAlly() ? Information.enemies : Information.allies;
+        Unit[] enemies = type.isAlly() ? Information.enemies : Information.allies;
 
-        for (Unit ally:tekisan){
-            if(ally.dead)
+        for (Unit enemy:enemies){
+            if(enemy.dead)
                 continue;
 
             for(int i = -1; i < 2; i++){
                 for (int j = -1; j < 2; j++){
                     if (i != 0 || j != 0){
-                        System.out.println((ally.x + i) + " " + (ally.y + j));
-                        if (InOfField(ally.x + i, ally.y + j)){
-                            if (getMaxNumberOfMines(ally.y + j, ally.x + i) > maxMines){
-                                if ((enemy.x - Information.AVAILABLE_RANGE) <= (ally.x + i) && (ally.x + i) < (enemy.x + Information.AVAILABLE_RANGE) && (enemy.y - Information.AVAILABLE_RANGE) <= (ally.y + j) && (ally.y + j) < (enemy.y + Information.AVAILABLE_RANGE)){
-                                    maxMines = getMaxNumberOfMines(ally.y + j, ally.x + i);
-                                    mine_x = ally.x + i;
-                                    mine_y = ally.y + j;
-                                    System.out.println("ちんぽ");
-                                    //System.out.print(ally.x + " ");
-                                    //System.out.println(ally.y);
+                        if (InOfField(enemy.x + i, enemy.y + j)){
+                            if (getMaxNumberOfMines(enemy.y + j, enemy.x + i) > maxMines){
+                                if ((unit.x - Information.AVAILABLE_RANGE) <= (enemy.x + i) && (enemy.x + i) < (unit.x + Information.AVAILABLE_RANGE) && (unit.y - Information.AVAILABLE_RANGE) <= (enemy.y + j) && (enemy.y + j) < (unit.y + Information.AVAILABLE_RANGE)){
+                                    maxMines = getMaxNumberOfMines(enemy.y + j, enemy.x + i);
+                                    mine_x = enemy.x + i;
+                                    mine_y = enemy.y + j;
                                 }
                             }
                         }
@@ -78,12 +69,6 @@ public class Opponent {
 
         if ((mine_x != 10000) && (Information.fieldmap[mine_y][mine_x].bombed == false)){
             Information.fieldmap[mine_y][mine_x].bombed = true;
-            System.out.println("ちんちん");
-            System.out.println(enemy.x);
-            System.out.println(enemy.y);
-            System.out.println(mine_x);
-            System.out.println(mine_y);
-
             return action.detonate(mine_y, mine_x);
         }
         return false;
@@ -115,24 +100,24 @@ public class Opponent {
     }
 
     // 敵ユニットの動き(暫定実装)
-    private boolean moveToClosestAlly(Unit enemy) {
+    private boolean moveToClosestAlly(Unit unit) {
 
         int disy = Information.MAX_Y;
         int disx = Information.MAX_X;
         Unit closest;
-        UnitAction action = new UnitAction(enemy);
+        UnitAction action = new UnitAction(unit);
 
-        Unit[] tekis = type.isAlly() ? Information.enemies : Information.allies;
+        Unit[] enemies = type.isAlly() ? Information.enemies : Information.allies;
 
         // 一番近いユニットとその距離を計算
-        for(Unit ally:tekis) {
-            if(ally.dead)
+        for(Unit enemy:enemies) {
+            if(enemy.dead)
                 continue;
 
-            int disy2 = ally.y - enemy.y;
-            int disx2 = ally.x - enemy.x;
+            int disy2 = enemy.y - unit.y;
+            int disx2 = enemy.x - unit.x;
             if(Math.abs(disy2) + Math.abs(disx2) < Math.abs(disy) + Math.abs(disx)) {
-                closest = ally;
+                closest = enemy;
                 disy = disy2;
                 disx = disx2;
             }
@@ -143,23 +128,20 @@ public class Opponent {
         String s = "dwasdwas";
 
         // closestに向かって移動
-        /*Random rdm = new Random();
-        int rnum = rdm.nextInt(2);
-        String direction;*/
         if(disx > 0) {
             if (disy > 0){
                 for (int i = 3; i < 7; i++){
-                    if(InOfField(enemy.x + dirx[i], enemy.y + diry[i]) 
-                    && !(Information.fieldmap[enemy.y + diry[i]][enemy.x + dirx[i]] instanceof Mine)
-                    && !(Information.fieldmap[enemy.y + diry[i]][enemy.x + dirx[i]] instanceof Unit)){
+                    if(InOfField(unit.x + dirx[i], unit.y + diry[i])
+                    && !(Information.fieldmap[unit.y + diry[i]][unit.x + dirx[i]] instanceof Mine)
+                    && !(Information.fieldmap[unit.y + diry[i]][unit.x + dirx[i]] instanceof Unit)){
                         return action.move(s.substring(i, i + 1));
                     }
                 }
             }else{
                 for (int i = 0; i < 4; i++){
-                    if(InOfField(enemy.x + dirx[i], enemy.y + diry[i]) 
-                    && !(Information.fieldmap[enemy.y + diry[i]][enemy.x + dirx[i]] instanceof Mine)
-                    && !(Information.fieldmap[enemy.y + diry[i]][enemy.x + dirx[i]] instanceof Unit)){
+                    if(InOfField(unit.x + dirx[i], unit.y + diry[i])
+                    && !(Information.fieldmap[unit.y + diry[i]][unit.x + dirx[i]] instanceof Mine)
+                    && !(Information.fieldmap[unit.y + diry[i]][unit.x + dirx[i]] instanceof Unit)){
                         return action.move(s.substring(i, i + 1));
                     }
                 }
@@ -167,35 +149,22 @@ public class Opponent {
         }else{
             if (disy > 0){
                 for (int i = 2; i < 6; i++){
-                    if(InOfField(enemy.x + dirx[i], enemy.y + diry[i]) 
-                    && !(Information.fieldmap[enemy.y + diry[i]][enemy.x + dirx[i]] instanceof Mine)
-                    && !(Information.fieldmap[enemy.y + diry[i]][enemy.x + dirx[i]] instanceof Unit)){
+                    if(InOfField(unit.x + dirx[i], unit.y + diry[i])
+                    && !(Information.fieldmap[unit.y + diry[i]][unit.x + dirx[i]] instanceof Mine)
+                    && !(Information.fieldmap[unit.y + diry[i]][unit.x + dirx[i]] instanceof Unit)){
                         return action.move(s.substring(i, i + 1));
                     }
                 }
             }else{
                 for (int i = 1; i < 5; i++){
-                    if(InOfField(enemy.x + dirx[i], enemy.y + diry[i]) 
-                    && !(Information.fieldmap[enemy.y + diry[i]][enemy.x + dirx[i]] instanceof Mine)
-                    && !(Information.fieldmap[enemy.y + diry[i]][enemy.x + dirx[i]] instanceof Unit)){
+                    if(InOfField(unit.x + dirx[i], unit.y + diry[i])
+                    && !(Information.fieldmap[unit.y + diry[i]][unit.x + dirx[i]] instanceof Mine)
+                    && !(Information.fieldmap[unit.y + diry[i]][unit.x + dirx[i]] instanceof Unit)){
                         return action.move(s.substring(i, i + 1));
                     }
                 }
             }
         }
-
-        /*String direction;
-        if(disy > disx) {
-            if(disx > 0)
-                direction = "d";
-            else
-                direction = "a";
-        } else {
-            if(disy > 0)
-                direction = "s";
-            else
-                direction = "w";
-        }*/
 
         return action.move("s");
     }
