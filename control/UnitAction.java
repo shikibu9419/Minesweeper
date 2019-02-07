@@ -48,8 +48,7 @@ public class UnitAction extends Field {
 
         unit.moveTo(cell);
 
-        if(unit.isAlly())
-            detect();
+        detect();
 
         noticeAction(String.format("Moved to (%d, %d).", unit.x + 1, unit.y + 1));
 
