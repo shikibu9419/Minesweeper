@@ -30,6 +30,10 @@ public class Information {
         notification = "";
     }
 
+    public static boolean judge() {
+        return alliesCount == 0 || enemiesCount == 0;
+    }
+
     // Initialization
     public static GameMode mode;
     public static Difficulty difficulty;

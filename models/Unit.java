@@ -30,6 +30,9 @@ public class Unit extends Cell {
     }
 
     public void death() {
+        if(dead)
+            return;
+
         Information.fieldmap[y][x] = new Flatland(y, x, surroundMines - 1, detected);
         dead = true;
         if(isAlly())

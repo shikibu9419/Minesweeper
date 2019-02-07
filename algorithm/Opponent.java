@@ -20,7 +20,7 @@ public class Opponent {
         Unit[] units = type.isAlly() ? Information.allies : Information.enemies;
 
         for(Unit unit:units) {
-            if(judge())
+            if(Information.judge())
                 return;
             if(unit.dead)
                 continue;
@@ -37,9 +37,9 @@ public class Opponent {
 
             }
             Field.updateAvailable(unit.y, unit.x, false);
-            sleep(3);
             display.showInformation();
         }
+        sleep(5);
     }
 
     private boolean bombToAlly(Unit enemy){
@@ -207,9 +207,5 @@ public class Opponent {
             e.printStackTrace();
             System.exit(1);
         }
-    }
-
-    private boolean judge() {
-        return Information.alliesCount == 0 || Information.enemiesCount == 0;
     }
 }

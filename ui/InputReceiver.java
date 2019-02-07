@@ -22,7 +22,7 @@ public class InputReceiver {
         Opponent enemyCom = new Opponent(UnitType.ENEMY);
 
         while(true) {
-            if(judge()) {
+            if(Information.judge()) {
                 finish();
                 break;
             }
@@ -90,7 +90,7 @@ public class InputReceiver {
     private void selectUnit(Unit[] units) {
         Unit unit;
         while(true) {
-            if(judge())
+            if(Information.judge())
                 return;
 
             display.selection();
@@ -169,18 +169,15 @@ public class InputReceiver {
         return true;
     }
 
-    private boolean judge() {
-        return Information.alliesCount == 0 || Information.enemiesCount == 0;
-    }
-
     private void finish() {
         System.out.println();
-        if(Information.alliesCount == 0)
-            System.out.println("Enemy wins!");
-        else if(Information.enemiesCount == 0)
+        if(Information.alliesCount == 0) {
+            if(Information.enemiesCount == 0)
+                System.out.println("Draw.");
+            else
+                System.out.println("Enemy wins!");
+        } else if(Information.enemiesCount == 0)
             System.out.println("Ally wins!");
-        else
-            System.out.println();
 
         System.out.println("Continue? (y/n)");
         System.out.print("> ");
