@@ -1,84 +1,119 @@
 package ui;
 
-import java.util.*;
-import models.Unit;
+import java.util.Scanner;
+import algorithm.*;
 import control.*;
-import algorithm.Opponent;
+import models.*;
+import options.UnitType;
 
 // 入力受け付けクラス
 public class InputReceiver {
 
     private Scanner  scan     = new Scanner(System.in).useDelimiter("\n");
     private Display  display  = new Display();
-    private Opponent opponent = new Opponent();
-    private Unit[] allies;
 
-    // ゲーム開始
+    // Start game
     public void start() {
-        selectDiff();
+        selectGameMode();
+        selectDifficulty();
+        Information.init();
+
+        Computer allyCom  = new Computer(UnitType.ALLY);
+        Computer enemyCom = new Computer(UnitType.ENEMY);
+
         while(true) {
-            if(judge()) {
+            if(Information.judge()) {
                 finish();
-                return;
+                break;
             }
 
-            Information.addNotification("YOUR TURN:");
-            selectUnit();
+            // ally turn
+            if(Information.mode.isPvP() || Information.mode.isPvC())
+                playerMode(UnitType.ALLY);
+            else
+                allyCom.start();
 
-            for(Unit ally:allies)
-                ally.acted = false;
+            Information.addNotification("");
+
+            // enemy turn
+            if(Information.mode.isPvP())
+                playerMode(UnitType.ENEMY);
+            else
+                enemyCom.start();
+
             Information.resetNotification();
-            opponent.start();
         }
     }
 
-    // select difficulty
-    private void selectDiff(){
-        display.diffSelection();
-
+    private void selectGameMode() {
         while(true) {
+            display.modeSelection();
             String[] order = scan.next().split(" ");
             switch (order[0]) {
                 case "1":
                 case "2":
                 case "3":
-                    Information.init(order[0]);
-                    break;
+                    Information.setGameMode(order[0]);
+                    return;
                 default:
-                    continue;
             }
-            break;
         }
-        allies = Information.allies;
     }
 
-    // プレイヤーターン終了時にreturn
-    private void selectUnit() {
-        Unit ally;
+    private void selectDifficulty() {
         while(true) {
-            if(judge())
+            display.diffSelection();
+            String[] order = scan.next().split(" ");
+            switch (order[0]) {
+                case "1":
+                case "2":
+                case "3":
+                    Information.setDifficulty(order[0]);
+                    return;
+                default:
+            }
+        }
+    }
+
+    // When the user plays
+    private void playerMode(UnitType type) {
+        Unit[] units = type.isAlly() ? Information.allies : Information.enemies;
+
+        Information.addNotification(type.name() + " TURN:");
+        selectUnit(units);
+
+        for(Unit unit:units)
+            unit.acted = false;
+    }
+
+    // Return only when player finishes his turn
+    private void selectUnit(Unit[] units) {
+        Unit unit;
+        while(true) {
+            if(Information.judge())
                 return;
 
-            display.unitSelection();
+            display.selection();
 
             String[] order = scan.next().split(" ");
             switch (order[0]) {
                 // units
                 case "a":
                 case "A":
-                    ally = allies[0];
+                    unit = units[0];
                     break;
                 case "b":
                 case "B":
-                    ally = allies[1];
+                    unit = units[1];
                     break;
                 case "c":
                 case "C":
-                    ally = allies[2];
+                    unit = units[2];
                     break;
                 // quit game
                 case "q":
                     finish();
+                    continue;
                 // finish
                 case "f":
                     return;
@@ -86,38 +121,40 @@ public class InputReceiver {
                     continue;
             }
 
-            if(isDisabled(ally))
+            if(isDisabled(unit))
                 continue;
 
-            ally.updateAvailable(true);
-            while(! actuate(ally));
-            ally.updateAvailable(false);
+            Field.updateAvailable(unit.y, unit.x, true);
+            while(! actuate(unit));
+            Field.updateAvailable(unit.y, unit.x, false);
         }
     }
 
-    // true: 行動完了, false: 行動失敗
-    private boolean actuate(Unit ally) {
+    // return true: action completed / false: action failed
+    private boolean actuate(Unit unit) {
         boolean result = false;
-        UnitAction action = new UnitAction(ally);
+        UnitAction action = new UnitAction(unit);
 
         while(! result) {
-            display.action(ally);
+            display.action(unit);
 
             String[] order = scan.next().split(" ");
             switch(order[0]) {
-                // east/west/north/south
-                case "a":
-                case "d":
+                // up/down/left/right
                 case "w":
                 case "s":
+                case "a":
+                case "d":
                     result = action.move(order[0]);
                     break;
                 // bomb (x) (y)
                 case "b":
-                    if(order.length >= 3) {
+                    try {
                         int y = Integer.parseInt(order[2]) - 1;
                         int x = Integer.parseInt(order[1]) - 1;
                         result = action.detonate(y, x);
+                    } catch(Exception e) {
+                        continue;
                     }
                     break;
                 case "c":
@@ -128,22 +165,19 @@ public class InputReceiver {
             }
         }
 
-        // この時resultはtrue
-        ally.acted = result;
-        return result;
-    }
-
-    private boolean judge() {
-        return Information.alliesCount == 0 || Information.enemiesCount == 0;
+        unit.acted = true;
+        return true;
     }
 
     private void finish() {
-        if(Information.alliesCount == 0)
-            System.out.println("You lose...");
-        else if(Information.enemiesCount == 0)
-            System.out.println("You win!");
-        else
-            System.out.println("");
+        System.out.println();
+        if(Information.alliesCount == 0) {
+            if(Information.enemiesCount == 0)
+                System.out.println("Draw.");
+            else
+                System.out.println("Enemy wins!");
+        } else if(Information.enemiesCount == 0)
+            System.out.println("Ally wins!");
 
         System.out.println("Continue? (y/n)");
         System.out.print("> ");
@@ -155,13 +189,13 @@ public class InputReceiver {
         }
     }
 
-    private boolean isDisabled(Unit ally) {
-        if(ally.dead) {
-            Information.addNotification(String.format("Unit %s is already dead.", ally.character));
+    private boolean isDisabled(Unit unit) {
+        if(unit.dead) {
+            Information.addNotification(String.format("Unit %s is already dead.", unit.character));
             return true;
         }
-        if(ally.acted) {
-            Information.addNotification(String.format("Unit %s already acted.", ally.character));
+        if(unit.acted) {
+            Information.addNotification(String.format("Unit %s already acted.", unit.character));
             return true;
         }
         return false;
